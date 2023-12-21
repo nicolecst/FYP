@@ -1,0 +1,52 @@
+import express from "express";
+import { MongoClient } from "mongodb";
+
+async function start() {
+  const app = express();
+  const port = 3000;
+
+  const url = "mongodb+srv://nicolecst:7fUWUtSb@cluster0.j43pz4m.mongodb.net/";
+  const client = new MongoClient(url);
+  const ObjectId = require("mongodb").ObjectId;
+
+  await client.connect();
+  const db = client.db("itineraryPlanner");
+
+  app.get("/api/", async (req, res) => {
+    const activities = await db.collection("Activities").find({}).toArray();
+    console.log('hello');
+    res.send(activities);
+  });
+  app.get("/api/activities/:id", async (req, res) => {
+    const activity = await db
+      .collection("Activities")
+      .findOne({ _id: new ObjectId(req.params.id) });
+    res.send(activity);
+  });
+
+  app.get("/api/users", async (req, res) => {
+    res.send("This are the users");
+  });
+
+  app.post("/api/user", async (req, res) => {
+    res.send("add users")
+    // const user = await db
+    //   .collection("Users")
+    //   .insertOne(req.body);
+    // res.status(201).json(user);
+  });
+
+  app.get("/api/login", async (req, res) => {
+    res.send("This is the login page");
+  });
+
+  app.get("/api/home", async (req, res) => {
+    res.send("home");
+  });
+
+  app.listen(port, () => {
+    console.log(`Server listening to port ${port}`);
+  });
+}
+
+start();
