@@ -1,8 +1,10 @@
 import express from "express";
+import bodyParser from 'body-parser';
 import { MongoClient } from "mongodb";
 
 async function start() {
   const app = express();
+  const router = express.Router();
   const port = 3000;
 
   const url = "mongodb+srv://nicolecst:7fUWUtSb@cluster0.j43pz4m.mongodb.net/";
@@ -11,6 +13,8 @@ async function start() {
 
   await client.connect();
   const db = client.db("itineraryPlanner");
+
+  app.use(bodyParser.json())
 
   app.get("/api/", async (req, res) => {
     const activities = await db.collection("Activities").find({}).toArray();
@@ -37,8 +41,19 @@ async function start() {
   });
 
   app.get("/api/login", async (req, res) => {
-    res.send("This is the login page");
+    console.log("Login page")
+    const users = await db.collection("Users").find({}).toArray();
+    res.send(users);
   });
+
+  app.post("/api/register", async (req, res) =>{
+    const users = await db.collection("Users");
+    users.insertOne({
+        username: req.body.username,
+        password: req.body.password,
+    });
+    res.status(201).send();
+  })
 
   app.get("/api/home", async (req, res) => {
     res.send("home");
