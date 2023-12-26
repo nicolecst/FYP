@@ -6,11 +6,11 @@
       <input type="text" v-model="username" placeholder="username" />
 
       <label>Password</label>
-      <input type="text" v-model="password" placeholder="password"/>
+      <input type="password" v-model="password" placeholder="password"/>
 
       <button type="submit" class="btn btn-primary">Login</button>
-      <button @click="register()" type="submit" class="btn btn-danger">Sign up</button>
     </form>
+    <p>Don't have an account yet? <router-link to="/register">Register</router-link></p>
     <p>{{users}}</p>
   </div>
 </template>
@@ -28,23 +28,50 @@ export default {
       password: '',
     };
   },
-  async created() {
-    const response = await axios.get("/api/login");
-    const users = response.data;
-    this.users = users;
-  },
+//   async created() {
+//     const response = await axios.get("/api/login");
+//     const users = response.data;
+//     this.users = users;
+//   },
   methods:{
-    async register(){
+    async login(){
 
-        const response = await axios.post("/api/register", {
+        var response = await axios.post("/api/login", {
             users: this.user,
             username: this.username,
             password: this.password,
+        }).then(function(response){
+            var data = response
+                alert(JSON.stringify(data))
+                alert("login Successfully.")
+                location.assign("/")
+        }).catch(function(error){
+            alert(error.response.statusText)
+            console.log(error.response.statusText)
         })
-
         console.log(response)
-        this.$router.push('/login')
+
+        // if (response) {
+        //         var data = await response
+        //         alert(JSON.stringify(data))
+        //         alert("login Successfully.")
+        //         location.assign("/")
+        //     } else {
+        //         alert(response.statusText)
+        //     }
+
+        // localStorage.setItem('token', response.data.token)
+        // if(response.ok){
+        //     location.assign('/')
+        // }
     }
   },
 };
 </script>
+
+<!-- <style scoped>
+body{
+
+}
+</style> -->
+    

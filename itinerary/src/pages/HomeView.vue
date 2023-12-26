@@ -17,9 +17,17 @@ export default {
     };
   },
   async created() {
-    const response = await axios.get("/api/");
-    const activities = response.data;
-    this.activities = activities;
+    const response = await axios.get("/api/login", {
+      headers:{
+        Authorization: 'Bearer' + localStorage.getItem('token')
+      }
+    });
+
+    // const activities = response.data;
+    // this.activities = activities;
+
+    console.log(response)
+    // location.assign('/')
   },
 };
 </script>

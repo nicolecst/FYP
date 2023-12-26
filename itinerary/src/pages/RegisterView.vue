@@ -5,8 +5,11 @@
       <label>Username</label>
       <input type="text" v-model="username" placeholder="username" />
 
+      <label>Email</label>
+      <input type="email" v-model="email" placeholder="email" />
+
       <label>Password</label>
-      <input type="text" v-model="password" placeholder="password"/>
+      <input type="password" v-model="password" placeholder="password"/>
 
       <button type="submit" class="btn btn-primary">Sign Up</button>
     </form>
@@ -24,6 +27,7 @@ export default {
     return {
       users: [],
       username: '',
+      email: '',
       password: '',
     };
   },
@@ -38,6 +42,7 @@ export default {
         const response = await axios.post("/api/register", {
             users: this.user,
             username: this.username,
+            email: this.email,
             password: this.password,
         })
 
