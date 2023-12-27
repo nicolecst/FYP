@@ -5,6 +5,7 @@ import PrimeVue from 'primevue/config';
 import LoginView from './pages/LoginView.vue'
 import HomeView from './pages/HomeView.vue'
 import RegisterView from './pages/RegisterView.vue'
+import "./assets/style.css"
 
 const app = createApp(App)
 app.use(VueRouter.createRouter({

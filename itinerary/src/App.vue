@@ -18,6 +18,17 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
+}
+h1{
+    font-weight: 800;
+}
+label{
+    font-weight: 600;
+}
+@font-face {
+  font-family: "rabikiso";
+  src: local("rabikiso"),
+   url(./assets/fonts/RubikDoodleShadow-Regular.ttf) format("truetype");
 }
 </style>
