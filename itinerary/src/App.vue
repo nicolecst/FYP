@@ -35,4 +35,9 @@ label{
   src: local("rabikiso"),
    url(./assets/fonts/RubikDoodleShadow-Regular.ttf) format("truetype");
 }
+@font-face {
+  font-family: "AchivoBlack";
+  src: local("achivoblack"),
+   url(./assets/fonts/ArchivoBlack-Regular.ttf) format("truetype");
+}
 </style>
