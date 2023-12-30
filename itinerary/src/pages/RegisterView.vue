@@ -16,7 +16,7 @@
       </form>
     </div>
 
-    <p>{{ users }}</p>
+    <!-- <p>{{ users }}</p> -->
   </div>
 </template>
 
@@ -80,7 +80,7 @@ export default {
   color: #016a70;
 }
 .loginForm {
-  width: 600px;
+  width: 50%;
   height: 400px;
   background-color: #fff;
   box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.1);

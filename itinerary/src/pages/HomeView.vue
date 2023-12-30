@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NavBarVue/>
     <h1>HomePage</h1>
     <p>{{activities}}</p>
   </div>
@@ -7,10 +8,13 @@
 
 <script type="module">
 import axios from "axios";
+import NavBarVue from '../components/NavBar.vue';
 
 export default {
   name: "HomeView",
-  components: {},
+  components: {
+    NavBarVue
+  },
   data() {
     return {
       activities: [],
