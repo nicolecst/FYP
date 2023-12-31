@@ -21,6 +21,7 @@
           <button class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit">
             Search
           </button>
+          <button class="btn btn-sm">user</button>
         </form>
       </div>
     </nav>
@@ -35,6 +36,7 @@ a{
 .btn{
   color: #ffffdd;
   border-color: #ffffdd;
+  margin: 5px;
 }
 .btn:hover{
   background-color: #ffffdd;
