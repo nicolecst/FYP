@@ -1,3 +1,4 @@
+import e from "express";
 import express from "express";
 var bodyParser = require("body-parser");
 import { MongoClient } from "mongodb";
@@ -52,33 +53,35 @@ async function start() {
     let user = req.body;
     console.log(user.password);
 
-    if (req.body.password == "123456") {
-      const user = {};
-      return res.json(user);
-    } else {
-      res.status(400).send("Invalid Credentials");
-    }
-    // const check = await db
-    //   .collection("Users")
-    //   .findOne({ username: req.body.username });
-    // if (!check) {
-    //   res.send("User is not found!");
-    //   return;
+    const check = await db
+      .collection("Users")
+      .findOne({ username: req.body.username });
+      console.log(check);
+
+      if(!check){
+        res.send("User is not found!");
+        return;
+      }else{
+        const match = await db
+        .collection("Users")
+        .findOne({ username: req.body.username, password: req.body.password });
+        if (match) {
+              const user = {};
+              return res.json(user);
+              //   res.send("OKK");
+              //   res.status(200).send();
+              //   return
+            } else {
+              res.status(400).send("Invalid Credentials");
+              return;
+            }
+      }
+
+    // if (req.body.password == "123456") {
+    //   const user = {};
+    //   return res.json(user);
     // } else {
-    //   const match = await db
-    //     .collection("Users")
-    //     .findOne({ username: req.body.username, password: req.body.password });
-    //   if (match) {
-    //     const user = {};
-    //     return res.json(user);
-    //     //   res.send("OKK");
-    //     //   res.status(200).send();
-    //     //   return
-    //   } else {
-    //     res.send("Incorrect Information");
-    //     res.status(400).send("Invalid Credentials");
-    //     return;
-    //   }
+    //   res.status(400).send("Invalid Credentials");
     // }
 
     // let user = req.body;

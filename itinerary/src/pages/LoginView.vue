@@ -5,16 +5,26 @@
       <form @submit.prevent="login()">
         <h1>E-Trip</h1>
         <label>Username</label>
-        <input type="text" v-model="username" placeholder="username" name="username"/>
+        <input
+          type="text"
+          v-model="username"
+          placeholder="username"
+          name="username"
+        />
 
         <label>Password</label>
-        <input type="password" v-model="password" placeholder="password" name="password"/>
+        <input
+          type="password"
+          v-model="password"
+          placeholder="password"
+          name="password"
+        />
 
         <button type="submit" class="btn">Login</button>
         <p>
-        Don't have an account yet?
-        <router-link to="/register">Register</router-link>
-      </p>
+          Don't have an account yet?
+          <router-link to="/register">Register</router-link>
+        </p>
       </form>
     </div>
 
@@ -24,11 +34,49 @@
 
 <script>
 import axios from "axios";
+import { onMounted, ref } from "vue";
 // import Password from 'primevue/password';
 // import jwt_decode from "jwt-decode";
 export default {
   name: "LoginView",
   components: {},
+  setup() {
+        const credential = ref({});
+        console.log(credential.value)
+
+        const login = async function () {
+          var response = await axios.post("/api/login", {
+          username: this.username,
+          password: this.password,
+        })
+        .then(function (response) {
+          var data = response;
+          console.log(data)
+          alert(JSON.stringify(credential.value))
+          alert(JSON.stringify(data));
+          
+          if (response.status == 200) {
+            // var decoded = jwt_decode(data.token);
+            // localStorage.setItem("tt", decoded["_id"]);
+            // const token = localStorage.getItem("tt");
+            // console.log(token);
+            alert("login Successfully.");
+            location.assign("/");
+          }
+        })
+        .catch(function (error) {
+          alert(error.response.data);
+          console.log(error.response);
+        });
+      console.log(response);
+        }
+        onMounted(() => {
+            alert("Hello")
+        })
+        return {
+            credential, login, alert
+        }
+    },
   data() {
     return {
       users: [],
@@ -42,27 +90,32 @@ export default {
   //     this.users = users;
   //   },
   methods: {
-    async login() {
-      console.log(this.username, this.password)
+    // async login() {
 
-      var response = await axios
-        .post("/api/login", {
-          username: this.username,
-          password: this.password,
-        })
-        .then(function (response) {
-          var data = response;
-          alert(JSON.stringify(data));
-          alert("login Successfully.");
-          location.assign("/");
-        })
-        .catch(function (error) {
-          alert(error.response.data);
-          console.log(error.response);
-        });
-      console.log(response);
+    //   const credential = ref({});
+    //   console.log(credential.value);
 
-      
+    //   var response = await axios
+    //     .post("/api/login", {
+    //       username: this.username,
+    //       password: this.password,
+    //     })
+    //     .then(function (response) {
+    //       var data = response;
+    //       console.log(data)
+    //       alert(JSON.stringify(data));
+          
+    //       if (response.status == 200) {
+    //         alert("login Successfully.");
+    //         location.assign("/");
+    //       }
+    //     })
+    //     .catch(function (error) {
+    //       alert(error.response.data);
+    //       console.log(error.response);
+    //     });
+    //   console.log(response);
+
       // if (response) {
       //         var data = await response
       //         alert(JSON.stringify(data))
@@ -77,14 +130,13 @@ export default {
       //     location.assign('/')
       // }
     },
-  },
 };
 </script>
 
 <style scoped>
 .bg {
   background-color: #016a70;
-  background-image: url('@/assets/Images/City.jpg');
+  background-image: url("@/assets/Images/City.jpg");
   background-size: cover;
   /* filter:brightness(70%); */
   margin: auto;
@@ -93,17 +145,17 @@ export default {
   width: 100vw;
   height: 100vh;
 }
-.btn{
-    background-color: #016a70;
-    border-color: #016a70;
-    color:#ffffdd;
-    --bs-btn-line-height: 1.3;
-    margin: 5%;
+.btn {
+  background-color: #016a70;
+  border-color: #016a70;
+  color: #ffffdd;
+  --bs-btn-line-height: 1.3;
+  margin: 5%;
 }
 
-.btn:hover{
-    background-color: #ffffdd;
-    color: #016a70;
+.btn:hover {
+  background-color: #ffffdd;
+  color: #016a70;
 }
 .loginForm {
   width: 50%;
@@ -118,22 +170,22 @@ export default {
   margin: auto;
   /* margin-top: 30px; */
 }
-label{
-    display:block;
-    margin-left: 0;
-    text-align: left;
-    margin-top: 20px;
-    /* font-weight: 600; */
+label {
+  display: block;
+  margin-left: 0;
+  text-align: left;
+  margin-top: 20px;
+  /* font-weight: 600; */
 }
-input{
-    display: block;
-    margin: 3% auto;
-    width: 100%;
+input {
+  display: block;
+  margin: 3% auto;
+  width: 100%;
 }
-p{
-    display: block;
+p {
+  display: block;
 }
-h1{
+h1 {
   font-family: rabikiso;
 }
 </style>

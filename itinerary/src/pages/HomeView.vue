@@ -1,19 +1,23 @@
 <template>
   <div>
-    <NavBarVue/>
-    <h1>HomePage</h1>
-    <p>{{activities}}</p>
+    <NavBarVue />
+    <CardViewVue name="Nicole" />
+    <ActivityCardVue :catArgument="'Wellness and Retreats'"/>
+
   </div>
 </template>
 
 <script type="module">
-import axios from "axios";
-import NavBarVue from '../components/NavBar.vue';
+import NavBarVue from "../components/NavBar.vue";
+import ActivityCardVue from '../components/ActivityCard.vue';
+import CardViewVue from '../components/CardView.vue';
 
 export default {
   name: "HomeView",
   components: {
-    NavBarVue
+    NavBarVue,
+    ActivityCardVue,
+    CardViewVue
   },
   data() {
     return {
@@ -21,17 +25,12 @@ export default {
     };
   },
   async created() {
-    const response = await axios.get("/api/login", {
-      headers:{
-        Authorization: 'Bearer' + localStorage.getItem('token')
-      }
-    });
 
-    // const activities = response.data;
-    // this.activities = activities;
-
-    console.log(response)
-    // location.assign('/')
   },
 };
 </script>
+
+<style>
+
+
+</style>
