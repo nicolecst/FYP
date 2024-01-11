@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createRouter} from 'vue-router';
 import App from './App.vue'
 import * as VueRouter from 'vue-router'
 import PrimeVue from 'primevue/config';
@@ -8,9 +9,8 @@ import RegisterView from './pages/RegisterView.vue'
 import "./assets/style.css"
 
 const app = createApp(App)
-app.use(VueRouter.createRouter({
-    history: VueRouter.createWebHistory(process.env.BASE_URL),
-    routes: [{
+
+const routes = [{
         path: '/login',
         component: LoginView
     }, {
@@ -20,7 +20,15 @@ app.use(VueRouter.createRouter({
         path: '/register',
         component: RegisterView
     }]
-}))
-.mount('#app')
 
+
+
+const router = createRouter({
+    history: VueRouter.createWebHistory(process.env.BASE_URL),
+    routes
+})
+
+export default routes
+
+app.use(router).mount('#app')
 app.use(PrimeVue, { unstyled: true });

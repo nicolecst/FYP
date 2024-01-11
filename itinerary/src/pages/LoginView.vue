@@ -5,10 +5,10 @@
       <form @submit.prevent="login()">
         <h1>E-Trip</h1>
         <label>Username</label>
-        <input type="text" v-model="username" placeholder="username" />
+        <input type="text" v-model="username" placeholder="username" name="username"/>
 
         <label>Password</label>
-        <input type="password" v-model="password" placeholder="password" />
+        <input type="password" v-model="password" placeholder="password" name="password"/>
 
         <button type="submit" class="btn">Login</button>
         <p>
@@ -25,6 +25,7 @@
 <script>
 import axios from "axios";
 // import Password from 'primevue/password';
+// import jwt_decode from "jwt-decode";
 export default {
   name: "LoginView",
   components: {},
@@ -42,9 +43,10 @@ export default {
   //   },
   methods: {
     async login() {
+      console.log(this.username, this.password)
+
       var response = await axios
         .post("/api/login", {
-          users: this.user,
           username: this.username,
           password: this.password,
         })
@@ -55,11 +57,12 @@ export default {
           location.assign("/");
         })
         .catch(function (error) {
-          alert(error.response.statusText);
-          console.log(error.response.statusText);
+          alert(error.response.data);
+          console.log(error.response);
         });
       console.log(response);
 
+      
       // if (response) {
       //         var data = await response
       //         alert(JSON.stringify(data))

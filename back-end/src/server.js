@@ -1,5 +1,5 @@
 import express from "express";
-import bodyParser from "body-parser";
+var bodyParser = require("body-parser");
 import { MongoClient } from "mongodb";
 
 async function start() {
@@ -14,6 +14,7 @@ async function start() {
   await client.connect();
   const db = client.db("itineraryPlanner");
 
+  app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
 
   app.get("/api/", async (req, res) => {
@@ -48,35 +49,38 @@ async function start() {
   });
 
   app.post("/api/login", async (req, res) => {
-    const check = await db
-      .collection("Users")
-      .findOne({ username: req.body.username });
-    if (!check) {
-      res.send("User is not found!");
-      return;
-    } else {
-      const match = await db
-        .collection("Users")
-        .findOne({ username: req.body.username, password: req.body.password });
-      if (match) {
-        const user = {};
-        return res.json(user);
-        //   res.send("OKK");
-        //   res.status(200).send();
-        //   return
-      } else {
-        res.send("Incorrect Information");
-        res.status(400).send("Invalid Credentials");
-        return;
-      }
-    }
+    let user = req.body;
+    console.log(user.password);
 
-    // if (req.body.password == "123456") {
-    //   const user = {};
-    //   return res.json(user);
+    if (req.body.password == "123456") {
+      const user = {};
+      return res.json(user);
+    } else {
+      res.status(400).send("Invalid Credentials");
+    }
+    // const check = await db
+    //   .collection("Users")
+    //   .findOne({ username: req.body.username });
+    // if (!check) {
+    //   res.send("User is not found!");
+    //   return;
     // } else {
-    //   res.status(400).send("Invalid Credentials");
+    //   const match = await db
+    //     .collection("Users")
+    //     .findOne({ username: req.body.username, password: req.body.password });
+    //   if (match) {
+    //     const user = {};
+    //     return res.json(user);
+    //     //   res.send("OKK");
+    //     //   res.status(200).send();
+    //     //   return
+    //   } else {
+    //     res.send("Incorrect Information");
+    //     res.status(400).send("Invalid Credentials");
+    //     return;
+    //   }
     // }
+
     // let user = req.body;
     // try {
     //   const check = await db.collection("Users").findOne({username: user.username})
@@ -103,6 +107,8 @@ async function start() {
 
   //Register Page
   app.post("/api/register", async (req, res) => {
+  console.log(req.body);
+
     const existUser = await db
       .collection("Users")
       .findOne({ username: req.body.username });
@@ -113,8 +119,10 @@ async function start() {
       users.insertOne({
         username: req.body.username,
         password: req.body.password,
+        confirm_password: req.body.confirm_password,
+        email: req.body.email,
       });
-      res.status(201).send();
+      res.status(201).send("Account created");
     }
   });
 

@@ -12,6 +12,9 @@
         <label>Password</label>
         <input type="password" v-model="password" placeholder="password" />
 
+        <label>Confirm password</label>
+        <input type="confirm_password" v-model="confirm_password" placeholder="confirm_password" />
+
         <button type="submit" class="btn btn-primary">Sign Up</button>
       </form>
     </div>
@@ -32,6 +35,7 @@ export default {
       username: "",
       email: "",
       password: "",
+      confirm_password: "",
     };
   },
   async created() {
@@ -46,10 +50,16 @@ export default {
         username: this.username,
         email: this.email,
         password: this.password,
+        confirm_password: this.confirm_password
       });
 
       console.log(response);
-      this.$router.push("/login");
+      if(response.status==201){
+        alert(response.data);
+        this.$router.push("/login");
+      }else{
+        alert(response.data);
+      }
     },
   },
 };
