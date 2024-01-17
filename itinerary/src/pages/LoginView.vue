@@ -3,7 +3,7 @@
     <!-- <h1>Login Page</h1> -->
     <div class="loginForm">
       <form @submit.prevent="login()">
-        <h1>E-Trip</h1>
+        <h1>E-Trip {{name}}</h1>
         <label>Username</label>
         <input
           type="text"
@@ -34,49 +34,13 @@
 
 <script>
 import axios from "axios";
-import { onMounted, ref } from "vue";
+// import { onMounted, ref } from "vue";
 // import Password from 'primevue/password';
 // import jwt_decode from "jwt-decode";
 export default {
   name: "LoginView",
   components: {},
-  setup() {
-        const credential = ref({});
-        console.log(credential.value)
-
-        const login = async function () {
-          var response = await axios.post("/api/login", {
-          username: this.username,
-          password: this.password,
-        })
-        .then(function (response) {
-          var data = response;
-          console.log(data)
-          alert(JSON.stringify(credential.value))
-          alert(JSON.stringify(data));
-          
-          if (response.status == 200) {
-            // var decoded = jwt_decode(data.token);
-            // localStorage.setItem("tt", decoded["_id"]);
-            // const token = localStorage.getItem("tt");
-            // console.log(token);
-            alert("login Successfully.");
-            location.assign("/");
-          }
-        })
-        .catch(function (error) {
-          alert(error.response.data);
-          console.log(error.response);
-        });
-      console.log(response);
-        }
-        onMounted(() => {
-            alert("Hello")
-        })
-        return {
-            credential, login, alert
-        }
-    },
+  setup() {},
   data() {
     return {
       users: [],
@@ -90,46 +54,22 @@ export default {
   //     this.users = users;
   //   },
   methods: {
-    // async login() {
+    async login() {
+      const response = await axios.post("/api/login", {
+        users: this.user,
+        username: this.username,
+        password: this.password,
+      });
 
-    //   const credential = ref({});
-    //   console.log(credential.value);
-
-    //   var response = await axios
-    //     .post("/api/login", {
-    //       username: this.username,
-    //       password: this.password,
-    //     })
-    //     .then(function (response) {
-    //       var data = response;
-    //       console.log(data)
-    //       alert(JSON.stringify(data));
-          
-    //       if (response.status == 200) {
-    //         alert("login Successfully.");
-    //         location.assign("/");
-    //       }
-    //     })
-    //     .catch(function (error) {
-    //       alert(error.response.data);
-    //       console.log(error.response);
-    //     });
-    //   console.log(response);
-
-      // if (response) {
-      //         var data = await response
-      //         alert(JSON.stringify(data))
-      //         alert("login Successfully.")
-      //         location.assign("/")
-      //     } else {
-      //         alert(response.statusText)
-      //     }
-
-      // localStorage.setItem('token', response.data.token)
-      // if(response.ok){
-      //     location.assign('/')
-      // }
+      console.log(response);
+      if (response.status == 200) {
+        alert(response.data);
+        this.$router.push("/");
+      } else {
+        alert(response.data);
+      }
     },
+  },
 };
 </script>
 

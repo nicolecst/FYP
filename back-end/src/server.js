@@ -1,6 +1,6 @@
-import e from "express";
 import express from "express";
 var bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
 import { MongoClient } from "mongodb";
 
 async function start() {
@@ -15,7 +15,7 @@ async function start() {
   await client.connect();
   const db = client.db("itineraryPlanner");
 
-  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
   app.get("/api/", async (req, res) => {
@@ -50,32 +50,57 @@ async function start() {
   });
 
   app.post("/api/login", async (req, res) => {
-    let user = req.body;
-    console.log(user.password);
+    console.log(req.body.username);
 
-    const check = await db
-      .collection("Users")
-      .findOne({ username: req.body.username });
-      console.log(check);
-
-      if(!check){
-        res.send("User is not found!");
-        return;
-      }else{
-        const match = await db
+    try {
+      const check = await db
         .collection("Users")
-        .findOne({ username: req.body.username, password: req.body.password });
-        if (match) {
-              const user = {};
-              return res.json(user);
-              //   res.send("OKK");
-              //   res.status(200).send();
-              //   return
-            } else {
-              res.status(400).send("Invalid Credentials");
-              return;
-            }
+        .findOne({ username: req.body.username });
+      if (!check) {
+        res.status(201).send("User does not exists!");
+        return
       }
+      console.log(req.body.password);
+      console.log(check.password);
+      const passwordMatch = await bcrypt.compare(
+        req.body.password,
+        check.password
+      );
+      if (passwordMatch) {
+        res.status(200).send("Successful Login");
+      } else {
+        res.status(201).send("Wrong password!");
+      }
+    } catch{
+      res.send("Incorrect Information")
+    }
+
+    // let user = req.body;
+    // console.log(user.password);
+
+    // const check = await db
+    //   .collection("Users")
+    //   .findOne({ username: req.body.username });
+    // console.log(check);
+
+    // if (!check) {
+    //   res.send("User is not found!");
+    //   return;
+    // } else {
+    //   const match = await db
+    //     .collection("Users")
+    //     .findOne({ username: req.body.username, password: req.body.password });
+    //   if (match) {
+    //     const user = {};
+    //     return res.json(user);
+    //     //   res.send("OKK");
+    //     //   res.status(200).send();
+    //     //   return
+    //   } else {
+    //     res.status(400).send("Invalid Credentials");
+    //     return;
+    //   }
+    // }
 
     // if (req.body.password == "123456") {
     //   const user = {};
@@ -110,7 +135,14 @@ async function start() {
 
   //Register Page
   app.post("/api/register", async (req, res) => {
-  console.log(req.body);
+    console.log(req.body);
+
+    const userdata = {
+      username: req.body.username,
+      password: req.body.password,
+      confirm_password: req.body.confirm_password,
+      email: req.body.email,
+    };
 
     const existUser = await db
       .collection("Users")
@@ -118,13 +150,13 @@ async function start() {
     if (existUser) {
       res.send("User already exists, please use a different name");
     } else {
+      //hash password
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(userdata.password, saltRounds);
+      userdata.password = hashedPassword;
+
       const users = await db.collection("Users");
-      users.insertOne({
-        username: req.body.username,
-        password: req.body.password,
-        confirm_password: req.body.confirm_password,
-        email: req.body.email,
-      });
+      users.insertOne(userdata);
       res.status(201).send("Account created");
     }
   });

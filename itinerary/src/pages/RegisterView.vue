@@ -26,6 +26,7 @@
 <script>
 import axios from "axios";
 // import Password from 'primevue/password';
+
 export default {
   name: "RegisterView",
   components: {},
@@ -44,13 +45,14 @@ export default {
     this.users = users;
   },
   methods: {
+
     async register() {
       const response = await axios.post("/api/register", {
         users: this.user,
         username: this.username,
         email: this.email,
         password: this.password,
-        confirm_password: this.confirm_password
+        confirm_password: this.confirm_password,
       });
 
       console.log(response);
@@ -60,6 +62,7 @@ export default {
       }else{
         alert(response.data);
       }
+
     },
   },
 };
