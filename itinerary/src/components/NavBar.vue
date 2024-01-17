@@ -6,8 +6,17 @@
     </nav> -->
     <nav class="navbar nb navbar-light">
       <div class="justify-content-left">
-        <a class="navbar-brand">E-trip</a>
-        <a href="">Home</a>
+        <ul class="nav gap-1">
+          <li class="nav-item">
+            <a class="navbar-brand" href="/">E-trip</a>
+          </li>
+          <a class="nav-link" >
+            <span style="font-size: 1.5em; color: #ffffdd;">
+              <font-awesome-icon icon="fa-solid fa-house" />
+            </span>
+            home
+          </a>
+        </ul>
       </div>
 
       <div class="justify-content-right">
@@ -75,7 +84,7 @@ a {
 .nb {
   background-color: #016a70;
   color: #ffffdd;
-  display: flex;
+  /* display: flex; */
   align-items: center;
 }
 
@@ -87,6 +96,10 @@ a {
   font-family: AchivoBlack;
   color: #ffffdd;
   font-size: xx-large;
+}
+
+.nav-link{
+  color: #ffffdd;
 }
 
 .form-horizontal {
