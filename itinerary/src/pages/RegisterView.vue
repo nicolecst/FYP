@@ -37,6 +37,7 @@ export default {
       email: "",
       password: "",
       confirm_password: "",
+      createdAt: ""
     };
   },
   async created() {
@@ -53,6 +54,7 @@ export default {
         email: this.email,
         password: this.password,
         confirm_password: this.confirm_password,
+        createdAt: this.createdAt,
       });
 
       console.log(response);

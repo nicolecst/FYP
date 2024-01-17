@@ -6,6 +6,7 @@ import PrimeVue from 'primevue/config';
 import LoginView from './pages/LoginView.vue'
 import HomeView from './pages/HomeView.vue'
 import RegisterView from './pages/RegisterView.vue'
+import UserView from './pages/UserView.vue'
 import "./assets/style.css"
 
 const app = createApp(App)
@@ -19,6 +20,9 @@ const routes = [{
     },{
         path: '/register',
         component: RegisterView
+    },{
+        path: '/userProfile',
+        component: UserView
     }]
 
 

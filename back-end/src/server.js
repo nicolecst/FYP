@@ -33,15 +33,8 @@ async function start() {
   });
 
   app.get("/api/users", async (req, res) => {
-    res.send("This are the users");
-  });
-
-  app.post("/api/user", async (req, res) => {
-    res.send("add users");
-    // const user = await db
-    //   .collection("Users")
-    //   .insertOne(req.body);
-    // res.status(201).json(user);
+    const users = await db.collection("Users").find({}).toArray();
+    res.send(users);
   });
 
   //Login Page
@@ -96,62 +89,6 @@ async function start() {
       res.status(201).send("Incorrect Information");
     }
 
-    // let user = req.body;
-    // console.log(user.password);
-
-    // const check = await db
-    //   .collection("Users")
-    //   .findOne({ username: req.body.username });
-    // console.log(check);
-
-    // if (!check) {
-    //   res.send("User is not found!");
-    //   return;
-    // } else {
-    //   const match = await db
-    //     .collection("Users")
-    //     .findOne({ username: req.body.username, password: req.body.password });
-    //   if (match) {
-    //     const user = {};
-    //     return res.json(user);
-    //     //   res.send("OKK");
-    //     //   res.status(200).send();
-    //     //   return
-    //   } else {
-    //     res.status(400).send("Invalid Credentials");
-    //     return;
-    //   }
-    // }
-
-    // if (req.body.password == "123456") {
-    //   const user = {};
-    //   return res.json(user);
-    // } else {
-    //   res.status(400).send("Invalid Credentials");
-    // }
-
-    // let user = req.body;
-    // try {
-    //   const check = await db.collection("Users").findOne({username: user.username})
-    //   console.log(check)
-    //   if(!check){
-    //     res.send("User is not found!")
-    //     return
-    //   }
-    //     const match = await db.collection("Users").findOne({username: req.body.username, password: req.body.password})
-    //     console.log(match)
-    //     if(match){
-    //         res.send("ok")
-    //         res.status(200).send();
-    //     }else{
-    //         res.send("Incorrect Information")
-    //         return
-    //     }
-    // } catch (e) {
-    //     return res.status(500).json(e);
-    // }
-
-    // res.send("Login");
   });
 
   //Register Page
@@ -163,6 +100,7 @@ async function start() {
       password: req.body.password,
       confirm_password: req.body.confirm_password,
       email: req.body.email,
+      createdAt: new Date().toLocaleString(),
     };
 
     const existUser = await db

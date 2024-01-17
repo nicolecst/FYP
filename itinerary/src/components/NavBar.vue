@@ -18,27 +18,48 @@
             placeholder="Search"
             aria-label="Search"
           />
-          <button class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit">
+          <button
+            class="btn btn-outline-success btn-sm my-2 my-sm-0"
+            type="submit"
+          >
             Search
           </button>
-          <button class="btn btn-sm">user</button>
+          <button @click="userProfile()" class="btn btn-sm">user</button>
         </form>
       </div>
     </nav>
   </div>
 </template>
 
+<script>
+export default {
+  name: "NavBar",
+  components: {},
+  data() {},
+  methods: {
+  },
+  setup(){
+    const userProfile = async function(){
+      location.assign("/userProfile")
+    }
+    return{
+      userProfile
+    }
+  }
+};
+</script>
+
 <style>
-a{
+a {
   color: #ffffdd;
 }
 
-.btn{
+.btn {
   color: #ffffdd;
   border-color: #ffffdd;
   margin: 5px;
 }
-.btn:hover{
+.btn:hover {
   background-color: #ffffdd;
   color: #016a70;
 }
