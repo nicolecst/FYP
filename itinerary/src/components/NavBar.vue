@@ -11,21 +11,30 @@
       </div>
 
       <div class="justify-content-right">
-        <form>
-          <input
-            class="form-horizontal mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button
-            class="btn btn-outline-success btn-sm my-2 my-sm-0"
-            type="submit"
-          >
-            Search
-          </button>
-          <button @click="userProfile()" class="btn btn-sm">user</button>
-        </form>
+        <ul class="nav gap-1">
+          <li class="nav-item">
+            <input
+              class="form-horizontal mr-sm-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button
+              class="btn btn-outline-success btn-sm my-2 my-sm-0"
+              type="submit"
+            >
+              Search
+            </button>
+          </li>
+          <li>
+            <a class="nav-link" href="/userProfile">
+              <span style="font-size: 1.5em; color: #ffffdd">
+                <font-awesome-icon icon="fa-solid fa-circle-user" /> </span
+            ></a>
+          </li>
+
+          <!-- <button @click="userProfile()" class="btn btn-sm">user</button> -->
+        </ul>
       </div>
     </nav>
   </div>
@@ -36,16 +45,15 @@ export default {
   name: "NavBar",
   components: {},
   data() {},
-  methods: {
+  methods: {},
+  setup() {
+    const userProfile = async function () {
+      location.assign("/userProfile");
+    };
+    return {
+      userProfile,
+    };
   },
-  setup(){
-    const userProfile = async function(){
-      location.assign("/userProfile")
-    }
-    return{
-      userProfile
-    }
-  }
 };
 </script>
 
