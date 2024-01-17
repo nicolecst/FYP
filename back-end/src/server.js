@@ -31,10 +31,17 @@ async function start() {
       .findOne({ _id: new ObjectId(req.params.id) });
     res.send(activity);
   });
-
+//All users
   app.get("/api/users", async (req, res) => {
     const users = await db.collection("Users").find({}).toArray();
     res.send(users);
+  });
+//One user details
+  app.get("/api/users/:id", async (req, res) => {
+    // console.log(req.params.id)
+    const user = await db.collection("Users").findOne({_id: new ObjectId(req.params.id)});
+    console.log(user._id)
+    res.json(user);
   });
 
   //Login Page

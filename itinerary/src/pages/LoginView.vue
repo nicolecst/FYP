@@ -56,7 +56,6 @@ export default {
         username: this.username,
         password: this.password,
       });
-
       console.log(response);
       if (response.status == 200) {
         var data = await response.data;
