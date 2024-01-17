@@ -1,7 +1,9 @@
 import express from "express";
 var bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 import { MongoClient } from "mongodb";
+var ObjectId = require("mongodb").ObjectId;
 
 async function start() {
   const app = express();
@@ -50,7 +52,8 @@ async function start() {
   });
 
   app.post("/api/login", async (req, res) => {
-    console.log(req.body.username);
+    let user = req.body;
+    console.log(user);
 
     try {
       const check = await db
@@ -58,7 +61,7 @@ async function start() {
         .findOne({ username: req.body.username });
       if (!check) {
         res.status(201).send("User does not exists!");
-        return
+        return;
       }
       console.log(req.body.password);
       console.log(check.password);
@@ -67,12 +70,30 @@ async function start() {
         check.password
       );
       if (passwordMatch) {
-        res.status(200).send("Successful Login");
+        //user token
+        const user = {
+          id: check._id,
+          username: check.username,
+        };
+
+        const token = jwt.sign(
+          user,
+          "process.env.JWT_KEY",
+          {
+            expiresIn: "2h",
+          }
+        );
+
+        user.token = token;
+        console.log(check._id)
+        console.log(token)
+        return res.status(200).json(user);
+        // res.status(200).send("Successful Login", token);
       } else {
         res.status(201).send("Wrong password!");
       }
-    } catch{
-      res.send("Incorrect Information")
+    } catch {
+      res.status(201).send("Incorrect Information");
     }
 
     // let user = req.body;

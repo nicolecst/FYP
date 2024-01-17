@@ -3,7 +3,7 @@
     <!-- <h1>Login Page</h1> -->
     <div class="loginForm">
       <form @submit.prevent="login()">
-        <h1>E-Trip {{name}}</h1>
+        <h1>E-Trip {{ name }}</h1>
         <label>Username</label>
         <input
           type="text"
@@ -37,6 +37,7 @@ import axios from "axios";
 // import { onMounted, ref } from "vue";
 // import Password from 'primevue/password';
 // import jwt_decode from "jwt-decode";
+
 export default {
   name: "LoginView",
   components: {},
@@ -48,11 +49,6 @@ export default {
       password: "",
     };
   },
-  //   async created() {
-  //     const response = await axios.get("/api/login");
-  //     const users = response.data;
-  //     this.users = users;
-  //   },
   methods: {
     async login() {
       const response = await axios.post("/api/login", {
@@ -63,7 +59,16 @@ export default {
 
       console.log(response);
       if (response.status == 200) {
+        var data = await response.data;
+        localStorage.setItem("userToken", data.token);
+        localStorage.setItem("userID", data.id);
+        const u = localStorage.getItem("userToken");
+        const i = localStorage.getItem("userID");
+        console.log(u)
+        console.log(i)
+
         alert(response.data);
+        alert("Successful Login");
         this.$router.push("/");
       } else {
         alert(response.data);
