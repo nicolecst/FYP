@@ -20,23 +20,26 @@ async function start() {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
+  //home page listing all activities
   app.get("/api/", async (req, res) => {
     const activities = await db.collection("Activities").find({}).toArray();
     console.log("hello");
     res.send(activities);
   });
+
+  //getting one activity
   app.get("/api/activities/:id", async (req, res) => {
     const activity = await db
       .collection("Activities")
       .findOne({ _id: new ObjectId(req.params.id) });
     res.send(activity);
   });
-//All users
+//Get all users
   app.get("/api/users", async (req, res) => {
     const users = await db.collection("Users").find({}).toArray();
     res.send(users);
   });
-//One user details
+//Get one user details
   app.get("/api/users/:id", async (req, res) => {
     // console.log(req.params.id)
     const user = await db.collection("Users").findOne({_id: new ObjectId(req.params.id)});
@@ -45,12 +48,6 @@ async function start() {
   });
 
   //Login Page
-  app.get("/api/login", async (req, res) => {
-    console.log("Login page");
-    const users = await db.collection("Users").find({}).toArray();
-    res.send(users);
-  });
-
   app.post("/api/login", async (req, res) => {
     let user = req.body;
     console.log(user);
