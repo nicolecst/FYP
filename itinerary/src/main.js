@@ -7,6 +7,7 @@ import LoginView from './pages/LoginView.vue'
 import HomeView from './pages/HomeView.vue'
 import RegisterView from './pages/RegisterView.vue'
 import UserView from './pages/UserView.vue'
+import UserEdit from './pages/UserEdit.vue'
 import "./assets/style.css"
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -33,6 +34,9 @@ const routes = [{
     },{
         path: '/userProfile',
         component: UserView
+    },{
+        path: '/userEdit',
+        component: UserEdit
     }]
 
 

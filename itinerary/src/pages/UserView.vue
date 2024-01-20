@@ -17,6 +17,8 @@
             <p>UserID: {{ user._id }}</p>
             <p>Username: {{ user.username }}</p>
             <p>Email: {{ user.email }}</p>
+            <a href="/userEdit"><button class="btn btn-primary">Edit Profile</button></a>
+            
           </div>
         </div>
       </div>

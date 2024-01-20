@@ -34,17 +34,27 @@ async function start() {
       .findOne({ _id: new ObjectId(req.params.id) });
     res.send(activity);
   });
-//Get all users
+  //Get all users
   app.get("/api/users", async (req, res) => {
     const users = await db.collection("Users").find({}).toArray();
     res.send(users);
   });
-//Get one user details
+  //Get one user details
   app.get("/api/users/:id", async (req, res) => {
     // console.log(req.params.id)
-    const user = await db.collection("Users").findOne({_id: new ObjectId(req.params.id)});
-    console.log(user._id)
+    const user = await db
+      .collection("Users")
+      .findOne({ _id: new ObjectId(req.params.id) });
+    console.log(user._id);
     res.json(user);
+  });
+
+  //Update user detail
+  app.put("/api/users/:id", async (req, res) => {
+    const user = await db
+      .collection("Users")
+      .findOneAndReplace({ _id: new ObjectId(req.params.id) }, req.body);
+      res.json(user);
   });
 
   //Login Page
@@ -73,17 +83,13 @@ async function start() {
           username: check.username,
         };
 
-        const token = jwt.sign(
-          user,
-          "process.env.JWT_KEY",
-          {
-            expiresIn: "2h",
-          }
-        );
+        const token = jwt.sign(user, "process.env.JWT_KEY", {
+          expiresIn: "2h",
+        });
 
         user.token = token;
-        console.log(check._id)
-        console.log(token)
+        console.log(check._id);
+        console.log(token);
         return res.status(200).json(user);
         // res.status(200).send("Successful Login", token);
       } else {
@@ -92,7 +98,6 @@ async function start() {
     } catch {
       res.status(201).send("Incorrect Information");
     }
-
   });
 
   //Register Page
