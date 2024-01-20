@@ -249,6 +249,7 @@ export default {
   padding-right: 0px;
   border-radius: 30px;
   margin-top: 30px;
+  padding-bottom: 10px;
   /* padding: 40px; */
 }
 img {

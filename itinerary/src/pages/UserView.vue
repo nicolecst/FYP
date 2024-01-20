@@ -17,15 +17,26 @@
         </div>
         <div class="col-md-5">
           <div class="right">
-            <p>Username: {{ user.username }}</p>
-            <p>Email: {{ user.email }}</p>
-            <p>Gender: {{ user.gender }}</p>
-            <p>Age: {{ user.age }}</p>
-            <h6>Preferences</h6>
-            <p>1st: {{ user.preference1 }}</p>
-            <p>2nd: {{ user.preference2 }}</p>
-            <p>3rd: {{ user.preference3 }}</p>
-            <p>Type: {{ user.type }}</p>
+            <div class="row mt-2">
+              <p>
+                <span style="font-weight: bold">Username: </span
+                >{{ user.username }}
+              </p>
+            </div>
+
+            <p>
+              <span style="font-weight: bold">Email: </span>{{ user.email }}
+            </p>
+            <p>
+              <span style="font-weight: bold">Gender: </span>{{ user.gender }}
+            </p>
+            <p><span style="font-weight: bold">Age: </span><span v-if="!user.age">N/A</span>{{ user.age }}</p>
+            <p ><span style="font-weight: bold">Preferences: </span><span v-if="!user.preference1||user.preference2||user.preference3">N/A</span></p>
+            <p v-if="user.preference1">1st: {{ user.preference1 }}</p>
+            <p v-if="user.preference2">2nd: {{ user.preference2 }}</p>
+            <p v-if="user.preference3">3rd: {{ user.preference3 }}</p>
+            <p><span style="font-weight: bold">Type: </span><span v-if="!user.type">N/A</span>{{ user.type }}</p>
+            <p style="color:grey">*'N/A' entries can set up by clicking the button below</p>
             <a href="/userEdit"
               ><button class="btn btn-primary">Edit Profile</button></a
             >
@@ -91,11 +102,8 @@ export default {
   padding-left: 0px;
   padding-right: 0px;
   border-radius: 30px;
+  padding-bottom: 10px;
   /* padding: 40px; */
-}
-img {
-  width: 250px;
-  height: 250px;
 }
 .circle {
   /* Make the image circle*/
@@ -119,5 +127,9 @@ img {
   object-fit: cover;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
+}
+img {
+  width: 250px;
+  height: 250px;
 }
 </style>
