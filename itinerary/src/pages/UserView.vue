@@ -5,20 +5,30 @@
     <div class="container">
       <img class="header" src="@/assets/Images/flowers.jpg" alt="header-img" />
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-5 left">
           <img
             class="circle"
             src="@/assets/Images/male.jpg"
             alt="male-user-icon"
           />
+          <div class="row mt-2">
+            <p>UserID: {{ user._id }}</p>
+          </div>
         </div>
         <div class="col-md-5">
           <div class="right">
-            <p>UserID: {{ user._id }}</p>
             <p>Username: {{ user.username }}</p>
             <p>Email: {{ user.email }}</p>
-            <a href="/userEdit"><button class="btn btn-primary">Edit Profile</button></a>
-            
+            <p>Gender: {{ user.gender }}</p>
+            <p>Age: {{ user.age }}</p>
+            <h6>Preferences</h6>
+            <p>1st: {{ user.preference1 }}</p>
+            <p>2nd: {{ user.preference2 }}</p>
+            <p>3rd: {{ user.preference3 }}</p>
+            <p>Type: {{ user.type }}</p>
+            <a href="/userEdit"
+              ><button class="btn btn-primary">Edit Profile</button></a
+            >
           </div>
         </div>
       </div>
@@ -52,7 +62,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .bg {
   background-color: #002224;
   background-size: cover;
@@ -60,6 +70,17 @@ export default {
   align-items: center;
   width: 100vw;
   height: 100vh;
+}
+.btn {
+  background-color: #016a70;
+  border-color: #016a70;
+  color: #ffffdd;
+  --bs-btn-line-height: 1.3;
+}
+
+.btn:hover {
+  background-color: #ffffdd;
+  color: #016a70;
 }
 
 .container {
@@ -85,12 +106,11 @@ img {
   border-radius: 50%;
 }
 
-.row{
-    padding: 40px;
-}
-
 .right {
   text-align: left;
+}
+.left {
+  padding: 40px;
 }
 
 .header {
