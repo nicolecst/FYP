@@ -86,8 +86,8 @@ export default {
 .container {
   background-color: white;
   width: 60%;
-  min-height: 500px;
-  height: 70%;
+  /* min-height: 500px;
+  height: 70%; */
   padding-left: 0px;
   padding-right: 0px;
   border-radius: 30px;
