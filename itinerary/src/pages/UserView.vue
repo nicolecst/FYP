@@ -31,7 +31,7 @@
               <span style="font-weight: bold">Gender: </span>{{ user.gender }}
             </p>
             <p><span style="font-weight: bold">Age: </span><span v-if="!user.age">N/A</span>{{ user.age }}</p>
-            <p ><span style="font-weight: bold">Preferences: </span><span v-if="!user.preference1||user.preference2||user.preference3">N/A</span></p>
+            <p ><span style="font-weight: bold">Preferences: </span><span v-if="!user.preference1||!user.preference2||!user.preference3">N/A</span></p>
             <p v-if="user.preference1">1st: {{ user.preference1 }}</p>
             <p v-if="user.preference2">2nd: {{ user.preference2 }}</p>
             <p v-if="user.preference3">3rd: {{ user.preference3 }}</p>

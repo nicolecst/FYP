@@ -8,6 +8,7 @@ import HomeView from './pages/HomeView.vue'
 import RegisterView from './pages/RegisterView.vue'
 import UserView from './pages/UserView.vue'
 import UserEdit from './pages/UserEdit.vue'
+import ActivitiesView from './pages/ActivitiesView.vue'
 import ActDetails from './pages/ActDetails.vue'
 import "./assets/style.css"
 /* import the fontawesome core */
@@ -38,6 +39,9 @@ const routes = [{
     },{
         path: '/userEdit',
         component: UserEdit
+    },{
+        path: '/activities',
+        component: ActivitiesView
     },{
         path: '/actDetails/:id',
         component: ActDetails

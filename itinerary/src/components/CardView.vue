@@ -1,10 +1,10 @@
 <template>
-  <div class="card" style="min-width: 18rem">
-    <img class="card-img-top" alt="Card image cap" />
+  <div class="card" style="min-width: 18rem; max-width: 18rem;">
+    <img class="card-img-top" src="@/assets/uploads/victoria_peak.jpg" alt="Card image cap" />
     <div class="card-body">
-      <img class="card-img-top" alt="Card image cap" />
         <div class="card-body">
           <h5 class="card-title">{{ actname }}</h5>
+          <p class="card-text">img: {{ img }}</p>
           <p class="card-text">Area: {{ area }}</p>
           <p class="card-text">District: {{ district }}</p>
           <p class="card-text">Type: {{ type }}</p>
@@ -26,14 +26,24 @@ export default{
       type: String,
       category: String,
       charge: String,
-      act_ID: String
+      act_ID: String,
+      img: String
     }
 
 }
 </script>
 
-<style>
+<style scoped>
 .card{
   margin: 10px;
+}
+.btn{
+  background-color: #016a70;
+  color: #ffffdd;
+}
+.btn:hover{
+  background-color: #ffffdd;
+  color: #016a70;
+  border-color: #016a70;
 }
 </style>

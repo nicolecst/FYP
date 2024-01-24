@@ -40,7 +40,7 @@ async function start() {
     const users = await db.collection("Users").find({}).toArray();
     res.send(users);
   });
-  
+
   //Get one user details
   app.get("/api/users/:id", async (req, res) => {
     // console.log(req.params.id)
@@ -83,6 +83,9 @@ async function start() {
         const user = {
           id: check._id,
           username: check.username,
+          preference1: check.preference1,
+          preference2: check.preference2,
+          preference3: check.preference3
         };
 
         const token = jwt.sign(user, "process.env.JWT_KEY", {

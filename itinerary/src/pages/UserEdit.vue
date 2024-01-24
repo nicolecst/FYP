@@ -81,7 +81,7 @@
                       <option>Adventure and Outdoor</option>
                       <option>Culinary and Food</option>
                       <option>Wellness and Retreats</option>
-                      <option>Theme Parks</option>
+                      <option>Theme Park</option>
                       <option>Entertainment Complexes</option>
                       <option>Shopping</option>
                     </select>
@@ -105,7 +105,7 @@
                       <option>Adventure and Outdoor</option>
                       <option>Culinary and Food</option>
                       <option>Wellness and Retreats</option>
-                      <option>Theme Parks</option>
+                      <option>Theme Park</option>
                       <option>Entertainment Complexes</option>
                       <option>Shopping</option>
                     </select>
@@ -129,7 +129,7 @@
                       <option>Adventure and Outdoor</option>
                       <option>Culinary and Food</option>
                       <option>Wellness and Retreats</option>
-                      <option>Theme Parks</option>
+                      <option>Theme Park</option>
                       <option>Entertainment Complexes</option>
                       <option>Shopping</option>
                     </select>

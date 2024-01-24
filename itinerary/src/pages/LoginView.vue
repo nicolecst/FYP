@@ -61,10 +61,16 @@ export default {
         var data = await response.data;
         localStorage.setItem("userToken", data.token);
         localStorage.setItem("userID", data.id);
+        localStorage.setItem("preference1", data.preference1)
+        localStorage.setItem("preference2", data.preference2)
+        localStorage.setItem("preference3", data.preference3)
+
         const u = localStorage.getItem("userToken");
         const i = localStorage.getItem("userID");
+        const p = localStorage.getItem("preference1");
         console.log(u)
         console.log(i)
+        console.log(p)
 
         // alert(response.data);
         alert("Successful Login");
