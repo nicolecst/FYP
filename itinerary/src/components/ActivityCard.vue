@@ -1,11 +1,19 @@
 <template>
   <div class="page">
-    <h3>All Placess</h3>
-    <h3>{{ category }}</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>All activities</h3>
+      </div>
+      <div class="col-md-6 right">
+        <a href="">View all activities</a>
+      </div>
+      
+    </div>
+    <!-- <h3>{{ category }}</h3> -->
     <div class="scrolls">
       <div
         class="card"
-        v-for="activity in activities.slice(0,10)"
+        v-for="activity in approved().slice(0,10)"
         :key="activity._id"
         style="min-width: 18rem"
       >
@@ -42,6 +50,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -57,6 +66,9 @@ export default {
   methods:{
     actCat(cat){
         return this.activities.filter((a)=> a.Category === cat)
+    },
+    approved(){
+      return this.activities.filter((a)=>a.Approved === 'true')
     }
 
   },
@@ -80,6 +92,13 @@ export default {
 </script>
 
 <style scoped>
+a{
+    color: #016a70;
+}
+h3{
+  margin-left: 30px;
+}
+
 .page {
   margin: 10px;
   margin: auto;
@@ -99,6 +118,9 @@ export default {
   transform: translate3D(0,-1px,0) scale(1.03);
   transition: all .4s ease;
 
+}
+.right{
+  text-align: right;
 }
 
 .scrolls {
