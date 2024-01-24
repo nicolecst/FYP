@@ -34,11 +34,13 @@ async function start() {
       .findOne({ _id: new ObjectId(req.params.id) });
     res.send(activity);
   });
+
   //Get all users
   app.get("/api/users", async (req, res) => {
     const users = await db.collection("Users").find({}).toArray();
     res.send(users);
   });
+  
   //Get one user details
   app.get("/api/users/:id", async (req, res) => {
     // console.log(req.params.id)

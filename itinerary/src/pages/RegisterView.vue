@@ -40,11 +40,11 @@ export default {
       createdAt: ""
     };
   },
-  async created() {
-    const response = await axios.get("/api/login");
-    const users = response.data;
-    this.users = users;
-  },
+  // async created() {
+  //   const response = await axios.get("/api/login");
+  //   const users = response.data;
+  //   this.users = users;
+  // },
   methods: {
 
     async register() {
@@ -96,7 +96,7 @@ export default {
 }
 .loginForm {
   width: 50%;
-  height: 400px;
+  height: 500px;
   background-color: #fff;
   box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;

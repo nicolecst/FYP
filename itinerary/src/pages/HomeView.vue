@@ -2,7 +2,7 @@
   <div>
     <NavBarVue />
     <CardViewVue name="Nicole" />
-    <ActivityCardVue :catArgument="'Wellness and Retreats'"/>
+    <ActivityCardVue/>
 
   </div>
 </template>

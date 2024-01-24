@@ -1,10 +1,11 @@
 <template>
   <div class="page">
-    <h3>All Places</h3>
+    <h3>All Placess</h3>
+    <h3>{{ category }}</h3>
     <div class="scrolls">
       <div
         class="card"
-        v-for="activity in activities"
+        v-for="activity in activities.slice(0,10)"
         :key="activity._id"
         style="min-width: 18rem"
       >
@@ -16,7 +17,7 @@
           <p class="card-text">Type: {{ activity.Type }}</p>
           <p class="card-text">Category: {{ activity.Category }}</p>
           <p class="card-text">Charge: {{ activity.Charge }}</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <router-link :to="'/actDetails/'+ activity._id"><button class="btn btn-primary">Go somewhere</button></router-link>
         </div>
       </div>
     </div>
@@ -50,6 +51,9 @@ import axios from "axios";
 export default {
   name: "ActivityCard",
   components: {},
+  props:{
+    category: String,
+  },
   methods:{
     actCat(cat){
         return this.activities.filter((a)=> a.Category === cat)

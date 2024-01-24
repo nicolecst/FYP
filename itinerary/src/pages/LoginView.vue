@@ -23,7 +23,7 @@
         <button type="submit" class="btn">Login</button>
         <p>
           Don't have an account yet?
-          <router-link to="/register">Register</router-link>
+          <router-link to="/register"><span style="color: #016a70; text-decoration: underline">Register</span></router-link>
         </p>
       </form>
     </div>
@@ -66,7 +66,7 @@ export default {
         console.log(u)
         console.log(i)
 
-        alert(response.data);
+        // alert(response.data);
         alert("Successful Login");
         this.$router.push("/");
       } else {
