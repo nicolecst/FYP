@@ -10,6 +10,8 @@ import UserView from './pages/UserView.vue'
 import UserEdit from './pages/UserEdit.vue'
 import ActivitiesView from './pages/ActivitiesView.vue'
 import ActDetails from './pages/ActDetails.vue'
+import AdminHome from './pages/AdminHome.vue'
+import ActEdit from './pages/ActEdit.vue'
 import "./assets/style.css"
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -31,6 +33,9 @@ const routes = [{
         path: '/',
         component: HomeView
     },{
+        path: '/admin',
+        component: AdminHome
+    },{
         path: '/register',
         component: RegisterView
     },{
@@ -45,6 +50,9 @@ const routes = [{
     },{
         path: '/actDetails/:id',
         component: ActDetails
+    },{
+        path: '/actEdit/:id',
+        component: ActEdit
     }]
 
 

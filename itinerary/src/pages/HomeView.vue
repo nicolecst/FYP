@@ -114,7 +114,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .scrolls {
   display: flex;
   flex-wrap: no-wrap;

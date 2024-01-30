@@ -35,6 +35,14 @@ async function start() {
     res.send(activity);
   });
 
+  //Update activities
+  app.put("/api/activities/:id", async (req, res) => {
+    const activity = await db
+      .collection("Activities")
+      .findOneAndReplace({ _id: new ObjectId(req.params.id) }, req.body);
+      res.json(activity);
+  });
+
   //Get all users
   app.get("/api/users", async (req, res) => {
     const users = await db.collection("Users").find({}).toArray();
@@ -83,9 +91,7 @@ async function start() {
         const user = {
           id: check._id,
           username: check.username,
-          preference1: check.preference1,
-          preference2: check.preference2,
-          preference3: check.preference3
+          role: check.is_Admin
         };
 
         const token = jwt.sign(user, "process.env.JWT_KEY", {
@@ -95,6 +101,7 @@ async function start() {
         user.token = token;
         console.log(check._id);
         console.log(token);
+        console.log(user.role)
         return res.status(200).json(user);
         // res.status(200).send("Successful Login", token);
       } else {
@@ -114,6 +121,7 @@ async function start() {
       password: req.body.password,
       confirm_password: req.body.confirm_password,
       email: req.body.email,
+      is_Admin: false,
       createdAt: new Date().toLocaleString(),
     };
 
@@ -134,9 +142,9 @@ async function start() {
     }
   });
 
-  app.get("/api/home", async (req, res) => {
-    res.send("home");
-  });
+  // app.get("/api/home", async (req, res) => {
+  //   res.send("home");
+  // });
 
   app.listen(port, () => {
     console.log(`Server listening to port ${port}`);

@@ -3,17 +3,17 @@
     <div class="loginForm">
       <form @submit.prevent="register()">
         <h1>Registration</h1>
-        <label>Username</label>
-        <input type="text" v-model="username" placeholder="username" />
+        <label>Username*</label>
+        <input type="text" v-model="username" placeholder="username" required/>
 
-        <label>Email</label>
-        <input type="email" v-model="email" placeholder="email" />
+        <label>Email*</label>
+        <input type="email" v-model="email" placeholder="email" required/>
 
-        <label>Password</label>
-        <input type="password" v-model="password" placeholder="password" />
+        <label>Password*</label>
+        <input type="password" v-model="password" placeholder="password" required/>
 
-        <label>Confirm password</label>
-        <input type="confirm_password" v-model="confirm_password" placeholder="confirm_password" />
+        <label>Confirm password*</label>
+        <input type="confirm_password" v-model="confirm_password" placeholder="confirm_password" required/>
 
         <button type="submit" class="btn btn-primary">Sign Up</button>
       </form>
@@ -105,6 +105,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin: auto;
+  text-align: center;
   /* margin-top: 30px; */
 }
 label {

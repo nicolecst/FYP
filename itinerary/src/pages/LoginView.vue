@@ -61,20 +61,24 @@ export default {
         var data = await response.data;
         localStorage.setItem("userToken", data.token);
         localStorage.setItem("userID", data.id);
-        localStorage.setItem("preference1", data.preference1)
-        localStorage.setItem("preference2", data.preference2)
-        localStorage.setItem("preference3", data.preference3)
+        localStorage.setItem("role", data.role)
 
         const u = localStorage.getItem("userToken");
         const i = localStorage.getItem("userID");
-        const p = localStorage.getItem("preference1");
+        const role = localStorage.getItem("role");
+
         console.log(u)
         console.log(i)
-        console.log(p)
+        console.log(role)
 
         // alert(response.data);
         alert("Successful Login");
-        this.$router.push("/");
+        if(data.role==true){
+          this.$router.push("/admin");
+        }else{
+          this.$router.push("/");
+        }
+        
       } else {
         alert(response.data);
       }
@@ -118,6 +122,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin: auto;
+  text-align: center;
   /* margin-top: 30px; */
 }
 label {

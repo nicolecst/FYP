@@ -68,7 +68,7 @@
 export default {
   name: 'NavBar',
   components: {},
-  data() {},
+  // data() {},
   methods: {},
   setup() {
     let token = localStorage.getItem("userID");
@@ -93,7 +93,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 a {
   color: #ffffdd;
 }
