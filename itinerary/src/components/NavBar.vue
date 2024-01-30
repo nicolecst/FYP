@@ -8,7 +8,8 @@
       <div class="justify-content-left">
         <ul class="nav gap-1">
           <li class="nav-item">
-            <a class="navbar-brand" href="/">E-trip</a>
+            <a v-if="user.is_Admin === false" class="navbar-brand" href="/">E-trip</a>
+            <a v-if="user.is_Admin === true" class="navbar-brand" href="/admin">E-trip</a>
           </li>
           <a class="nav-link">
             <span style="font-size: 1.5em; color: #ffffdd">
@@ -65,11 +66,24 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'NavBar',
   components: {},
-  // data() {},
+  data() {
+    return{
+      user: {},
+    }
+   
+  },
   methods: {},
+  mounted() {
+    const i = localStorage.getItem("userID");
+    console.log(i);
+    axios
+      .get("/api/users/" + i)
+      .then((response) => (this.user = response.data));
+  },
   setup() {
     let token = localStorage.getItem("userID");
 

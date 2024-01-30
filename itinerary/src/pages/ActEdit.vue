@@ -2,7 +2,7 @@
   <div>
     <NavBar />
     <h1>this is the edit activities page</h1>
-    <p>{{activity._id}}</p>
+    <p>{{ activity._id }}</p>
     <div class="container">
       <form @submit.prevent="UpdateAct(activity._id)">
         <div class="row mt-4">
@@ -27,7 +27,11 @@
 
         <div class="row mt-4">
           <label for="">Location</label>
-          <textarea type="text" class="form-control" v-model="activity.Location"></textarea>
+          <textarea
+            type="text"
+            class="form-control"
+            v-model="activity.Location"
+          ></textarea>
         </div>
 
         <div class="row mt-4">
@@ -151,10 +155,19 @@
           ></textarea>
         </div>
 
-        <div class="row mt-4">
+        <div class="row mt-4 mb-4">
           <label for="">Info</label>
           <input type="text" class="form-control" v-model="activity.Info" />
         </div>
+
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id=""
+            v-model="activity.Approved"
+          />
+          <label class="form-check-label" for="">Approved</label>
+
 
         <div class="row mt-2">
           <button class="btn btn-primary profile-button" type="submit">
@@ -194,6 +207,7 @@ export default {
         Charge: this.activity.Charge,
         Description: this.activity.Description,
         Info: this.activity.Info,
+        Approved: this.activity.Approved,
       };
       await axios
         .put("/api/activities/" + aid, updateActData)
