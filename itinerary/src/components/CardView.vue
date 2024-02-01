@@ -10,6 +10,7 @@
           <p class="card-text">Type: {{ type }}</p>
           <p class="card-text">Category: {{ category }}</p>
           <p class="card-text">Charge: {{ charge }}</p>
+          <p class="card-text">Approved: {{ approved }}</p>
           <router-link :to="'/actDetails/'+ act_ID"><button class="btn btn-primary">check</button></router-link>
         </div>
     </div>
@@ -27,7 +28,8 @@ export default{
       category: String,
       charge: String,
       act_ID: String,
-      img: String
+      img: String,
+      approved: Boolean
     }
 
 }
