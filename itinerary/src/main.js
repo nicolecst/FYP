@@ -12,6 +12,7 @@ import ActivitiesView from './pages/ActivitiesView.vue'
 import ActDetails from './pages/ActDetails.vue'
 import AdminHome from './pages/AdminHome.vue'
 import ActEdit from './pages/ActEdit.vue'
+import ProposeAct from './pages/ProposeAct.vue'
 import "./assets/style.css"
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -53,6 +54,9 @@ const routes = [{
     },{
         path: '/actEdit/:id',
         component: ActEdit
+    },{
+        path: '/propose',
+        component: ProposeAct
     }]
 
 

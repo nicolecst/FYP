@@ -8,15 +8,29 @@
       <div class="justify-content-left">
         <ul class="nav gap-1">
           <li class="nav-item">
-            <a v-if="user.is_Admin === false" class="navbar-brand" href="/">E-trip</a>
-            <a v-if="user.is_Admin === true" class="navbar-brand" href="/admin">E-trip</a>
+            <a v-if="user.is_Admin === false" class="navbar-brand" href="/"
+              >E-trip</a
+            >
+            <a v-if="user.is_Admin === true" class="navbar-brand" href="/admin"
+              >E-trip</a
+            >
           </li>
-          <a class="nav-link">
-            <span style="font-size: 1.5em; color: #ffffdd">
-              <font-awesome-icon icon="fa-solid fa-house" />
-            </span>
-            home
-          </a>
+          <li>
+            <a class="nav-link">
+              <span style="font-size: 1.5em; color: #ffffdd">
+                <font-awesome-icon icon="fa-solid fa-house" />
+              </span>
+              home
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="/propose">
+              <span style="font-size: 1.5em; color: #ffffdd">
+                <font-awesome-icon icon="fa-solid fa-lightbulb" />
+              </span>
+              Propose Activity
+            </a>
+          </li>
         </ul>
       </div>
 
@@ -25,8 +39,15 @@
           <li class="nav-item">
             <div class="search-container">
               <form action="">
-                <input type="text" placeholder="Search.." name="search" />
-                <button type="submit"><font-awesome-icon :icon="['fas', 'magnifying-glass']" /></button>
+                <input
+                  type="text"
+                  placeholder="Search.."
+                  name="search"
+                  class="form-control search"
+                />
+                <button type="submit">
+                  <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+                </button>
               </form>
             </div>
             <!-- <input
@@ -54,8 +75,8 @@
                 <font-awesome-icon
                   icon="fa-solid fa-right-from-bracket"
                 /> </span
-              >LogOut</button
-            >
+              >LogOut
+            </button>
           </li>
 
           <!-- <button @click="userProfile()" class="btn btn-sm">user</button> -->
@@ -66,15 +87,14 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
-  name: 'NavBar',
+  name: "NavBar",
   components: {},
   data() {
-    return{
+    return {
       user: {},
-    }
-   
+    };
   },
   methods: {},
   mounted() {
@@ -87,21 +107,20 @@ export default {
   setup() {
     let token = localStorage.getItem("userID");
 
-    const logOut = function(){
+    const logOut = function () {
       localStorage.removeItem("userID");
       console.log(token);
-      location.assign('/login');
-    }
+      location.assign("/login");
+    };
 
     const userProfile = async function () {
       location.assign("/userProfile");
     };
 
-
     return {
       userProfile,
       token,
-      logOut
+      logOut,
     };
   },
 };
@@ -145,7 +164,7 @@ a {
   color: #ffffdd;
 }
 
-.nav-item{
+.nav-item {
   align-content: center;
 }
 
@@ -153,5 +172,4 @@ a {
   border-radius: 6px;
   margin: 5px;
 }
-
 </style>

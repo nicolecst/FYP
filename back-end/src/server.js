@@ -43,6 +43,35 @@ async function start() {
       res.json(activity);
   });
 
+  //Add new activities
+  app.post("/api/addAct", async(req, res)=>{
+    console.log(req.body);
+
+    const actdata = {
+      Act_name: req.body.actName,
+      Location: req.body.location,
+      Area: req.body.area,
+      District: req.body.district,
+      Type: req.body.type,
+      Category: req.body.category,
+      Charge: req.body.charge,
+      Info: req.body.info,
+      Description: req.body.description,
+      Approved: false
+    };
+
+    const existAct = await db
+      .collection("Activities")
+      .findOne({ Act_name: req.body.actName });
+    if (existAct) {
+      res.send("Activity already exists, please use a different name");
+    } else {
+      const activity = await db.collection("Activities");
+      activity.insertOne(actdata);
+      res.status(201).send("Thanks for your proposal!");
+    }
+  })
+
   //Get all users
   app.get("/api/users", async (req, res) => {
     const users = await db.collection("Users").find({}).toArray();
