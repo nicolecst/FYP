@@ -188,7 +188,8 @@ export default {
         preference3: this.user.preference3,
         type: this.user.type,
         password: this.user.password,
-        confirm_password: this.user.confirm_password
+        confirm_password: this.user.confirm_password,
+        is_Admin: false
       };
 
       await axios.put("/api/users/" + uid, updateUserData).then((response) => {
