@@ -59,25 +59,26 @@
           <label for="">Confirm</label>
           <input type="text" class="form-control" placeholder="confirm.." />
         </section>
-
         <div class="row mt-2">
-          <div class="col md-6">
-            <button
-              v-if="step != 1"
-              @click.prevent="previousStep()"
-              class="btn btn-primary"
-            >
-              Back
-            </button>
-          </div>
-          <div class="col md-6">
-            <button
-              v-if="step != totalSteps"
-              @click.prevent="nextStep()"
-              class="btn btn-primary"
-            >
-              Next
-            </button>
+          <div class="buttons">
+            <div>
+              <button
+                v-if="step != 1"
+                @click.prevent="previousStep()"
+                class="btn btn-primary"
+              >
+                Back
+              </button>
+            </div>
+            <div>
+              <button
+                v-if="step != totalSteps"
+                @click.prevent="nextStep()"
+                class="btn btn-primary"
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </form>
@@ -112,5 +113,10 @@ export default {
 <style scoped>
 .container {
   width: 80%;
+}
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>
