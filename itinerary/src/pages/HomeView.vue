@@ -1,6 +1,17 @@
 <template>
   <div>
     <NavBarVue />
+    <div class="welcomeMsg">
+      <div>
+        <h1 style="display: block">Welcome {{ user.username }}!</h1>
+      </div>
+      <div>
+        <button class="btn create-btn" @click="create()"><span style="font-size: 1.5em">
+            <font-awesome-icon icon="fa-solid fa-calendar-plus" />
+            </span>Create Itinerary</button>
+      </div>
+    </div>
+
     <div class="row" style="padding: 20px 20px 0px 20px">
       <div class="col-md-6">
         <h3>All activities</h3>
@@ -21,10 +32,10 @@
         :category="activity.Category"
         :charge="activity.Charge"
         :act_ID="activity._id"
-        :img='activity.Image'
+        :img="activity.Image"
       />
     </div>
-    <h3>{{user.preference1}}</h3>
+    <h3>{{ user.preference1 }}</h3>
     <div class="scrolls">
       <CardViewVue
         v-for="activity in actCat(user.preference1)"
@@ -38,7 +49,7 @@
         :act_ID="activity._id"
       />
     </div>
-    <h3>{{user.preference2}}</h3>
+    <h3>{{ user.preference2 }}</h3>
     <div class="scrolls">
       <CardViewVue
         v-for="activity in actCat(user.preference2)"
@@ -52,7 +63,7 @@
         :act_ID="activity._id"
       />
     </div>
-    <h3>{{user.preference3}}</h3>
+    <h3>{{ user.preference3 }}</h3>
     <div class="scrolls">
       <CardViewVue
         v-for="activity in actCat(user.preference3)"
@@ -83,7 +94,7 @@ export default {
   data() {
     return {
       activities: [],
-      user: {}
+      user: {},
     };
   },
   methods: {
@@ -93,6 +104,9 @@ export default {
     approved() {
       return this.activities.filter((a) => a.Approved === true);
     },
+    create(){
+      this.$router.push('/create')
+    }
   },
   async created() {
     const response = await axios
@@ -115,14 +129,29 @@ export default {
 </script>
 
 <style scoped>
+a {
+  color: #016a70;
+}
 .scrolls {
   display: flex;
   flex-wrap: no-wrap;
   overflow-x: auto;
   margin: 20px;
 }
+.welcomeMsg {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
+}
 
-a {
+.create-btn{
+  border-color: #016a70;
   color: #016a70;
+}
+.create-btn:hover{
+  border-color: #016a70;
+  background-color: #016a70;
+  color: #ffffdd;
 }
 </style>

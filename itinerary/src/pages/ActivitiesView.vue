@@ -48,7 +48,7 @@
         return this.activities.filter((a) => a.Category === cat);
       },
       approved() {
-        return this.activities.filter((a) => a.Approved === "true");
+        return this.activities.filter((a) => a.Approved === true);
       },
     },
     async created() {
