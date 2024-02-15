@@ -11,47 +11,80 @@
             <input
               type="text"
               class="form-control"
-              placeholder="give a name for you plan.."
+              placeholder="give a name for your plan.."
+              v-model="iname"
             />
           </div>
           <div class="row mt-2">
             <div class="col md-6">
               <label for="">Type</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="select a type for you plan.."
-              />
+              <select name="" id="" class="form-control" v-model="itype">
+                <option>Choose the trip type..</option>
+                <option>Solo</option>
+                <option>Couple</option>
+                <option>Friends</option>
+                <option>Family</option>
+              </select>
             </div>
             <div class="col md-6">
               <label for="">Number of participants</label>
-              <input type="text" class="form-control" placeholder="how many?" />
+              <input
+                type="range"
+                min="1"
+                max="10"
+                step="1"
+                v-model="participants"
+                class="slider mt-2"
+                placeholder="how many?"
+              />
+              <div>Participants: {{ participants }}</div>
             </div>
           </div>
           <div class="row mt-2">
             <div class="col md-6">
               <label for="">From</label>
               <input
-                type="text"
+                data-format="dd/mm/yyyy"
+                type="date"
                 class="form-control"
                 placeholder="start date"
+                v-model="start"
               />
             </div>
             <div class="col md-6">
               <label for="">To</label>
-              <input type="text" class="form-control" placeholder="end date" />
+              <input
+                data-format="dd/mm/yyyy"
+                type="date"
+                class="form-control"
+                placeholder="end date"
+                v-model="end"
+              />
             </div>
           </div>
         </section>
 
         <section v-if="step == 2">
-          <h1>Step 2</h1>
-          <label for="">Duration</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="how many days.."
-          />
+          <div class="addButton">
+            <div>
+              <h1>Step 2</h1>
+            </div>
+            <div>
+              <button class="btn create-btn" @click.prevent="()=> togglePopup('buttonTrigger')">
+                <span style="font-size: 1.5em; margin-right:5px;">
+                  <font-awesome-icon icon="fa-solid fa-calendar-plus" /> </span
+                >Add activities
+              </button>
+            </div>
+          </div>
+
+          <p>{{ dateDiff }}</p>
+
+          <div class="scrolls">
+            <PlanCard v-for="n in dateDiff" :key="n" :n="n" />
+          </div>
+
+          <PopupForm v-if="popupTriggers.buttonTrigger" :togglePopup="()=>togglePopup('buttonTrigger')" :n="dateDiff"/>
         </section>
 
         <section v-if="step == 3">
@@ -88,16 +121,24 @@
 
 <script>
 import NavBar from "@/components/NavBar.vue";
+import PlanCard from "@/components/PlanCard.vue";
+import PopupForm from "@/components/PopupForm.vue";
+import {ref} from 'vue';
 // import 'vue-datepicker/index.css';
 export default {
   name: "CreateItinerary",
   components: {
     NavBar,
+    PlanCard,
+    PopupForm,
   },
   data() {
     return {
       step: 1,
       totalSteps: 3,
+      participants: 1,
+      end: this.end,
+      start: this.start,
     };
   },
   methods: {
@@ -108,6 +149,27 @@ export default {
       this.step--;
     },
   },
+  computed: {
+    dateDiff() {
+      let day = new Date(this.end).getTime() - new Date(this.start).getTime();
+      let diff = Math.floor(day / 86400000) + 1;
+      return diff;
+    },
+  },
+  setup(){
+    const popupTriggers = ref({
+        buttonTrigger: false,
+    })
+
+    const togglePopup = (trigger)=>{
+        popupTriggers.value[trigger] = !popupTriggers.value[trigger];
+    }
+
+    return{
+        popupTriggers,
+        togglePopup
+    }
+  }
 };
 </script>
 <style scoped>
@@ -118,5 +180,34 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.slider {
+  display: block;
+  width: 100%;
+  color: #016a70;
+}
+
+.scrolls {
+  display: flex;
+  flex-wrap: no-wrap;
+  overflow-x: auto;
+  margin: 20px;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
+}
+.create-btn{
+  border-color: #016a70;
+  color: #016a70;
+}
+.create-btn:hover{
+  border-color: #016a70;
+  background-color: #016a70;
+  color: #ffffdd;
 }
 </style>

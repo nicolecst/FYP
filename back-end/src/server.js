@@ -96,6 +96,25 @@ async function start() {
       res.json(user);
   });
 
+  //Create Itinerary
+  app.post("/api/create", async (req, res)=>{
+
+    console.log(req.body);
+
+    const itinData = {
+      name: req.body.iname,
+      type: req.body.itype,
+      participants: req.body.participants,
+      from: req.body.start,
+      to: req.body.end,
+    }
+
+      const plan = await db.collection("Plans");
+      plan.insertOne(itinData);
+      res.status(201).send("Created!");
+    
+  })
+
   //Login Page
   app.post("/api/login", async (req, res) => {
     let user = req.body;
