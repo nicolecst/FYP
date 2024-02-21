@@ -38,6 +38,7 @@ export default{
 <style scoped>
 .card{
   margin: 10px;
+  height: auto;
 }
 .btn{
   background-color: #016a70;

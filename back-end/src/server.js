@@ -105,8 +105,15 @@ async function start() {
       name: req.body.iname,
       type: req.body.itype,
       participants: req.body.participants,
-      from: req.body.start,
-      to: req.body.end,
+      from:  req.body.from,
+      to:  req.body.to
+      // day: {
+      // index: req.body.day,
+      // activity: req.body.activity,
+      // start: req.body.start,
+      // end: req.body.end,
+      // memo: req.body.memo,
+      // } 
     }
 
       const plan = await db.collection("Plans");
@@ -114,6 +121,21 @@ async function start() {
       res.status(201).send("Created!");
     
   })
+
+  // GroupBy
+// router.get('/api/plans/aggregate/groupby', async function (req, res) {
+
+//   const pipeline = [
+//     { $match: { day: { $ne: null }}},
+//     // { $group: { _id: "$superhero", count: { $sum: 1 } } },
+//     { days: {$push: {activity: {$activity}}}}
+//   ];
+
+//   const results = await db.collection("Plans").aggregate(pipeline).toArray();
+
+//   return res.json(results);
+
+// });
 
   //Login Page
   app.post("/api/login", async (req, res) => {

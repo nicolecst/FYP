@@ -6,44 +6,61 @@
           <h1>Add activities</h1>
         </div>
         <div>
-          <button class="btn close"  @click.prevent="togglePopup()">
-            <span style="font-size: 1.5rem"><font-awesome-icon icon="fa-solid fa-circle-xmark" /></span>
+          <button class="btn close" @click.prevent="togglePopup()">
+            <span style="font-size: 1.5rem"
+              ><font-awesome-icon icon="fa-solid fa-circle-xmark"
+            /></span>
           </button>
         </div>
       </div>
 
       <form action="">
-        <label for="">Activity {{ n }}</label>
-        <input type="text" name="" id="" class="form-control" />
-        <select name="" id="">
-            <option></option>
-        </select>
+        <div class="row mt-2">
+          <label for="">Activity</label>
+          <input type="text" name="" id="" class="form-control" v-model="activity" />
+          <!-- <button>Browse</button> -->
+        </div>
 
-        <label for="">Day</label>
-        <input type="text" name="" id="" class="form-control" />
+        <div class="row mt-2">
+          <label for="">Day</label>
+          <select name="" id="" class="form-control">
+            <option v-for="i in n" :key="i">{{ i }}</option>
+          </select>
+        </div>
 
-        <label for="">Start</label>
-        <input type="text" name="" id="" class="form-control" />
+        <div class="row mt-2">
+          <div class="col md-6">
+            <label for="">Start</label>
+            <input type="time" name="" id="" class="form-control" />
+          </div>
+          <div class="col md-6">
+            <label for="">End</label>
+            <input type="time" name="" id="" class="form-control" />
+          </div>
+        </div>
 
-        <label for="">End</label>
-        <input type="text" name="" id="" class="form-control" />
+        <div class="row mt-2">
+          <label for="">Memo</label>
+          <textarea type="text" name="" id="" class="form-control"></textarea>
+        </div>
 
-        <label for="">Memo</label>
-        <input type="text" name="" id="" class="form-control" />
-
-
+        <div class="row mt-2">
+          <button class="btn btn-primary">Add</button>
+        </div>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+// import PopupAct from '@/components/PopupAct.vue';
+
 export default {
   name: "PopupForm",
-  props: ['togglePopup'],
-  props:{
-    n: Number
-  }
+  props: ["togglePopup", "n"],
+  //   component:{
+  //     PopupAct
+  //   }
 };
 </script>
 

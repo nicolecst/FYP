@@ -12,13 +12,12 @@
             alt="male-user-icon"
           />
           <div class="row mt-2">
-              <p style="color:gray">UserID: {{ user._id }}</p>
-            </div>
+            <p style="color: gray">UserID: {{ user._id }}</p>
+          </div>
         </div>
 
         <div class="col-md-5">
           <div class="right">
-
             <div class="update-form">
               <form @submit.prevent="UpdateUser(user._id)">
                 <div class="row mt-2">
@@ -50,14 +49,16 @@
                     </select>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="">Age</label
-                    >
+                    <label for="">Age</label>
                     <input
-                      type="text"
-                      class="form-control"
+                      type="range"
+                      class="slider mt-2"
                       v-model="user.age"
+                      min="1"
+                      max="100"
+                      step="1"
                     />
-                    
+                    <div>{{ user.age }}</div>
                   </div>
                 </div>
 
@@ -153,8 +154,8 @@
 
                 <div class="row mt-2">
                   <button class="btn btn-primary profile-button" type="submit">
-                  Update!
-                </button>
+                    Update!
+                  </button>
                 </div>
               </form>
             </div>
@@ -189,7 +190,7 @@ export default {
         type: this.user.type,
         password: this.user.password,
         confirm_password: this.user.confirm_password,
-        is_Admin: false
+        is_Admin: false,
       };
 
       await axios.put("/api/users/" + uid, updateUserData).then((response) => {

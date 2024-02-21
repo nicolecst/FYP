@@ -3,7 +3,7 @@
     <NavBar />
     <h1>Create itinerary</h1>
     <div class="container">
-      <form action="">
+      <form @submit.prevent="create()">
         <section v-if="step == 1">
           <h1>Step 1</h1>
           <div class="row mt-2">
@@ -29,22 +29,18 @@
             <div class="col md-6">
               <label for="">Number of participants</label>
               <input
-                type="range"
-                min="1"
-                max="10"
-                step="1"
+                type="number"
                 v-model="participants"
-                class="slider mt-2"
                 placeholder="how many?"
+                class="form-control"
               />
-              <div>Participants: {{ participants }}</div>
             </div>
           </div>
           <div class="row mt-2">
             <div class="col md-6">
               <label for="">From</label>
               <input
-                data-format="dd/mm/yyyy"
+                data-format="yyyy/mm/dd"
                 type="date"
                 class="form-control"
                 placeholder="start date"
@@ -54,7 +50,7 @@
             <div class="col md-6">
               <label for="">To</label>
               <input
-                data-format="dd/mm/yyyy"
+                data-format="yyyy/mm/dd"
                 type="date"
                 class="form-control"
                 placeholder="end date"
@@ -70,8 +66,11 @@
               <h1>Step 2</h1>
             </div>
             <div>
-              <button class="btn create-btn" @click.prevent="()=> togglePopup('buttonTrigger')">
-                <span style="font-size: 1.5em; margin-right:5px;">
+              <button
+                class="btn create-btn"
+                @click.prevent="() => togglePopup('buttonTrigger')"
+              >
+                <span style="font-size: 1.5em; margin-right: 5px">
                   <font-awesome-icon icon="fa-solid fa-calendar-plus" /> </span
                 >Add activities
               </button>
@@ -81,10 +80,20 @@
           <p>{{ dateDiff }}</p>
 
           <div class="scrolls">
-            <PlanCard v-for="n in dateDiff" :key="n" :n="n" />
+            <PlanCard
+              v-for="(n,i) in dateDiff"
+              :key="n"
+              :n="n"
+              :start="addDays(start, i)"
+              :daysOfWeek="weekdays(start, i)"
+            />
           </div>
 
-          <PopupForm v-if="popupTriggers.buttonTrigger" :togglePopup="()=>togglePopup('buttonTrigger')" :n="dateDiff"/>
+          <PopupForm
+            v-if="popupTriggers.buttonTrigger"
+            :togglePopup="() => togglePopup('buttonTrigger')"
+            :n="dateDiff"
+          />
         </section>
 
         <section v-if="step == 3">
@@ -111,6 +120,13 @@
               >
                 Next
               </button>
+              <button
+                v-if="step == totalSteps"
+                class="btn btn-primary"
+                type="submit"
+              >
+                Create
+              </button>
             </div>
           </div>
         </div>
@@ -123,7 +139,8 @@
 import NavBar from "@/components/NavBar.vue";
 import PlanCard from "@/components/PlanCard.vue";
 import PopupForm from "@/components/PopupForm.vue";
-import {ref} from 'vue';
+import { ref } from "vue";
+import axios from "axios";
 // import 'vue-datepicker/index.css';
 export default {
   name: "CreateItinerary",
@@ -139,6 +156,7 @@ export default {
       participants: 1,
       end: this.end,
       start: this.start,
+      days: [],
     };
   },
   methods: {
@@ -148,6 +166,33 @@ export default {
     previousStep() {
       this.step--;
     },
+    addDays(date, days) {
+      // Function to add Days
+      var result = new Date(date);
+      result.setDate(result.getDate() + days);
+      return result.toLocaleString();
+    },
+    weekdays(date, days){
+        var result = new Date(date);
+      result.setDate(result.getDate() + days);
+      return result.toLocaleString('en-US',{weekday: 'long'});
+    },
+    async create() {
+      const response = await axios.post("/api/create", {
+        iname: this.iname,
+        itype: this.itype,
+        participants: this.participants,
+        from: this.start,
+        to: this.end,
+      });
+
+      console.log(response);
+      if (response.status == 201) {
+        alert(response.data);
+      } else {
+        alert(response.data);
+      }
+    },
   },
   computed: {
     dateDiff() {
@@ -156,20 +201,20 @@ export default {
       return diff;
     },
   },
-  setup(){
+  setup() {
     const popupTriggers = ref({
-        buttonTrigger: false,
-    })
+      buttonTrigger: false,
+    });
 
-    const togglePopup = (trigger)=>{
-        popupTriggers.value[trigger] = !popupTriggers.value[trigger];
-    }
+    const togglePopup = (trigger) => {
+      popupTriggers.value[trigger] = !popupTriggers.value[trigger];
+    };
 
-    return{
-        popupTriggers,
-        togglePopup
-    }
-  }
+    return {
+      popupTriggers,
+      togglePopup,
+    };
+  },
 };
 </script>
 <style scoped>
@@ -201,11 +246,11 @@ export default {
   justify-content: space-between;
   margin: 10px;
 }
-.create-btn{
+.create-btn {
   border-color: #016a70;
   color: #016a70;
 }
-.create-btn:hover{
+.create-btn:hover {
   border-color: #016a70;
   background-color: #016a70;
   color: #ffffdd;
