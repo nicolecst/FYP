@@ -2,13 +2,35 @@
   <div>
     <NavBarVue />
     <div class="welcomeMsg">
-      <div>
+      <!-- <div>
         <h1 style="display: block">Welcome {{ user.username }}!</h1>
-      </div>
+      </div> -->
       <div>
-        <button class="btn create-btn" @click="create()"><span style="font-size: 1.5em">
-            <font-awesome-icon icon="fa-solid fa-calendar-plus" />
-            </span>Create Itinerary</button>
+        <button class="btn create-btn" @click="create()">
+          <span style="font-size: 1.5em">
+            <font-awesome-icon icon="fa-solid fa-calendar-plus" /> </span
+          >Create Itinerary
+        </button>
+      </div>
+    </div>
+
+    <div class="search-container">
+      <div class="search-inner-container">
+        <div class="row mt-2 justify-content-center align-items-center">
+          <div class="col-md-6">
+            <h1>Welcome {{ user.username }}!</h1>
+            <form class="d-flex align-items-center flex-nowrap search-form">
+              <input
+                type="text"
+                class="form-control form-input"
+                placeholder="search.."
+              />
+              <button class="btn btn-outline-success">
+                <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -104,9 +126,9 @@ export default {
     approved() {
       return this.activities.filter((a) => a.Approved === true);
     },
-    create(){
-      this.$router.push('/create')
-    }
+    create() {
+      this.$router.push("/create");
+    },
   },
   async created() {
     const response = await axios
@@ -145,13 +167,32 @@ a {
   margin: 10px;
 }
 
-.create-btn{
-  border-color: #016a70;
-  color: #016a70;
+.search-container {
+  background-image: url("@/assets/Images/hong-kong-mountain-top-view.jpg");
+  background-position: center center;
+  background-size: cover;
+  padding: 200px;
+  justify-content: center;
+  align-items: center;
 }
-.create-btn:hover{
-  border-color: #016a70;
-  background-color: #016a70;
+
+.search-container::before{
+  background-color: rgba(0,0,0,0.25);
+}
+
+.search-inner-container{
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.create-btn {
+  border-color: #6D9773;
+  color: #6D9773;
+}
+.create-btn:hover {
+  border-color: #6D9773;
+  background-color: #6D9773;
   color: #ffffdd;
 }
 </style>

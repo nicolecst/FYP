@@ -41,13 +41,13 @@ export default{
   height: auto;
 }
 .btn{
-  background-color: #016a70;
+  background-color: #6D9773;
   color: #ffffdd;
-  border-color: #016a70;
+  border-color: #6D9773;
 }
 .btn:hover{
   background-color: #ffffdd;
-  color: #016a70;
-  border-color: #016a70;
+  color: #6D9773;
+  border-color: #6D9773;
 }
 </style>

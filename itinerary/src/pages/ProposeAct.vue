@@ -1,7 +1,6 @@
 <template>
   <div class="bg">
     <NavBarVue />
-    <h1>This is the propose activity form</h1>
     <div class="proposeForm">
       <form @submit.prevent="propose()">
         <div class="row mt-4">
@@ -162,7 +161,7 @@
         </div>
 
         <div class="row mt-4">
-          <button type="submit" class="btn btn-primary">Propose!</button>
+          <button type="submit" class="btn">Propose!</button>
         </div>
       </form>
     </div>
@@ -218,12 +217,25 @@ export default {
 <style scoped>
 .bg {
   align-items: center;
-  background-color: aquamarine;
+  background-image: url("@/assets/Images/green-bg.jpg");
 }
+
+.btn {
+  border-color: #016a70;
+  color: #016a70;
+}
+.btn:hover {
+  border-color: #016a70;
+  background-color: #016a70;
+  color: #ffffdd;
+}
+
 .proposeForm {
   width: 70%;
   background-color: white;
   margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
   padding: 20px;
   border-radius: 20px;
   border-style: solid;

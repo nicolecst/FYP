@@ -40,6 +40,7 @@
             <div class="col md-6">
               <label for="">From</label>
               <input
+              required
                 data-format="yyyy/mm/dd"
                 type="date"
                 class="form-control"
@@ -50,11 +51,13 @@
             <div class="col md-6">
               <label for="">To</label>
               <input
+              required
                 data-format="yyyy/mm/dd"
                 type="date"
                 class="form-control"
                 placeholder="end date"
                 v-model="end"
+                :min= start
               />
             </div>
           </div>
@@ -157,6 +160,7 @@ export default {
       end: this.end,
       start: this.start,
       days: [],
+      SD: '',
     };
   },
   methods: {

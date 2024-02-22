@@ -4,20 +4,21 @@
       <a class="navbar-brand" href="#">Navbar</a>
       <a href="">home</a>
     </nav> -->
-    <nav class="navbar nb navbar-light">
+    <nav class="navbar nb navbar-light align-items-center">
       <div class="justify-content-left">
         <ul class="nav gap-1">
           <li class="nav-item">
-            <a v-if="user.is_Admin === false" class="navbar-brand" href="/"
+            <img src="@/assets/Images/icon2.png" alt="" class="icon">
+            <!-- <a v-if="user.is_Admin === false" class="navbar-brand" href="/"
               >E-trip</a
             >
             <a v-if="user.is_Admin === true" class="navbar-brand" href="/admin"
               >E-trip</a
-            >
+            > -->
           </li>
           <li>
             <a class="nav-link">
-              <span style="font-size: 1.5em; color: #ffffdd">
+              <span style="font-size: 1.5em; color: #ffffff">
                 <font-awesome-icon icon="fa-solid fa-house" />
               </span>
               home
@@ -25,7 +26,7 @@
           </li>
           <li>
             <a class="nav-link" href="/propose">
-              <span style="font-size: 1.5em; color: #ffffdd">
+              <span style="font-size: 1.5em; color: #ffffff">
                 <font-awesome-icon icon="fa-solid fa-lightbulb" />
               </span>
               Propose Activity
@@ -36,42 +37,15 @@
 
       <div class="justify-content-right">
         <ul class="nav gap-1">
-          <li class="nav-item">
-            <div class="search-container">
-              <form action="">
-                <input
-                  type="text"
-                  placeholder="Search.."
-                  name="search"
-                  class="form-control search"
-                />
-                <button type="submit">
-                  <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
-                </button>
-              </form>
-            </div>
-            <!-- <input
-              class="form-horizontal mr-sm-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button
-              class="btn btn-outline-success btn-sm my-2 my-sm-0"
-              type="submit"
-            >
-              Search
-            </button> -->
-          </li>
           <li>
             <a class="nav-link" href="/userProfile">
-              <span style="font-size: 1.5em; color: #ffffdd">
+              <span style="font-size: 1.5em; color: #ffffff">
                 <font-awesome-icon icon="fa-solid fa-circle-user" /> </span
             ></a>
           </li>
           <li>
             <button class="nav-link" @click="logOut()">
-              <span style="font-size: 1.5em; color: #ffffdd">
+              <span style="font-size: 1.5em; color: #ffffff">
                 <font-awesome-icon
                   icon="fa-solid fa-right-from-bracket"
                 /> </span
@@ -132,20 +106,20 @@ a {
 }
 
 .btn {
-  color: #ffffdd;
+  color: #ffffff;
   border-color: #ffffdd;
   height: 2.5em;
   /* margin: 5px; */
 }
 .btn:hover {
-  background-color: #ffffdd;
+  background-color: #ffffff;
   color: #016a70;
   height: 2.5em;
 }
 
 .nb {
-  background-color: #016a70;
-  color: #ffffdd;
+  background-color: #0C3B2E;
+  color: #ffffff;
   /* display: flex; */
   /* align-items: center; */
 }
@@ -156,12 +130,14 @@ a {
 
 .navbar-brand {
   font-family: AchivoBlack;
-  color: #ffffdd;
+  color: #ffffff;
   font-size: 2em;
 }
 
 .nav-link {
-  color: #ffffdd;
+  color: #ffffff;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .nav-item {
@@ -171,5 +147,9 @@ a {
 .form-horizontal {
   border-radius: 6px;
   margin: 5px;
+}
+.icon{
+  width: 70px;
+  height: 70px;
 }
 </style>

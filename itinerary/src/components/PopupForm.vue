@@ -18,12 +18,13 @@
         <div class="row mt-2">
           <label for="">Activity</label>
           <input type="text" name="" id="" class="form-control" v-model="activity" />
+          <p>{{ activity }}</p>
           <!-- <button>Browse</button> -->
         </div>
 
         <div class="row mt-2">
           <label for="">Day</label>
-          <select name="" id="" class="form-control">
+          <select name="" id="" class="form-control" v-model="day">
             <option v-for="i in n" :key="i">{{ i }}</option>
           </select>
         </div>
@@ -31,22 +32,23 @@
         <div class="row mt-2">
           <div class="col md-6">
             <label for="">Start</label>
-            <input type="time" name="" id="" class="form-control" />
+            <input type="time" name="" id="" class="form-control" v-model="sTime"/>
           </div>
           <div class="col md-6">
             <label for="">End</label>
-            <input type="time" name="" id="" class="form-control" />
+            <input type="time" name="" id="" class="form-control" v-model="eTime"/>
           </div>
         </div>
 
         <div class="row mt-2">
           <label for="">Memo</label>
-          <textarea type="text" name="" id="" class="form-control"></textarea>
+          <textarea type="text" name="" id="" class="form-control" v-model="memo"></textarea>
         </div>
 
         <div class="row mt-2">
           <button class="btn btn-primary">Add</button>
         </div>
+        <p>{{ msg }}</p>
       </form>
     </div>
   </div>
@@ -57,7 +59,9 @@
 
 export default {
   name: "PopupForm",
-  props: ["togglePopup", "n"],
+  props: ["togglePopup", "n", "msg"],
+  methods:{
+  }
   //   component:{
   //     PopupAct
   //   }
