@@ -8,13 +8,13 @@
       <div class="justify-content-left">
         <ul class="nav gap-1">
           <li class="nav-item">
-            <img src="@/assets/Images/icon2.png" alt="" class="icon">
-            <!-- <a v-if="user.is_Admin === false" class="navbar-brand" href="/"
-              >E-trip</a
+            <!-- <img src="@/assets/Images/icon2.png" alt="" class="icon"> -->
+            <a v-if="user.is_Admin === false" class="navbar-brand" href="/"
+              ><img src="@/assets/Images/icon2.png" alt="" class="icon"></a
             >
             <a v-if="user.is_Admin === true" class="navbar-brand" href="/admin"
-              >E-trip</a
-            > -->
+              ><img src="@/assets/Images/icon2.png" alt="" class="icon"></a
+            >
           </li>
           <li>
             <a class="nav-link">
