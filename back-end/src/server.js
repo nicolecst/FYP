@@ -106,7 +106,9 @@ async function start() {
       type: req.body.itype,
       participants: req.body.participants,
       from:  req.body.from,
-      to:  req.body.to
+      to:  req.body.to,
+      dailyItin: req.body.dailyItin,
+      is_public: req.body.is_public
       // day: {
       // index: req.body.day,
       // activity: req.body.activity,

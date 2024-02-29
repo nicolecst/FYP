@@ -96,11 +96,33 @@
             v-if="popupTriggers.buttonTrigger"
             :togglePopup="() => togglePopup('buttonTrigger')"
             :n="dateDiff"
+            v-model:act="act"
+            v-model:day="day"
+            v-model:sTime="sTime"
+            v-model:eTime="eTime"
+            v-model:memo="memo"
+            @clicked="clicked"
           />
         </section>
 
         <section v-if="step == 3">
-          <h1>Step 3</h1>
+          <h3>Step 3</h3>
+          <div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  v-model="is_public"
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Public
+                </label>
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                  (Check the box if you want your plan to be seen by everyone.)
+                </small>
+              </div>
+            </div>
           <label for="">Confirm</label>
           <input type="text" class="form-control" placeholder="confirm.." />
         </section>
@@ -117,7 +139,7 @@
             </div>
             <div>
               <button
-                v-if="step != totalSteps"
+                v-if="step != totalSteps && start!=null && end!=null"
                 @click.prevent="nextStep()"
                 class="btn btn-primary"
               >
@@ -160,10 +182,25 @@ export default {
       end: this.end,
       start: this.start,
       days: [],
-      SD: '',
     };
   },
   methods: {
+    clicked() {
+      var dailyAct = {
+        itin:{
+          act_name: this.act,
+          day: this.day,
+          start: this.sTime,
+          end: this.eTime,
+          memo: this.memo
+        }};
+
+        this.dailyItin.length = this.dateDiff -1;
+        this.dailyItin.splice(1,0,dailyAct);
+        console.log(dailyAct);
+        console.log(this.dailyItin.length)
+      
+    },
     nextStep() {
       this.step++;
     },
@@ -188,6 +225,8 @@ export default {
         participants: this.participants,
         from: this.start,
         to: this.end,
+        dailyItin: this.dailyItin,
+        is_public: this.is_public
       });
 
       console.log(response);
@@ -206,6 +245,15 @@ export default {
     },
   },
   setup() {
+
+    const act = ref("");
+    const day = ref();
+    const sTime = ref();
+    const eTime = ref();
+    const memo = ref("");
+    const is_public = ref(true);
+    let dailyItin = [];
+
     const popupTriggers = ref({
       buttonTrigger: false,
     });
@@ -217,6 +265,13 @@ export default {
     return {
       popupTriggers,
       togglePopup,
+      act,
+      day,
+      sTime,
+      eTime,
+      memo,
+      is_public,
+      dailyItin
     };
   },
 };
