@@ -1,7 +1,6 @@
 <template>
   <div>
     <NavBar />
-    <h1>Create itinerary</h1>
     <div class="container">
       <form @submit.prevent="create()">
         <section v-if="step == 1">
@@ -40,7 +39,7 @@
             <div class="col md-6">
               <label for="">From</label>
               <input
-              required
+                required
                 data-format="yyyy/mm/dd"
                 type="date"
                 class="form-control"
@@ -51,13 +50,13 @@
             <div class="col md-6">
               <label for="">To</label>
               <input
-              required
+                required
                 data-format="yyyy/mm/dd"
                 type="date"
                 class="form-control"
                 placeholder="end date"
                 v-model="end"
-                :min= start
+                :min="start"
               />
             </div>
           </div>
@@ -84,7 +83,7 @@
 
           <div class="scrolls">
             <PlanCard
-              v-for="(n,i) in dateDiff"
+              v-for="(n, i) in dateDiff"
               :key="n"
               :n="n"
               :start="addDays(start, i)"
@@ -96,11 +95,33 @@
             v-if="popupTriggers.buttonTrigger"
             :togglePopup="() => togglePopup('buttonTrigger')"
             :n="dateDiff"
+            v-model:act="act"
+            v-model:day="day"
+            v-model:sTime="sTime"
+            v-model:eTime="eTime"
+            v-model:memo="memo"
+            @clicked="clicked"
           />
         </section>
 
         <section v-if="step == 3">
-          <h1>Step 3</h1>
+          <h3>Step 3</h3>
+          <div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  v-model="is_public"
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Public
+                </label>
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                  (Check the box if you want your plan to be seen by everyone.)
+                </small>
+              </div>
+            </div>
           <label for="">Confirm</label>
           <input type="text" class="form-control" placeholder="confirm.." />
         </section>
@@ -117,7 +138,7 @@
             </div>
             <div>
               <button
-                v-if="step != totalSteps"
+                v-if="step != totalSteps && start != null && end != null"
                 @click.prevent="nextStep()"
                 class="btn btn-primary"
               >
@@ -160,10 +181,13 @@ export default {
       end: this.end,
       start: this.start,
       days: [],
-      SD: '',
     };
   },
   methods: {
+    clicked() {
+      var dailyAct = [this.act, this.day, this.sTime, this.eTime, this.memo];
+      console.log(dailyAct);
+    },
     nextStep() {
       this.step++;
     },
@@ -176,10 +200,10 @@ export default {
       result.setDate(result.getDate() + days);
       return result.toLocaleString();
     },
-    weekdays(date, days){
-        var result = new Date(date);
+    weekdays(date, days) {
+      var result = new Date(date);
       result.setDate(result.getDate() + days);
-      return result.toLocaleString('en-US',{weekday: 'long'});
+      return result.toLocaleString("en-US", { weekday: "long" });
     },
     async create() {
       const response = await axios.post("/api/create", {
@@ -188,6 +212,12 @@ export default {
         participants: this.participants,
         from: this.start,
         to: this.end,
+        actName: this.act,
+        day: this.day,
+        startTime: this.sTime,
+        endTime: this.eTime,
+        memo: this.memo,
+        is_public: this.is_public
       });
 
       console.log(response);
@@ -206,6 +236,13 @@ export default {
     },
   },
   setup() {
+    const act = ref("");
+    const day = ref();
+    const sTime = ref();
+    const eTime = ref();
+    const memo = ref("");
+    const is_public = ref(true);
+
     const popupTriggers = ref({
       buttonTrigger: false,
     });
@@ -217,6 +254,12 @@ export default {
     return {
       popupTriggers,
       togglePopup,
+      act,
+      day,
+      sTime,
+      eTime,
+      memo,
+      is_public
     };
   },
 };
@@ -224,6 +267,7 @@ export default {
 <style scoped>
 .container {
   width: 80%;
+  margin-top: 50px;
 }
 .buttons {
   display: flex;

@@ -96,17 +96,25 @@
             </select>
           </div>
         </div>
+        <div class="row mt-4">
+          <div class="col md-1">
+            <input type="checkbox" id="solo" value="Solo" v-model="checkedTypes" />
+  <label for="solo">Solo</label>
+          </div>
+          <div class="col md-1">  <input type="checkbox" id="couple" value="Couple" v-model="checkedTypes" />
+  <label for="couple">Couple</label></div>
+          <div class="col md-1">
+              <input type="checkbox" id="friends" value="Friends" v-model="checkedTypes" />
+  <label for="friends">Friends</label>
+          </div>
+          <div class="col md-1">
+            <input type="checkbox" id="family" value="Family" v-model="checkedTypes" />
+  <label for="family">Family</label>
+          </div>
+
+        </div>
 
         <div class="row mt-4">
-          <div class="col md-4">
-            <label for="">Type</label>
-            <select name="" id="" class="form-control" v-model="type">
-              <option>Solo</option>
-              <option>Couple</option>
-              <option>Friends</option>
-              <option>Family</option>
-            </select>
-          </div>
           <div class="col md-4">
             <label for="">Category</label>
             <select name="" id="" class="form-control" v-model="category">
@@ -171,6 +179,7 @@
 <script>
 import axios from "axios";
 import NavBarVue from "../components/NavBar.vue";
+import { ref } from "vue";
 export default {
   name: "ProposeAct",
   components: {
@@ -182,7 +191,6 @@ export default {
       location: "",
       area: "",
       district: "",
-      type: "",
       category: "",
       charge: "",
       info: "",
@@ -196,11 +204,11 @@ export default {
         location: this.location,
         area: this.area,
         district: this.district,
-        type: this.type,
         category: this.category,
         charge: this.charge,
         info: this.info,
         description: this.description,
+        checkedTypes: this.checkedTypes
       });
 
       console.log(response);
@@ -211,6 +219,13 @@ export default {
       }
     },
   },
+  setup(){
+    const checkedTypes = ref([])
+
+    return{
+      checkedTypes
+    }
+  }
 };
 </script>
 
