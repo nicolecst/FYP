@@ -40,11 +40,11 @@ async function start() {
     const activity = await db
       .collection("Activities")
       .findOneAndReplace({ _id: new ObjectId(req.params.id) }, req.body);
-    res.json(activity);
+      res.json(activity);
   });
 
   //Add new activities
-  app.post("/api/addAct", async (req, res) => {
+  app.post("/api/addAct", async(req, res)=>{
     console.log(req.body);
 
     const actdata = {
@@ -52,12 +52,12 @@ async function start() {
       Location: req.body.location,
       Area: req.body.area,
       District: req.body.district,
-      Types: req.body.checkedTypes,
+      Type: req.body.type,
       Category: req.body.category,
       Charge: req.body.charge,
       Info: req.body.info,
       Description: req.body.description,
-      Approved: false,
+      Approved: false
     };
 
     const existAct = await db
@@ -70,7 +70,7 @@ async function start() {
       activity.insertOne(actdata);
       res.status(201).send("Thanks for your proposal!");
     }
-  });
+  })
 
   //Get all users
   app.get("/api/users", async (req, res) => {
@@ -93,47 +93,49 @@ async function start() {
     const user = await db
       .collection("Users")
       .findOneAndReplace({ _id: new ObjectId(req.params.id) }, req.body);
-    res.json(user);
+      res.json(user);
   });
 
   //Create Itinerary
-  app.post("/api/create", async (req, res) => {
+  app.post("/api/create", async (req, res)=>{
+
     console.log(req.body);
 
     const itinData = {
       name: req.body.iname,
       type: req.body.itype,
       participants: req.body.participants,
-      from: req.body.from,
-      to: req.body.to,
-      days:
-      {actName: req.body.actName,
-      day: parseInt(req.body.day),
-      startTime: req.body.startTime,
-      endTime: req.body.endTime,
-      memo: req.body.memo,},
-      is_public: req.body.is_public
-    };
+      from:  req.body.from,
+      to:  req.body.to
+      // day: {
+      // index: req.body.day,
+      // activity: req.body.activity,
+      // start: req.body.start,
+      // end: req.body.end,
+      // memo: req.body.memo,
+      // } 
+    }
 
-    const plan = await db.collection("Plans");
-    plan.insertOne(itinData);
-    res.status(201).send("Created!");
-  });
+      const plan = await db.collection("Plans");
+      plan.insertOne(itinData);
+      res.status(201).send("Created!");
+    
+  })
 
   // GroupBy
-  // router.get('/api/plans/aggregate/groupby', async function (req, res) {
+// router.get('/api/plans/aggregate/groupby', async function (req, res) {
 
-  //   const pipeline = [
-  //     { $match: { day: { $ne: null }}},
-  //     // { $group: { _id: "$superhero", count: { $sum: 1 } } },
-  //     { days: {$push: {activity: {$activity}}}}
-  //   ];
+//   const pipeline = [
+//     { $match: { day: { $ne: null }}},
+//     // { $group: { _id: "$superhero", count: { $sum: 1 } } },
+//     { days: {$push: {activity: {$activity}}}}
+//   ];
 
-  //   const results = await db.collection("Plans").aggregate(pipeline).toArray();
+//   const results = await db.collection("Plans").aggregate(pipeline).toArray();
 
-  //   return res.json(results);
+//   return res.json(results);
 
-  // });
+// });
 
   //Login Page
   app.post("/api/login", async (req, res) => {
@@ -159,7 +161,7 @@ async function start() {
         const user = {
           id: check._id,
           username: check.username,
-          role: check.is_Admin,
+          role: check.is_Admin
         };
 
         const token = jwt.sign(user, "process.env.JWT_KEY", {
@@ -169,7 +171,7 @@ async function start() {
         user.token = token;
         console.log(check._id);
         console.log(token);
-        console.log(user.role);
+        console.log(user.role)
         return res.status(200).json(user);
         // res.status(200).send("Successful Login", token);
       } else {
