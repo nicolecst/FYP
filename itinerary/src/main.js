@@ -14,6 +14,8 @@ import AdminHome from './pages/AdminHome.vue'
 import ActEdit from './pages/ActEdit.vue'
 import ProposeAct from './pages/ProposeAct.vue'
 import CreateItinerary from './pages/CreateItinerary.vue'
+import ItinHistory from './pages/ItinHistory.vue'
+import ItinhistDetails from './pages/ItinhistDetails.vue'
 import "./assets/style.css"
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -61,6 +63,12 @@ const routes = [{
     },{
         path: '/create',
         component: CreateItinerary
+    },{
+        path: '/history',
+        component: ItinHistory
+    },{
+        path: '/histDeatils',
+        component: ItinhistDetails
     }]
 
 

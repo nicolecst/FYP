@@ -32,6 +32,14 @@
               Propose Activity
             </a>
           </li>
+          <li>
+            <a class="nav-link" href="/history">
+              <span style="font-size: 1.5em; color: #ffffff">
+                <font-awesome-icon icon="fa-solid fa-lightbulb" />
+              </span>
+              Itinerary History
+            </a>
+          </li>
         </ul>
       </div>
 
