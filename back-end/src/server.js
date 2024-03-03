@@ -102,6 +102,7 @@ async function start() {
     console.log(req.body);
 
     const itinData = {
+      author: req.body.author,
       name: req.body.iname,
       type: req.body.itype,
       participants: req.body.participants,

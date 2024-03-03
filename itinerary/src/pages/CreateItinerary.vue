@@ -40,7 +40,7 @@
             <div class="col md-6">
               <label for="">From</label>
               <input
-              required
+                required
                 data-format="yyyy/mm/dd"
                 type="date"
                 class="form-control"
@@ -51,13 +51,13 @@
             <div class="col md-6">
               <label for="">To</label>
               <input
-              required
+                required
                 data-format="yyyy/mm/dd"
                 type="date"
                 class="form-control"
                 placeholder="end date"
                 v-model="end"
-                :min= start
+                :min="start"
               />
             </div>
           </div>
@@ -84,7 +84,7 @@
 
           <div class="scrolls">
             <PlanCard
-              v-for="(n,i) in dateDiff"
+              v-for="(n, i) in dateDiff"
               :key="n"
               :n="n"
               :start="addDays(start, i)"
@@ -108,21 +108,21 @@
         <section v-if="step == 3">
           <h3>Step 3</h3>
           <div>
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  v-model="is_public"
-                  id="flexCheckDefault"
-                />
-                <label class="form-check-label" for="flexCheckDefault">
-                  Public
-                </label>
-                <small id="passwordHelpBlock" class="form-text text-muted">
-                  (Check the box if you want your plan to be seen by everyone.)
-                </small>
-              </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                v-model="is_public"
+                id="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Public
+              </label>
+              <small id="passwordHelpBlock" class="form-text text-muted">
+                (Check the box if you want your plan to be seen by everyone.)
+              </small>
             </div>
+          </div>
           <label for="">Confirm</label>
           <input type="text" class="form-control" placeholder="confirm.." />
         </section>
@@ -139,7 +139,7 @@
             </div>
             <div>
               <button
-                v-if="step != totalSteps && start!=null && end!=null"
+                v-if="step != totalSteps && start != null && end != null"
                 @click.prevent="nextStep()"
                 class="btn btn-primary"
               >
@@ -187,19 +187,31 @@ export default {
   methods: {
     clicked() {
       var dailyAct = {
-        itin:{
+        itin: {
           act_name: this.act,
-          day: this.day,
+          day: parseInt(this.day),
           start: this.sTime,
           end: this.eTime,
-          memo: this.memo
-        }};
+          memo: this.memo,
+        },
+      };
+      // this.dailyItin = [];
+      if (this.dailyItin.length < this.day) {
+        while (this.dailyItin.length < this.day) {
+          this.dailyItin.push([]);
+        }
+      }
 
-        this.dailyItin.length = this.dateDiff -1;
-        this.dailyItin.splice(1,0,dailyAct);
-        console.log(dailyAct);
-        console.log(this.dailyItin.length)
-      
+      // this.dailyItin.length = 3
+      // this.dailyItin.length = this.dateDiff -1;
+      // this.dailyItin.splice(1, 0, {});
+
+      var position = this.day - 1; // Replace with the desired index
+      this.dailyItin[position].push(dailyAct);
+
+      // this.dailyItin[0].splice(1,0,dailyAct);
+      console.log(dailyAct);
+      console.log(this.dailyItin.length);
     },
     nextStep() {
       this.step++;
@@ -213,20 +225,24 @@ export default {
       result.setDate(result.getDate() + days);
       return result.toLocaleString();
     },
-    weekdays(date, days){
-        var result = new Date(date);
+    weekdays(date, days) {
+      var result = new Date(date);
       result.setDate(result.getDate() + days);
-      return result.toLocaleString('en-US',{weekday: 'long'});
+      return result.toLocaleString("en-US", { weekday: "long" });
     },
     async create() {
+      const i = localStorage.getItem("userID");
+      console.log(i);
+
       const response = await axios.post("/api/create", {
+        author: i,
         iname: this.iname,
         itype: this.itype,
         participants: this.participants,
         from: this.start,
         to: this.end,
         dailyItin: this.dailyItin,
-        is_public: this.is_public
+        is_public: this.is_public,
       });
 
       console.log(response);
@@ -245,7 +261,6 @@ export default {
     },
   },
   setup() {
-
     const act = ref("");
     const day = ref();
     const sTime = ref();
@@ -271,7 +286,7 @@ export default {
       eTime,
       memo,
       is_public,
-      dailyItin
+      dailyItin,
     };
   },
 };
