@@ -130,6 +130,13 @@ async function start() {
     res.send(itinHist);
   })
 
+  //View one Itinerary History
+  app.get("/api/history/:id", async(req, res)=>{
+    const itinHist = await db.collection("Plans").findOne({_id: new ObjectId(req.params.id)});
+    // console.log(itinHist);
+    res.json(itinHist);
+  })
+
   //Login Page
   app.post("/api/login", async (req, res) => {
     let user = req.body;

@@ -3,7 +3,8 @@
     <NavBar />
     <h1>Itinerary History</h1>
     <!-- <p>{{ plans }}</p> -->
-    <HistCard v-for="plan in plans" :key="plans._id"
+    <HistCard v-for="plan in plans" :key="plan._id"
+    :id="plan._id"
     :name="plan.name"
     :type="plan.type"
     :participants="plan.participants"

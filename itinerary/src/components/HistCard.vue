@@ -5,13 +5,14 @@
         </div>
       
       <div class="right">
+        <p>{{ id }}</p>
         <p>Plan name: {{ name }}</p>
         <p>Type: {{ type }}</p>
         <p>Participants: {{ participants }}</p>
-        <p>Date: {{ start }} - {{ end }}</p>
+        <p>Date: From {{ start }} to {{ end }}</p>
         <p>Ratings: </p>
         <p>View: {{ view }}</p>
-        <button class="btn btn-primary" @click.prevent="details">View</button>
+        <router-link :to="/history/+id"><button class="btn btn-primary">View</button></router-link>
       </div>
     </div>
 </template>
@@ -19,6 +20,7 @@
 export default {
   name: "HistCard",
   props: {
+    id: String,
     name: String,
     type: String,
     participants: Number,
@@ -27,9 +29,9 @@ export default {
     view: String,
   },
   methods:{
-    details(){
-        this.$router.push('/histDeatils')
-    }
+    // details(){
+    //     this.$router.push('/history/:id')
+    // }
   }
 };
 </script>

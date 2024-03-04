@@ -67,7 +67,7 @@ const routes = [{
         path: '/history',
         component: ItinHistory
     },{
-        path: '/histDeatils',
+        path: '/history/:id',
         component: ItinhistDetails
     }]
 
