@@ -125,6 +125,17 @@
           </div>
           <label for="">Confirm</label>
           <input type="text" class="form-control" placeholder="confirm.." />
+
+          <div class="scrolls">
+            <PlanCard
+              v-for="(n, i) in dateDiff"
+              :key="n"
+              :n="n"
+              :start="addDays(start, i)"
+              :daysOfWeek="weekdays(start, i)"
+            />
+          </div>
+
         </section>
         <div class="row mt-2">
           <div class="buttons">
