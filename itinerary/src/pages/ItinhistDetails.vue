@@ -10,21 +10,19 @@
         :start="addDays(this.history.from, i)"
         :daysOfWeek="weekdays(this.history.from, i)"
       >
-        <SubplanCard v-for="(n, i) in itinArray[i]" :key="i">
-          {{ n }}
-        </SubplanCard>
+
+        <div v-for="(row, rowIndex) in itinArray[i]" :key="rowIndex">
+          <div v-for="(element, columnIndex) in row" :key="columnIndex">
+            <SubplanCard
+              :actName="element.act_name"
+              :memo="element.memo"
+            >
+            </SubplanCard>
+          </div>
+        </div>
       </PlanCard>
     </div>
 
-    <div v-for="n in 5" :key="n">
-      <div v-if="n === 2">
-        {{ n }}
-      </div>
-    </div>
-
-    <div v-for="(n, i) in itinArray[0]" :key="i">
-      {{ n }}
-    </div>
 
     <!-- <p v-for="(itin, i) in this.history.dailyItin" :key="i">
       {{ itin }}
@@ -53,6 +51,16 @@ export default {
       history: [],
       dateDiff: 0,
       itinArray: [],
+      itinSubArray: [],
+      dailyItin: [
+        [
+          { itin: { name: 1 } },
+          { itin: { name: 1.1 } },
+          { itin: { name: 1.2 } },
+        ],
+        [{ itin: { name: 2 } }],
+        [{ itin: { name: 3 } }],
+      ],
     };
   },
   methods: {
