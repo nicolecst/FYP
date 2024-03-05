@@ -10,19 +10,30 @@
         :start="addDays(this.history.from, i)"
         :daysOfWeek="weekdays(this.history.from, i)"
       >
-
         <div v-for="(row, rowIndex) in itinArray[i]" :key="rowIndex">
           <div v-for="(element, columnIndex) in row" :key="columnIndex">
-            <SubplanCard
-              :actName="element.act_name"
-              :memo="element.memo"
-            >
+            <SubplanCard :actName="element.act_name" :memo="element.memo">
             </SubplanCard>
           </div>
         </div>
       </PlanCard>
     </div>
 
+    <div>
+      <button
+        class="btn create-btn"
+        @click.prevent="() => togglePopup('buttonTrigger')"
+      >
+        <span style="font-size: 1.5em; margin-right: 5px">
+          <font-awesome-icon icon="fa-solid fa-calendar-plus" /> </span
+        >Rate
+      </button>
+    </div>
+
+    <PopupRateVue
+      v-if="popupTriggers.buttonTrigger"
+      :togglePopup="() => togglePopup('buttonTrigger')"
+    />
 
     <!-- <p v-for="(itin, i) in this.history.dailyItin" :key="i">
       {{ itin }}
@@ -32,12 +43,15 @@
     <p></p>
   </div>
 </template>
+
 <script>
 import NavBar from "@/components/NavBar.vue";
 import PlanCard from "@/components/PlanCard.vue";
 import SubplanCard from "@/components/SubplanCard.vue";
+import PopupRateVue from "@/components/PopupRate.vue";
 import axios from "axios";
 import { useRoute } from "vue-router";
+import { ref } from "vue";
 
 export default {
   name: "itinhistDetails",
@@ -45,6 +59,7 @@ export default {
     NavBar,
     PlanCard,
     SubplanCard,
+    PopupRateVue,
   },
   data() {
     return {
@@ -105,11 +120,20 @@ export default {
       console.log(this.history.dailyItin[0]);
     };
     fetchData();
+  },
+  setup() {
+    const popupTriggers = ref({
+      buttonTrigger: false,
+    });
 
-    //   const fromDate = new Date(this.history.from);
-    //   const toDate = new Date(this.history.to);
-    //   const dayDiff = Math.floor((toDate - fromDate) / (1000 * 60 * 60 * 24)) + 1;
-    //   this.dateDiff = dayDiff;
+    const togglePopup = (trigger) => {
+      popupTriggers.value[trigger] = !popupTriggers.value[trigger];
+    };
+
+    return {
+      popupTriggers,
+      togglePopup,
+    };
   },
 };
 </script>
