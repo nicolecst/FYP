@@ -19,20 +19,42 @@
       </PlanCard>
     </div>
 
-    <div>
-      <button
-        class="btn create-btn"
-        @click.prevent="() => togglePopup('buttonTrigger')"
-      >
-        <span style="font-size: 1.5em; margin-right: 5px">
-          <font-awesome-icon icon="fa-solid fa-calendar-plus" /> </span
-        >Rate
-      </button>
+    <div class="rate-container">
+        <button
+          class="btn rate-btn"
+          @click.prevent="() => togglePopup('buttonTrigger')"
+        >
+          <span style="font-size: 1.5em; margin-right: 5px">
+            <font-awesome-icon :icon="['fas', 'star']" /> </span
+          >Rate
+        </button>
+      <div class="row mt-4">
+        <div>
+          <p
+            v-for="n in this.history.rate"
+            :key="n"
+            style="display: inline; margin: 5px"
+          >
+            <font-awesome-icon :icon="['fas', 'star']" />
+          </p>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <p>
+          <span style="margin: 5px"
+            ><font-awesome-icon :icon="['fas', 'comment-dots']" /></span
+          >{{ this.history.comment }}
+        </p>
+      </div>
     </div>
 
     <PopupRateVue
       v-if="popupTriggers.buttonTrigger"
       :togglePopup="() => togglePopup('buttonTrigger')"
+      v-model:rate="rate"
+      v-model:comment="comment"
+      @rate="Rate(this.history._id)"
     />
 
     <!-- <p v-for="(itin, i) in this.history.dailyItin" :key="i">
@@ -90,14 +112,27 @@ export default {
       result.setDate(result.getDate() + days);
       return result.toLocaleString("en-US", { weekday: "long" });
     },
+    async Rate(iid) {
+      const rateData = {
+        author: this.history.author,
+        name: this.history.name,
+        type: this.history.type,
+        participants: this.history.participants,
+        from: this.history.from,
+        to: this.history.to,
+        dailyItin: this.dailyItin,
+        is_public: this.history.is_public,
+        rate: parseInt(this.rate),
+        comment: this.comment,
+      };
+
+      await axios.put("/api/rate/" + iid, rateData).then((response) => {
+        console.log(response.data);
+        alert("Successfully updated!");
+      });
+      console.log(rateData);
+    },
   },
-  //   computed: {
-  //     dateDiff() {
-  //       let day = new Date(this.history.to).getTime() - new Date(this.history.from).getTime();
-  //       let diff = Math.floor(day / 86400000) + 1;
-  //       return diff;
-  //     },
-  //   },
   mounted() {
     const fetchData = async () => {
       const route = useRoute();
@@ -122,6 +157,9 @@ export default {
     fetchData();
   },
   setup() {
+    const rate = ref();
+    const comment = ref("");
+
     const popupTriggers = ref({
       buttonTrigger: false,
     });
@@ -133,11 +171,27 @@ export default {
     return {
       popupTriggers,
       togglePopup,
+      rate,
+      comment,
     };
   },
 };
 </script>
 <style scoped>
+.rate-btn {
+  border-color: #016a70;
+  color: #016a70;
+}
+.rate-btn :hover {
+  border-color: #016a70;
+  background-color: #016a70;
+  color: #ffffdd;
+}
+.rate-container {
+  margin: 30px;
+  border: 1px solid rgb(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
 .scrolls {
   display: flex;
   flex-wrap: no-wrap;

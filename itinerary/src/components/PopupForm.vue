@@ -17,14 +17,14 @@
       <form action="">
         <div class="row mt-2">
           <label for="">Activity</label>
-          <input type="text" class="form-control" :value="act" @input = "$emit('update:act', $event.target.value)" />
+          <input type="text" class="form-control" required :value="act" @input = "$emit('update:act', $event.target.value)" />
           <p>{{ act }}</p>
           <!-- <button>Browse</button> -->
         </div>
 
         <div class="row mt-2">
           <label for="">Day</label>
-          <select name="" id="" class="form-control" :value="day" @input="$emit('update:Day', $event.target.value)">
+          <select name="" id="" class="form-control" required :value="day" @input="$emit('update:Day', $event.target.value)">
             <option v-for="i in n" :key="i">{{ i }}</option>
           </select>
           <p>{{ day }}</p>

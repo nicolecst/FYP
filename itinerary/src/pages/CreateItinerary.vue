@@ -1,6 +1,7 @@
 <template>
   <div>
     <NavBar />
+    <h1 ref="subplancard">Hello</h1>
     <h1>Create itinerary</h1>
     <div class="container">
       <form @submit.prevent="create()">
@@ -89,7 +90,9 @@
               :n="n"
               :start="addDays(start, i)"
               :daysOfWeek="weekdays(start, i)"
-            />
+            >
+          <SubplanCard ref="subplancard"></SubplanCard>
+          </PlanCard>
           </div>
 
           <PopupForm
@@ -175,6 +178,7 @@
 import NavBar from "@/components/NavBar.vue";
 import PlanCard from "@/components/PlanCard.vue";
 import PopupForm from "@/components/PopupForm.vue";
+import SubplanCard from "@/components/SubplanCard.vue";
 import { ref } from "vue";
 import axios from "axios";
 // import 'vue-datepicker/index.css';
@@ -184,6 +188,7 @@ export default {
     NavBar,
     PlanCard,
     PopupForm,
+    SubplanCard
   },
   data() {
     return {
@@ -206,13 +211,17 @@ export default {
           memo: this.memo,
         },
       };
+      
+      console.log(this.subplancard.value)
+      console.log(this.act!="")
+      if(this.act=="" || this.act==null)
+      return
       // this.dailyItin = [];
-      if (this.dailyItin.length < this.day) {
+      if (this.dailyItin.length < this.day ) {
         while (this.dailyItin.length < this.day) {
           this.dailyItin.push([]);
         }
       }
-
       // this.dailyItin.length = 3
       // this.dailyItin.length = this.dateDiff -1;
       // this.dailyItin.splice(1, 0, {});
@@ -279,6 +288,9 @@ export default {
     const memo = ref("");
     const is_public = ref(true);
     let dailyItin = [];
+    const subplancard = ref(null);
+
+    console.log(subplancard.value);
 
     const popupTriggers = ref({
       buttonTrigger: false,
@@ -298,6 +310,7 @@ export default {
       memo,
       is_public,
       dailyItin,
+      subplancard,
     };
   },
 };

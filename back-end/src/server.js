@@ -137,6 +137,14 @@ async function start() {
     res.json(itinHist);
   })
 
+  //Rate Itinerary
+  app.put("/api/rate/:id", async(req, res)=>{
+    const rate = await db
+      .collection("Plans")
+      .findOneAndReplace({ _id: new ObjectId(req.params.id) }, req.body);
+      res.json(rate);
+  })
+
   //Login Page
   app.post("/api/login", async (req, res) => {
     let user = req.body;
