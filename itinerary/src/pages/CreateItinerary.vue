@@ -1,7 +1,6 @@
 <template>
   <div>
     <NavBar />
-    <h1 ref="subplancard">Hello</h1>
     <h1>Create itinerary</h1>
     <div class="container">
       <form @submit.prevent="create()">
@@ -91,9 +90,30 @@
               :start="addDays(start, i)"
               :daysOfWeek="weekdays(start, i)"
             >
-          <SubplanCard ref="subplancard"></SubplanCard>
-          </PlanCard>
+              <div v-for="(row, rowIndex) in subplancard[i]" :key="rowIndex">
+                <div v-for="(element, columnIndex) in row" :key="columnIndex">
+                  <SubplanCard
+                    :actName="element.act_name"
+                    :sTime="element.sTime"
+                    :eTime="element.eTime"
+                    :memo="element.memo"
+                  ></SubplanCard>
+                </div>
+              </div>
+            </PlanCard>
           </div>
+
+          <div v-for="(n, i) in dateDiff" :key="n">
+            <div v-for="(row, rowIndex) in subplancard[i]" :key="rowIndex">
+              <div v-for="(element, columnIndex) in row" :key="columnIndex">
+                {{ element.act_name }}
+              </div>
+            </div>
+          </div>
+          <!-- 
+          <p v-for="(plan, i) in subplancard" :key="plan">
+            {{ plan[i].itin.act_name }}
+          </p> -->
 
           <PopupForm
             v-if="popupTriggers.buttonTrigger"
@@ -138,7 +158,6 @@
               :daysOfWeek="weekdays(start, i)"
             />
           </div>
-
         </section>
         <div class="row mt-2">
           <div class="buttons">
@@ -188,7 +207,7 @@ export default {
     NavBar,
     PlanCard,
     PopupForm,
-    SubplanCard
+    SubplanCard,
   },
   data() {
     return {
@@ -211,13 +230,21 @@ export default {
           memo: this.memo,
         },
       };
-      
-      console.log(this.subplancard.value)
-      console.log(this.act!="")
-      if(this.act=="" || this.act==null)
-      return
+
+      if (this.subplancard.length < this.day) {
+        while (this.subplancard.length < this.day) {
+          this.subplancard.push([]);
+        }
+      }
+      this.subplancard[this.day - 1].push(dailyAct);
+      console.log("aray " + this.subplancard);
+      console.log(this.subplancard.length);
+      console.log(typeof this.subplancard);
+
+      console.log(this.act != "");
+      if (this.act == "" || this.act == null) return;
       // this.dailyItin = [];
-      if (this.dailyItin.length < this.day ) {
+      if (this.dailyItin.length < this.day) {
         while (this.dailyItin.length < this.day) {
           this.dailyItin.push([]);
         }
@@ -288,9 +315,8 @@ export default {
     const memo = ref("");
     const is_public = ref(true);
     let dailyItin = [];
-    const subplancard = ref(null);
-
-    console.log(subplancard.value);
+    const subplancard = ref([]);
+    // const helloWorld = ref(null);
 
     const popupTriggers = ref({
       buttonTrigger: false,
@@ -300,6 +326,9 @@ export default {
       popupTriggers.value[trigger] = !popupTriggers.value[trigger];
     };
 
+    // onMounted(()=>{
+    //   console.log(helloWorld.value)
+    // })
     return {
       popupTriggers,
       togglePopup,
@@ -311,6 +340,7 @@ export default {
       is_public,
       dailyItin,
       subplancard,
+      // helloWorld
     };
   },
 };
