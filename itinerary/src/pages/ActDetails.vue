@@ -24,15 +24,20 @@
         <ColorTags v-if="activity.Area =='Hong Kong Island'" :text="activity.Area" color="#D2E9E9"/>
         <ColorTags v-if="activity.Area =='Hong Kong Island'" :text="activity.District" color="#D2E9E9"/>
 
-        <ColorTags v-if="activity.Type == 'Couple'" :text="activity.Type" color="#FDCEDF"/>
-        <ColorTags v-if="activity.Type == 'Solo'" :text="activity.Type" color="#FFBE98"/>
-        <ColorTags v-if="activity.Type == 'Family'" :text="activity.Type" color="#F5E8DD"/>
-        <ColorTags v-if="activity.Type == 'Friends'" :text="activity.Type" color="#E3F4F4"/>
-        <p>{{ activity.Type }}</p>
-        <p>{{ activity.Category }}</p>
-        <p>{{ activity.Charge }}</p>
-        <p>{{ activity.Description }}</p>
-        <a href="">{{ activity.Info }}</a>
+        <div class="type">
+          <span style="margin: 5px"><font-awesome-icon :icon="['fas', 'users']" /></span>
+          <template v-for="t in activity.Type" :key="t">
+            <ColorTags v-if="t == 'Couple'" :text="t" color="#FDCEDF" style="margin-right: 10px"/>
+            <ColorTags v-if="t == 'Solo'" :text="t" color="#FFBE98" style="margin-right: 10px"/>
+            <ColorTags v-if="t == 'Family'" :text="t" color="#F5E8DD" style="margin-right: 10px"/>
+            <ColorTags v-if="t == 'Friends'" :text="t" color="#E3F4F4" style="margin-right: 10px"/>
+          </template>
+        </div>
+        
+        <p><span style="margin: 5px"><font-awesome-icon :icon="['fas', 'layer-group']" /></span>{{ activity.Category }}</p>
+        <p><span style="margin: 5px"><font-awesome-icon :icon="['fas', 'sack-dollar']" /></span>{{ activity.Charge }}</p>
+        <p><span style="margin: 5px"><font-awesome-icon :icon="['fas', 'comments']" /></span>{{ activity.Description }}</p>
+        <a :href="activity.Info" target="_blank"><span style="margin: 5px"><font-awesome-icon :icon="['fas', 'circle-info']" /></span>{{ activity.Info }}</a>
         <p>{{ activity.Approved }}</p>
         <a :href="'/actEdit/' + activity._id">
           <button v-if="user.is_Admin == true" class="btn btn-primary">
@@ -108,5 +113,10 @@ a {
   left: 0;
   bottom: 0;
   width: 100%;
+}
+.type{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 </style>

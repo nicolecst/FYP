@@ -103,18 +103,6 @@
             </PlanCard>
           </div>
 
-          <div v-for="(n, i) in dateDiff" :key="n">
-            <div v-for="(row, rowIndex) in subplancard[i]" :key="rowIndex">
-              <div v-for="(element, columnIndex) in row" :key="columnIndex">
-                {{ element.act_name }}
-              </div>
-            </div>
-          </div>
-          <!-- 
-          <p v-for="(plan, i) in subplancard" :key="plan">
-            {{ plan[i].itin.act_name }}
-          </p> -->
-
           <PopupForm
             v-if="popupTriggers.buttonTrigger"
             :togglePopup="() => togglePopup('buttonTrigger')"
@@ -146,8 +134,6 @@
               </small>
             </div>
           </div>
-          <label for="">Confirm</label>
-          <input type="text" class="form-control" placeholder="confirm.." />
 
           <div class="scrolls">
             <PlanCard
@@ -156,7 +142,18 @@
               :n="n"
               :start="addDays(start, i)"
               :daysOfWeek="weekdays(start, i)"
-            />
+            >
+            <div v-for="(row, rowIndex) in subplancard[i]" :key="rowIndex">
+                <div v-for="(element, columnIndex) in row" :key="columnIndex">
+                  <SubplanCard
+                    :actName="element.act_name"
+                    :sTime="element.sTime"
+                    :eTime="element.eTime"
+                    :memo="element.memo"
+                  ></SubplanCard>
+                </div>
+              </div>
+          </PlanCard>
           </div>
         </section>
         <div class="row mt-2">

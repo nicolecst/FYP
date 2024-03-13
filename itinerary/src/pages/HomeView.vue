@@ -1,27 +1,29 @@
 <template>
   <div>
     <NavBarVue />
-
     <div class="welcomeMsg">
-      <h1>Welcome {{ user.username }}!</h1>
-      <form class="d-flex align-items-center flex-nowrap search-form">
+      <!-- <h1>Welcome {{ user.username }}!</h1> -->
+      <h1>Explore Hong Kong With E-TRIP!</h1>
+      <form class="search-form">
         <input
           type="text"
-          class="form-control input-lg"
+          class="form-control input-lg search-input"
           placeholder="search by activity name.."
           v-model="searchParam"
-          style="min-width: 80vw; margin-bottom: 50px;"
         />
-        <!-- <button class="btn btn-outline-success">
-                <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
-              </button> -->
       </form>
-      <p>{{ searchParam }}</p>
       <button class="btn create-btn" @click="create()">
           <span style="font-size: 1.5em">
             <font-awesome-icon icon="fa-solid fa-calendar-plus" style="margin-right: 8px;"/> </span
           >Create Itinerary!
         </button>
+        <!-- <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path
+          fill="#fff"
+          fill-opacity="1"
+          d="M0,64L48,69.3C96,75,192,85,288,106.7C384,128,480,160,576,186.7C672,213,768,235,864,245.3C960,256,1056,256,1152,250.7C1248,245,1344,235,1392,229.3L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+        ></path>
+      </svg> -->
     </div>
 
     <!-- <div class="welcomMsg">
@@ -189,12 +191,23 @@ a {
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   margin: 0;
-  padding: 50px;
+  padding: 30px;
   background-color: #0c3b2e;
   color: #fff;
-  min-height: 50vh;
+  height: 35vh;
+  width: 100%;
+  position: relative;
+  border-color: #fff;
+}
+
+.search-input{
+  border-radius: 30px;
+  height: 50px;
+  min-width: 70vw; 
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .search-container {
@@ -225,5 +238,11 @@ a {
   border-color: #6d9773;
   background-color: #6d9773;
   color: #ffffdd;
+}
+.svg {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 </style>

@@ -7,7 +7,7 @@
           <p class="card-text">img: {{ img }}</p>
           <p class="card-text">Area: {{ area }}</p>
           <p class="card-text">District: {{ district }}</p>
-          <p class="card-text">Type: {{ type }}</p>
+          <slot name="type"></slot>
           <p class="card-text">Category: {{ category }}</p>
           <p class="card-text">Charge: {{ charge }}</p>
           <p class="card-text">Approved: {{ approved }}</p>

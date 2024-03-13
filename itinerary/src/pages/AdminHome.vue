@@ -11,12 +11,17 @@
           :actname="activity.Act_name"
           :area="activity.Area"
           :district="activity.District"
-          :type="activity.Type"
           :category="activity.Category"
           :charge="activity.Charge"
           :act_ID="activity._id"
           :approved="activity.Approved"
-        />
+        >
+        <template #type>
+          <div style="margin-bottom: 8px">
+            Type: <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
+          </div>
+        </template>
+      </CardViewVue>
       </div>
     </div>
     <h1>Approved activities</h1>
@@ -27,11 +32,16 @@
         :actname="activity.Act_name"
         :area="activity.Area"
         :district="activity.District"
-        :type="activity.Type"
         :category="activity.Category"
         :charge="activity.Charge"
         :act_ID="activity._id"
-      />
+      >
+      <template #type>
+          <div style="margin-bottom: 8px">
+            Type: <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
+          </div>
+        </template>
+    </CardViewVue>
     </div>
 
     <!-- <p>{{ activities }}</p> -->

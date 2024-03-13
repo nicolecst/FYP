@@ -100,12 +100,43 @@
         <div class="row mt-4">
           <div class="col md-4">
             <label for="">Type</label>
-            <select name="" id="" class="form-control" v-model="type">
+            <div class="checkboxType">
+              <input
+                type="checkbox"
+                id="solo"
+                value="Solo"
+                v-model="checkedType"
+              />
+              <label for="solo">Solo</label>
+              <input
+                type="checkbox"
+                id="couple"
+                value="Couple"
+                v-model="checkedType"
+              />
+              <label for="couple">Couple</label>
+              <input
+                type="checkbox"
+                id="family"
+                value="Family"
+                v-model="checkedType"
+              />
+              <label for="family">Family</label>
+              <input
+                type="checkbox"
+                id="friends"
+                value="Friends"
+                v-model="checkedType"
+              />
+              <label for="friends">Friends</label>
+            </div>
+
+            <!-- <select name="" id="" class="form-control" v-model="type">
               <option>Solo</option>
               <option>Couple</option>
               <option>Friends</option>
               <option>Family</option>
-            </select>
+            </select> -->
           </div>
           <div class="col md-4">
             <label for="">Category</label>
@@ -171,6 +202,8 @@
 <script>
 import axios from "axios";
 import NavBarVue from "../components/NavBar.vue";
+import { ref } from "vue";
+
 export default {
   name: "ProposeAct",
   components: {
@@ -196,7 +229,7 @@ export default {
         location: this.location,
         area: this.area,
         district: this.district,
-        type: this.type,
+        type: this.checkedType,
         category: this.category,
         charge: this.charge,
         info: this.info,
@@ -210,6 +243,13 @@ export default {
         alert(response.data);
       }
     },
+  },
+  setup() {
+    const checkedType = ref([]);
+
+    return {
+      checkedType,
+    };
   },
 };
 </script>
@@ -240,5 +280,17 @@ export default {
   border-radius: 20px;
   border-style: solid;
   border-color: gray;
+}
+
+.checkboxType{
+  padding: 5px;
+}
+.checkboxType input{
+  margin-left: 10px;
+  margin-right: 3px;
+}
+.checkboxType label{
+  font-size: 18px;
+  font-weight: 400;
 }
 </style>
