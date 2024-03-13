@@ -1,84 +1,192 @@
 <template>
-    <div>
-      <NavBarVue />
-      <div class="row" style="padding: 20px 20px 0px 20px">
-        <div class="col-md-6">
-          <h3>All activities</h3>
-        </div>
-        <!-- <div class="col-md-6" style="text-align: right">
+  <div>
+    <NavBarVue />
+    <div class="row" style="padding: 20px 20px 0px 20px">
+      <div class="col-md-6">
+        <h3>All activities</h3>
+      </div>
+      <!-- <div class="col-md-6" style="text-align: right">
           <a href="">view all</a>
         </div> -->
-      </div>
-  
-      <div class="container">
-        <CardViewVue
-          v-for="activity in approved()"
-          :key="activity._id"
-          :actname="activity.Act_name"
-          :area="activity.Area"
-          :district="activity.District"
-          :type="activity.Type"
-          :category="activity.Category"
-          :charge="activity.Charge"
-          :act_ID="activity._id"
-        />
-      </div>
-  
     </div>
-  </template>
-  
-  <script type="module">
-  import axios from "axios";
-  import NavBarVue from "../components/NavBar.vue";
-  import CardViewVue from "../components/CardView.vue";
-  
-  export default {
-    name: "ActivitiesView",
-    components: {
-      NavBarVue,
-      CardViewVue,
+
+    <div class="container">
+      <CardViewVue
+        v-for="activity in paginatedItems"
+        :key="activity._id"
+        :actname="activity.Act_name"
+        :area="activity.Area"
+        :district="activity.District"
+        :type="activity.Type"
+        :category="activity.Category"
+        :charge="activity.Charge"
+        :act_ID="activity._id"
+      />
+    </div>
+    <div class="pagination">
+      <button @click="previousPage" :disabled="currentPage === 1">
+        Previous
+      </button>
+      <button @click="pageNum(page)"
+        class="pageNum"
+        v-for="page in totalPages"
+        :key="page"
+        v-bind:style="{
+          backgroundColor: page === currentPage ? '#016a70' : '#fff',
+          color: page === currentPage ? '#fff' : '#016a70',
+        }"
+      >
+        {{ page }}
+      </button>
+      <button @click="nextPage" :disabled="currentPage === totalPages">
+        Next
+      </button>
+    </div>
+  </div>
+</template>
+
+<script type="module">
+import axios from "axios";
+import NavBarVue from "../components/NavBar.vue";
+import CardViewVue from "../components/CardView.vue";
+
+export default {
+  name: "ActivitiesView",
+  components: {
+    NavBarVue,
+    CardViewVue,
+  },
+  data() {
+    return {
+      activities: [],
+      currentPage: 1,
+      totalPages: 1,
+      itemsPerPage: 10,
+    };
+  },
+  methods: {
+    actCat(cat) {
+      return this.activities.filter((a) => a.Category === cat);
     },
-    data() {
-      return {
-        activities: [],
-      };
+    approved() {
+      return this.activities.filter((a) => a.Approved === true);
     },
-    methods: {
-      actCat(cat) {
-        return this.activities.filter((a) => a.Category === cat);
-      },
-      approved() {
-        return this.activities.filter((a) => a.Approved === true);
-      },
+    pageNum(p){
+      this.currentPage = p;
     },
-    async created() {
-      const response = await axios
-        .get("/api/")
-        .then((response) => (this.activities = response.data));
-  
-      // const activities = response.data;
-      // this.activities = activities;
-  
-      console.log(response);
+    fetchItems() {
+      // Make an HTTP request to the Node.js API endpoint
+      axios
+        .get("/api/allAct", {
+          params: {
+            page: this.currentPage,
+            limit: this.itemsPerPage,
+          },
+        })
+        .then((response) => {
+          // Ensure the response data structure matches your expectation
+          const { activities, currentPage, totalPages } = response.data;
+
+          // Assign the data to the component's properties
+          this.activities = activities.filter((a) => a.Approved === true);
+          this.currentPage = currentPage;
+          this.totalPages = totalPages;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
-  };
-  </script>
-  
-  <style scoped>
-  /* .scrolls {
+    previousPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.fetchItems();
+      }
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.fetchItems();
+      }
+    },
+  },
+  // async created() {
+  //   const response = await axios
+  //     .get("/api/allAct", {
+  //         params: {
+  //           page: this.currentPage,
+  //           limit: this.itemsPerPage,
+  //         },
+  //       })
+  //       .then((response) => {
+  //         // Ensure the response data structure matches your expectation
+  //         const { items, currentPage, totalPages } = response.data;
+
+  //         // Assign the data to the component's properties
+  //         this.items = items;
+  //         this.currentPage = currentPage;
+  //         this.totalPages = totalPages;
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+
+  //   console.log(response);
+  // },
+  computed: {
+    paginatedItems() {
+      return this.activities.slice(
+        (this.currentPage - 1) * this.itemsPerPage,
+        this.currentPage * this.itemsPerPage
+      );
+    },
+  },
+  mounted() {
+    this.fetchItems();
+  },
+};
+</script>
+
+<style scoped>
+/* .scrolls {
     display: flex;
     flex-wrap: no-wrap;
     overflow-x: auto;
     margin: 20px;
   } */
-  
-  a{
-      color: #016a70;
-  }
 
-  .container{
-    display: flex;
-    flex-wrap: wrap;
-  }
-  </style>
-  
+a {
+  color: #016a70;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.pagination {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin: 20px;
+}
+.pagination button {
+  margin: auto;
+  background-color: #016a70;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px;
+  border: none;
+}
+.pagination button:disabled {
+  background-color: #8eb0b2;
+}
+.pageNum {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+}
+</style>

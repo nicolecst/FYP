@@ -58,7 +58,7 @@
 
     <div class="scrolls">
       <CardViewVue
-        v-for="activity in filteredAct"
+        v-for="activity in filteredAct.slice(0, 10)"
         :key="activity._id"
         :actname="activity.Act_name"
         :area="activity.Area"
@@ -70,7 +70,7 @@
         :img="activity.Image"
       />
     </div>
-    
+
     <h3>{{ user.preference1 }}</h3>
     <div class="scrolls">
       <CardViewVue
