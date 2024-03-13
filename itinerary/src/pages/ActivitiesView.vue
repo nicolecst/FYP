@@ -1,13 +1,14 @@
 <template>
   <div>
     <NavBarVue />
-    <div class="row" style="padding: 20px 20px 0px 20px">
-      <div class="col-md-6">
-        <h3>All activities</h3>
-      </div>
+
+    <div class="header">
+        <h3 style="margin:0">All activities</h3>
       <!-- <div class="col-md-6" style="text-align: right">
           <a href="">view all</a>
         </div> -->
+        <button><i class="fa-solid fa-filter fa-1x" style="margin-right:5px"></i>Filter</button>
+        
     </div>
 
     <div class="container">
@@ -161,6 +162,20 @@ a {
 .container {
   display: flex;
   flex-wrap: wrap;
+}
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.header button{
+  margin-left: 20px;
+  color: #fff;
+  background-color: #016a70;
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
 }
 .pagination {
   display: flex;
