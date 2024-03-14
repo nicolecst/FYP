@@ -1,27 +1,40 @@
-<script setup>
-import { defineEmits, ref } from 'vue'
+<template>
+  <div class="hello">
+    <form action="" @submit.prevent="sendFile" enctype="multipart/form-data">
+      <input type="file" ref="file" @change="selectFile" name="" id="" />
+      <button class="btn btn-primary">Upload</button>
+    </form>
+  </div>
+</template>
 
-const emit = defineEmits(['change'])
-const files = ref([])
+<script>
+import axios from 'axios';
+export default {
+  name: "FileInput",
+  data() {
+    return {
+      uploadFile: "",
+    };
+  },
+  methods: {
+    selectFile() {
+      this.uploadFile = this.$refs.file.files[0];
+      console.log(this.uploadFile);
+    },
+    async sendFile(){
+        const formData = new FormData(); 
 
-const fileChange = (e) => {
-    if (e.target.files.length == 0) {
-        files.value = [];
-        emit('change', files.value);
-        return
+        formData.append('file', this.uploadFile);
+
+        try {
+           await axios.post('/api/upload', formData) 
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
-
-    Array.from(e.target.files).forEach((f) => {
-        const reader = new FileReader(f)
-        reader.addEventListener("load", (event) => {
-            files.value.push(event.target.result)
-            emit('change', files.value);
-        }, false );
-        reader.readAsDataURL(f);
-    })
-}
+  },
+};
 </script>
 
-<template>
-    <input type="file" @change="fileChange" v-bind="$attrs" />
-</template>
+<style scoped></style>

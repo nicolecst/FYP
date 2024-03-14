@@ -20,6 +20,7 @@
           <div style="margin-bottom: 8px">
             Type: <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
           </div>
+          <!-- <div><p>File:{{ activity.file.length }}</p></div> -->
         </template>
       </CardViewVue>
       </div>

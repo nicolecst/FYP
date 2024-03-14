@@ -2,7 +2,7 @@
   <div class="bg">
     <NavBarVue />
     <div class="proposeForm">
-      <form @submit.prevent="propose()">
+      <form @submit.prevent="propose()"  enctype="multipart/form-data">
         <div class="row mt-4">
           <label for="">Name*</label>
           <input
@@ -181,6 +181,11 @@
         </div>
 
         <div class="row mt-4">
+          <!-- <FileInput/> -->
+          <input type="file" ref="file" @change="selectFile" name="" id=""/>
+        </div>
+
+        <div class="row mt-4">
           <label for="">Description*</label>
           <textarea
             type="text"
@@ -202,12 +207,14 @@
 <script>
 import axios from "axios";
 import NavBarVue from "../components/NavBar.vue";
+// import FileInput from "@/components/FileInput.vue";
 import { ref } from "vue";
 
 export default {
   name: "ProposeAct",
   components: {
     NavBarVue,
+    // FileInput
   },
   data() {
     return {
@@ -220,22 +227,43 @@ export default {
       charge: "",
       info: "",
       description: "",
+      uploadFile: ""
     };
   },
   methods: {
+    selectFile() {
+      this.uploadFile = this.$refs.file.files[0];
+      console.log(this.uploadFile);
+    },
     async propose() {
-      const response = await axios.post("/api/addAct", {
-        actName: this.actName,
-        location: this.location,
-        area: this.area,
-        district: this.district,
-        type: this.checkedType,
-        category: this.category,
-        charge: this.charge,
-        info: this.info,
-        description: this.description,
-      });
+      const formData = new FormData();
+      formData.append('file', this.uploadFile);
+      formData.append('actName', this.actName);
+      formData.append('location', this.location);
+      formData.append('area', this.area);
+      formData.append('type', this.checkedType);
+      formData.append('district', this.district);
+      formData.append('category', this.category);
+      formData.append('charge', this.charge);
+      formData.append('info', this.info);
+      formData.append('description', this.description);
 
+
+      const response = await axios.post("/api/addAct", formData
+      // {
+      //   actName: this.actName,
+      //   location: this.location,
+      //   area: this.area,
+      //   district: this.district,
+      //   type: this.checkedType,
+      //   category: this.category,
+      //   charge: this.charge,
+      //   info: this.info,
+      //   description: this.description,
+      //   file: this.$refs.file.files[0],
+      // }
+      );
+      console.log(formData);
       console.log(response);
       if (response.status == 201) {
         alert(response.data);

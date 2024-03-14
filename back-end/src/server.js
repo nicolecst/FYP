@@ -15,6 +15,18 @@ async function start() {
   const ObjectId = require("mongodb").ObjectId;
   const path = require('path');
 
+  const MAX_SIZE = 100000000;
+  const multer = require('multer');
+  const sharp = require('sharp');
+  const fs = require('fs');
+
+  const uploads = multer({
+    dest: 'src/uploads',
+    limits:{
+      fileSize: MAX_SIZE
+    }
+  });
+
   await client.connect();
   const db = client.db("itineraryPlanner");
 
@@ -23,12 +35,18 @@ async function start() {
   const staticPath = path.join(__dirname, 'uploads');  // Replace 'uploads' with the actual relative path to your image directory
   app.use(express.static(staticPath));
 
+  app.post("/api/upload", uploads.single('file'),(req, res)=>{
+    res.json({file: req.file});
+  })
+
   //home page listing all activities
-  app.get("/api/", async (req, res) => {
+  app.get("/api/", uploads.single('file'), async (req, res) => {
     const activities = await db.collection("Activities").find({}).toArray();
     console.log("hello");
     res.send(activities);
   });
+
+  //all activities with pagination
   app.get("/api/allAct", async (req, res) => {
     const page = parseInt(req.query.page) || 1; // Current page number
     const limit = parseInt(req.query.limit) || 10; // Items per page
@@ -68,31 +86,35 @@ async function start() {
   });
 
   //Add new activities
-  app.post("/api/addAct", async (req, res) => {
-    console.log(req.body);
-
-    const actdata = {
-      Act_name: req.body.actName,
-      Location: req.body.location,
-      Area: req.body.area,
-      District: req.body.district,
-      Type: req.body.type,
-      Category: req.body.category,
-      Charge: req.body.charge,
-      Info: req.body.info,
-      Description: req.body.description,
-      Approved: false,
-    };
-
-    const existAct = await db
-      .collection("Activities")
-      .findOne({ Act_name: req.body.actName });
-    if (existAct) {
-      res.send("Activity already exists, please use a different name");
-    } else {
-      const activity = await db.collection("Activities");
-      activity.insertOne(actdata);
-      res.status(201).send("Thanks for your proposal!");
+  app.post("/api/addAct", uploads.single('file'),async (req, res) => {
+    try {
+      console.log(req.body);
+  
+      const actdata = {
+        Act_name: req.body.actName,
+        Location: req.body.location,
+        Area: req.body.area,
+        District: req.body.district,
+        Type: req.body.type,
+        Category: req.body.category,
+        Charge: req.body.charge,
+        Info: req.body.info,
+        Description: req.body.description,
+        file: req.file, // Store the uploaded file in the actdata object
+        Approved: false,
+      };
+      console.log(actdata.file);
+  
+      const existAct = await db.collection("Activities").findOne({ Act_name: req.body.actName });
+      if (existAct) {
+        res.send("Activity already exists, please use a different name");
+      } else {
+        const activity = await db.collection("Activities").insertOne(actdata);
+        res.status(201).send("Thanks for your proposal!");
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("An error occurred while processing the request");
     }
   });
 
