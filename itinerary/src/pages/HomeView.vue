@@ -70,7 +70,13 @@
         :charge="activity.Charge"
         :act_ID="activity._id"
         :img="activity.Image"
-      />
+      >
+      <template #type>
+          <div style="margin-bottom: 8px">
+            Type: <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
+          </div>
+        </template>
+    </CardViewVue>
     </div>
 
     <h3>{{ user.preference1 }}</h3>
@@ -81,11 +87,16 @@
         :actname="activity.Act_name"
         :area="activity.Area"
         :district="activity.District"
-        :type="activity.Type"
         :category="activity.Category"
         :charge="activity.Charge"
         :act_ID="activity._id"
-      />
+      >
+      <template #type>
+          <div style="margin-bottom: 8px">
+            Type: <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
+          </div>
+        </template>
+    </CardViewVue>
     </div>
     <h3>{{ user.preference2 }}</h3>
     <div class="scrolls">
@@ -95,11 +106,16 @@
         :actname="activity.Act_name"
         :area="activity.Area"
         :district="activity.District"
-        :type="activity.Type"
         :category="activity.Category"
         :charge="activity.Charge"
         :act_ID="activity._id"
-      />
+      >
+      <template #type>
+          <div style="margin-bottom: 8px">
+            Type: <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
+          </div>
+        </template>
+    </CardViewVue>
     </div>
     <h3>{{ user.preference3 }}</h3>
     <div class="scrolls">
@@ -109,11 +125,16 @@
         :actname="activity.Act_name"
         :area="activity.Area"
         :district="activity.District"
-        :type="activity.Type"
         :category="activity.Category"
         :charge="activity.Charge"
         :act_ID="activity._id"
-      />
+      >
+      <template #type>
+          <div style="margin-bottom: 8px">
+            Type: <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
+          </div>
+        </template>
+    </CardViewVue>
     </div>
   </div>
 </template>

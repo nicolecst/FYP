@@ -61,6 +61,9 @@ export default {
   data() {
     return {
       activities: [],
+      currentPage: 1,
+      totalPages: 1,
+      itemsPerPage: 10,
     };
   },
   methods: {
@@ -70,12 +73,57 @@ export default {
     approved() {
       return this.activities.filter((a) => a.Approved === true);
     },
+    fetchItems() {
+      // Make an HTTP request to the Node.js API endpoint
+      axios
+        .get("/api/allAct", {
+          params: {
+            page: this.currentPage,
+            limit: this.itemsPerPage,
+          },
+        })
+        .then((response) => {
+          // Ensure the response data structure matches your expectation
+          const { activities, currentPage, totalPages } = response.data;
+
+          // Assign the data to the component's properties
+          this.activities = activities;
+          this.currentPage = currentPage;
+          this.totalPages = totalPages;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    previousPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.fetchItems();
+      }
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.fetchItems();
+      }
+    },
   },
-  async created() {
-    await axios
-      .get("/api/")
-      .then((response) => (this.activities = response.data));
+  computed: {
+    paginatedItems() {
+      return this.activities.slice(
+        (this.currentPage - 1) * this.itemsPerPage,
+        this.currentPage * this.itemsPerPage
+      );
+    },
   },
+  mounted() {
+    this.fetchItems();
+  },
+  // async created() {
+  //   await axios
+  //     .get("/api/")
+  //     .then((response) => (this.activities = response.data));
+  // },
 };
 </script>
 

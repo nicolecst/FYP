@@ -13,12 +13,15 @@ async function start() {
   const url = "mongodb+srv://nicolecst:7fUWUtSb@cluster0.j43pz4m.mongodb.net/";
   const client = new MongoClient(url);
   const ObjectId = require("mongodb").ObjectId;
+  const path = require('path');
 
   await client.connect();
   const db = client.db("itineraryPlanner");
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
+  const staticPath = path.join(__dirname, 'uploads');  // Replace 'uploads' with the actual relative path to your image directory
+  app.use(express.static(staticPath));
 
   //home page listing all activities
   app.get("/api/", async (req, res) => {
