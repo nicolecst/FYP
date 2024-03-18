@@ -17,7 +17,15 @@
     </div>
 
     <div class="text-container">
-        <h1>{{ activity.Act_name }}</h1>
+      <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Activtiy Details</li>
+          </ol>
+        </nav>
+        <h1 style="font-family: BungeeInline">{{ activity.Act_name }}</h1>
         <p>{{ activity.Act_ID }}</p>
         <p><span style="margin: 5px"><font-awesome-icon icon="fa-solid fa-location-dot" /></span>{{ activity.Location }}</p>
         

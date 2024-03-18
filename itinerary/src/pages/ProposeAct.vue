@@ -5,9 +5,9 @@
       <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="/">Home</a>
+            <a href="/" style="color: #fff">Home</a>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">
+          <li class="breadcrumb-item active" aria-current="page" style="color:#FFDB64;">
             Propose Activity
           </li>
         </ol>
@@ -316,7 +316,8 @@ export default {
 }
 .bg {
   align-items: center;
-  background-image: url("@/assets/Images/green-bg.jpg");
+  /* background-image: url("@/assets/Images/green-bg.jpg"); */
+  background-color: #016a70;
 }
 
 .btn {
@@ -324,9 +325,10 @@ export default {
   color: #016a70;
 }
 .btn:hover {
-  border-color: #016a70;
-  background-color: #016a70;
-  color: #ffffdd;
+  border-color: #FFDB64;
+  background-color: #FFDB64;
+  color: #a08843;
+  border-color: #a08843;
 }
 
 .proposeForm {

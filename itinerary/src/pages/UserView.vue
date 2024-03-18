@@ -1,7 +1,6 @@
 <template>
   <div class="bg">
     <NavBar />
-    <h1>This is the user profile</h1>
     <div class="container">
       <img class="header" src="@/assets/Images/flowers.jpg" alt="header-img" />
       <div class="row">
@@ -11,9 +10,9 @@
             src="@/assets/Images/male.jpg"
             alt="male-user-icon"
           />
-          <div class="row mt-2">
+          <!-- <div class="row mt-2">
             <p>UserID: {{ user._id }}</p>
-          </div>
+          </div> -->
         </div>
         <div class="col-md-5">
           <div class="right">
@@ -38,7 +37,7 @@
             <p><span style="font-weight: bold">Type: </span><span v-if="!user.type">N/A</span>{{ user.type }}</p>
             <p style="color:grey">*'N/A' entries can set up by clicking the button below</p>
             <a href="/userEdit"
-              ><button class="btn btn-primary">Edit Profile</button></a
+              ><button class="btn">Edit Profile</button></a
             >
           </div>
         </div>
@@ -75,7 +74,7 @@ export default {
 
 <style scoped>
 .bg {
-  background-color: #002224;
+  background-color: #016a70;
   background-size: cover;
   margin: auto;
   align-items: center;
@@ -85,13 +84,14 @@ export default {
 .btn {
   background-color: #016a70;
   border-color: #016a70;
-  color: #ffffdd;
-  --bs-btn-line-height: 1.3;
+  color: #fff;
 }
 
 .btn:hover {
-  background-color: #ffffdd;
-  color: #016a70;
+  border-color: #FFDB64;
+  background-color: #FFDB64;
+  color: #a08843;
+  border-color: #a08843;
 }
 
 .container {
@@ -102,7 +102,8 @@ export default {
   padding-left: 0px;
   padding-right: 0px;
   border-radius: 30px;
-  padding-bottom: 10px;
+  padding-bottom: 30px;
+  margin-top: 50px;
   /* padding: 40px; */
 }
 .circle {

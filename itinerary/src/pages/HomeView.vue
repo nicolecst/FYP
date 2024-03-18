@@ -215,12 +215,16 @@ a {
   /* justify-content: center; */
   margin: 0;
   padding: 30px;
-  background-color: #0c3b2e;
+  background-color: #1FBFAF;
   color: #fff;
   height: 35vh;
   width: 100%;
   position: relative;
   border-color: #fff;
+}
+.welcomeMsg h1{
+ font-family: BungeeInline;
+ color: #fff;
 }
 
 .search-input{
@@ -256,9 +260,9 @@ a {
   color: #fff;
 }
 .create-btn:hover {
-  border-color: #6d9773;
-  background-color: #6d9773;
-  color: #ffffdd;
+  border-color: #FFDB64;
+  background-color: #FFDB64;
+  color: #06211e;
 }
 .svg {
   position: absolute;

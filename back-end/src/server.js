@@ -147,6 +147,7 @@ async function start() {
 
     const itinData = {
       author: new ObjectId(req.body.author),
+      authorName: req.body.authorName,
       name: req.body.iname,
       type: req.body.itype,
       participants: req.body.participants,
@@ -166,6 +167,15 @@ async function start() {
     const itin = await db.collection("Plans").find({}).toArray();
     res.send(itin);
   });
+
+    //View All Itinerary
+    app.get("/api/itinHistory", async (req, res) => {
+      const itinHist = await db
+        .collection("Plans")
+        .find({is_public: true})
+        .toArray();
+      res.send(itinHist);
+    });
 
   //View Itineray History of an author
   app.get("/api/itinHistory/:id", async (req, res) => {

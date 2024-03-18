@@ -17,7 +17,7 @@
             >
           </li>
           <li>
-            <a class="nav-link" href="/">
+            <a class="nav-link nl" href="/">
               <span style="font-size: 1.5em; color: #ffffff">
                 <font-awesome-icon icon="fa-solid fa-house" />
               </span>
@@ -35,9 +35,17 @@
           <li>
             <a class="nav-link" href="/history">
               <span style="font-size: 1.5em; color: #ffffff">
-                <font-awesome-icon icon="fa-solid fa-lightbulb" />
+                <font-awesome-icon :icon="['fas', 'clipboard']" />
               </span>
               Itinerary History
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="/forum">
+              <span style="font-size: 1.5em; color: #ffffff">
+                <font-awesome-icon :icon="['fas', 'comments']" />
+              </span>
+              Forum
             </a>
           </li>
         </ul>
@@ -126,7 +134,7 @@ a {
 }
 
 .nb {
-  background-color: #0C3B2E;
+  background-color: #1FBFAF;
   color: #ffffff;
   /* display: flex; */
   /* align-items: center; */

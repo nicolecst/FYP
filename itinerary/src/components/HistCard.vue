@@ -7,12 +7,13 @@
       <div class="right">
         <p>{{ id }}</p>
         <p>Plan name: {{ name }}</p>
+        <p>Author: {{ author }}</p>
         <p>Type: {{ type }}</p>
         <p>Participants: {{ participants }}</p>
         <p>Date: From {{ start }} to {{ end }}</p>
         <p>Ratings: {{ rating }}</p>
         <p>View: {{ view }}</p>
-        <router-link :to="/history/+id"><button class="btn btn-primary">View</button></router-link>
+        <router-link :to="/history/+id"><button class="btn view-btn">View</button></router-link>
       </div>
     </div>
 </template>
@@ -20,6 +21,7 @@
 export default {
   name: "HistCard",
   props: {
+    author: String,
     id: String,
     name: String,
     type: String,
@@ -46,6 +48,7 @@ export default {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  background-color: #fff;
 }
 .square {
   background-color: burlywood;
@@ -66,5 +69,15 @@ export default {
 }
 .right{
     flex: 0 0 70%;
+}
+.view-btn{
+  color: #016a70;
+  border-color: #016a70;
+}
+.view-btn:hover{
+  border-color: #FFDB64;
+  background-color: #FFDB64;
+  color: #a08843;
+  border-color: #a08843;
 }
 </style>

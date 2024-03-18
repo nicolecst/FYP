@@ -17,7 +17,8 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Quicksand, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
@@ -39,5 +40,15 @@ label{
   font-family: "AchivoBlack";
   src: local("achivoblack"),
    url(./assets/fonts/ArchivoBlack-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "BungeeInline";
+  src: local("bungeeInline"),
+   url(./assets/fonts/BungeeInline-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Quicksand";
+  src: local("quicksand"),
+   url(./assets/fonts/Quicksand-VariableFont_wght.ttf) format("truetype");
 }
 </style>

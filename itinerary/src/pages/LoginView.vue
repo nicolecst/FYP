@@ -61,15 +61,18 @@ export default {
         var data = await response.data;
         localStorage.setItem("userToken", data.token);
         localStorage.setItem("userID", data.id);
+        localStorage.setItem("username", data.username);
         localStorage.setItem("role", data.role)
 
         const u = localStorage.getItem("userToken");
         const i = localStorage.getItem("userID");
         const role = localStorage.getItem("role");
+        const un = localStorage.getItem("username")
 
         console.log(u)
         console.log(i)
         console.log(role)
+        console.log(un)
 
         // alert(response.data);
         alert("Successful Login");

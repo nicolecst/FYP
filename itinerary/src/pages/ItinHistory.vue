@@ -1,5 +1,5 @@
 <template lang="">
-  <div>
+  <div class="outer-container">
     <NavBar />
     <div class="container">
       <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
@@ -7,14 +7,11 @@
           <li class="breadcrumb-item">
             <a href="/">Home</a>
           </li>
-          <li class="breadcrumb-item">
-            <a href="/history">Itinerary History</a>
-          </li>
-          <li class="breadcrumb-item active" aria-current="page">Details</li>
+          <li class="breadcrumb-item active" aria-current="page">Itinerary History</li>
         </ol>
       </nav>
       <div class="sub-container">
-        <h1>Check your planned trips!</h1>
+        <h1 style="font-family: BungeeInline">Check your planned trips!</h1>
         <!-- <p>{{ plans }}</p> -->
         <HistCard
           v-for="plan in plans"
@@ -73,6 +70,8 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #DCF2EC;
+  padding: 30px;
 }
 
 </style>

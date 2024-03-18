@@ -153,7 +153,7 @@
                 </div>
 
                 <div class="row mt-2">
-                  <button class="btn btn-primary profile-button" type="submit">
+                  <button class="btn profile-button" type="submit">
                     Update!
                   </button>
                 </div>
@@ -223,9 +223,9 @@ export default {
 
 <style scoped>
 .bg {
-  background-color: #002224;
+  background-color: #016a70;
   /* background-size: cover; */
-  height: 100%;
+  height: 100vh;
   align-items: center;
   /* width: 100vw;
   height: 100vh; */
@@ -233,13 +233,14 @@ export default {
 .btn {
   background-color: #016a70;
   border-color: #016a70;
-  color: #ffffdd;
-  --bs-btn-line-height: 1.3;
+  color: #fff;
 }
 
 .btn:hover {
-  background-color: #ffffdd;
-  color: #016a70;
+  border-color: #FFDB64;
+  background-color: #FFDB64;
+  color: #a08843;
+  border-color: #a08843;
 }
 
 .container {
@@ -250,8 +251,8 @@ export default {
   padding-left: 0px;
   padding-right: 0px;
   border-radius: 30px;
-  margin-top: 30px;
-  padding-bottom: 10px;
+  margin-top: 50px;
+  padding-bottom: 30px;
   /* padding: 40px; */
 }
 img {

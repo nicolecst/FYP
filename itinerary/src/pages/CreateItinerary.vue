@@ -7,10 +7,10 @@
           <li class="breadcrumb-item">
             <a href="/" style="color:#fff">Home</a>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">Create Itinerary</li>
+          <li class="breadcrumb-item active" aria-current="page" style="color:#FFDB64;">Create Itinerary</li>
         </ol>
       </nav>
-    <div class="row" style="text-align:center; color: #fff; margin-top: 30px; margin-bottom: 30px;">
+    <div class="row" style="text-align:center; color: #fff; font-family: BungeeInline; margin-top: 30px; margin-bottom: 30px;">
       <h1>Lets build your itinerary!</h1>
     </div>
 
@@ -258,10 +258,10 @@
               </button>
               <button
                 v-if="step == totalSteps"
-                class="btn btn-primary"
+                class="btn complete-btn"
                 type="submit"
               >
-                Create
+              <font-awesome-icon :icon="['fas', 'square-check']" />
               </button>
             </div>
           </div>
@@ -362,9 +362,12 @@ export default {
     async create() {
       const i = localStorage.getItem("userID");
       console.log(i);
+      const un = localStorage.getItem("username");
+      console.log(un);
 
       const response = await axios.post("/api/create", {
         author: i,
+        authorName: un,
         iname: this.iname,
         itype: this.itype,
         participants: this.participants,
@@ -514,9 +517,10 @@ export default {
   color: #016a70;
 }
 .create-btn:hover {
-  border-color: #016a70;
-  background-color: #016a70;
-  color: #ffffdd;
+  border-color: #FFDB64;
+  background-color: #FFDB64;
+  color: #a08843;
+  border-color: #a08843;
 }
 .progress {
   height: 50px;
@@ -541,5 +545,13 @@ export default {
   align-items: center;
   justify-content: center;
   margin-bottom: 40px;
+}
+.complete-btn{
+  color: #fff;
+  font-size: 4rem;
+}
+.complete-btn:hover{
+  color: #FFDB64;
+  border-color: #a08843;
 }
 </style>

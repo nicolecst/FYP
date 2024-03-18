@@ -1,8 +1,8 @@
 <template>
   <div class="card" style="min-width: 18rem; max-width: 18rem;">
-    <!-- <img class="card-img-top" src="@/assets/uploads/victoria_peak.jpg" alt="Card image cap" /> -->
+    <img class="card-img-top" src="@/assets/uploads/victoria_peak.jpg" alt="Card image cap" />
     <!-- <img class="card-img-top" :src="`http://localhost:3000/${img}`" alt="Card image cap" /> -->
-    <img class="card-img-top" src="" alt="Card image cap" />
+    <!-- <img class="card-img-top" src="" alt="Card image cap" /> -->
     <div class="card-body">
         <div class="card-body">
           <h5 class="card-title">{{ actname }}</h5>
@@ -43,13 +43,14 @@ export default{
   height: auto;
 }
 .btn{
-  background-color: #6D9773;
-  color: #ffffdd;
-  border-color: #6D9773;
+  background-color: #1FBFAF;
+  color: #fff;
+  border-color: #1FBFAF;
 }
 .btn:hover{
-  background-color: #ffffdd;
-  color: #6D9773;
-  border-color: #6D9773;
+  border-color: #FFDB64;
+  background-color: #FFDB64;
+  color: #a08843;
+  border-color: #a08843;
 }
 </style>
