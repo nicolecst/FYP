@@ -21,6 +21,12 @@
           <p>{{ act }}</p>
           <!-- <button>Browse</button> -->
         </div>
+        <div class="row mt-2">
+          <label for="">Location</label>
+          <input type="text" class="form-control" required :value="location" @input = "$emit('update:location', $event.target.value)" />
+          <p>{{ location }}</p>
+          <!-- <button>Browse</button> -->
+        </div>
 
         <div class="row mt-2">
           <label for="">Day</label>
@@ -61,8 +67,18 @@
 
 export default {
   name: "PopupForm",
-  props: ["togglePopup", "n", "act", "day", "sTime", "eTime", "memo"],
-  emit:['update:act', 'update:Day', 'update:sTime', 'update:eTime', 'update:Memo', 'clicked'],
+  // props: ["togglePopup", "n", "act", "day", "sTime", "eTime", "memo"],
+  props:{
+    togglePopup: Function,
+    n: String,
+    act: String,
+    location: String,
+    day: Number,
+    sTime: String,
+    eTime: String,
+    memo:String
+  },
+  emit:['update:act', 'update:location', 'update:Day', 'update:sTime', 'update:eTime', 'update:Memo', 'clicked'],
   methods:{
     clicked(){
       console.log(123)

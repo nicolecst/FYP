@@ -114,12 +114,52 @@
         <div class="row mt-4">
           <div class="col-md-4 form-group">
             <label for="">Type</label>
-            <select name="" id="" class="form-control" v-model="activity.Type">
+            <div class="col md-4">
+            <label for="">Type</label>
+            <div class="checkboxType">
+              <input
+                type="checkbox"
+                id="solo"
+                value="Solo"
+                v-model="activity.Type"
+              />
+              <label for="solo">Solo</label>
+              <input
+                type="checkbox"
+                id="couple"
+                value="Couple"
+                v-model="activity.Type"
+              />
+              <label for="couple">Couple</label>
+              <input
+                type="checkbox"
+                id="family"
+                value="Family"
+                v-model="activity.Type"
+              />
+              <label for="family">Family</label>
+              <input
+                type="checkbox"
+                id="friends"
+                value="Friends"
+                v-model="activity.Type"
+              />
+              <label for="friends">Friends</label>
+            </div>
+
+            <!-- <select name="" id="" class="form-control" v-model="type">
               <option>Solo</option>
               <option>Couple</option>
               <option>Friends</option>
               <option>Family</option>
-            </select>
+            </select> -->
+          </div>
+            <!-- <select name="" id="" class="form-control" v-model="activity.Type">
+              <option>Solo</option>
+              <option>Couple</option>
+              <option>Friends</option>
+              <option>Family</option>
+            </select> -->
           </div>
           <div class="col-md-4 form-group">
             <label for="">Category</label>
@@ -242,5 +282,16 @@ a {
   margin-top: 30px;
   padding-bottom: 10px;
   /* padding: 40px; */
+}
+.checkboxType{
+  padding: 5px;
+}
+.checkboxType input{
+  margin-left: 10px;
+  margin-right: 3px;
+}
+.checkboxType label{
+  font-size: 18px;
+  font-weight: 400;
 }
 </style>

@@ -17,8 +17,6 @@ async function start() {
 
   const MAX_SIZE = 100000000;
   const multer = require('multer');
-  const sharp = require('sharp');
-  const fs = require('fs');
 
   const uploads = multer({
     dest: 'src/uploads',
@@ -40,7 +38,7 @@ async function start() {
   })
 
   //home page listing all activities
-  app.get("/api/", uploads.single('file'), async (req, res) => {
+  app.get("/api/", async (req, res) => {
     const activities = await db.collection("Activities").find({}).toArray();
     console.log("hello");
     res.send(activities);
@@ -104,6 +102,7 @@ async function start() {
         Approved: false,
       };
       console.log(actdata.file);
+      console.log("filename"+ actdata.file.filename);
   
       const existAct = await db.collection("Activities").findOne({ Act_name: req.body.actName });
       if (existAct) {

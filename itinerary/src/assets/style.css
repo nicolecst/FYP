@@ -1,3 +1,6 @@
 /* *{
     background-color: #016A70;
 } */
+html{
+    scroll-behavior: smooth;
+}

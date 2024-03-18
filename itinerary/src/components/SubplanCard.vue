@@ -3,6 +3,7 @@
         <div class="container">
             <div class="card-body">
               <p class="card-text">Act_Name: {{ actName }}</p>
+              <p class="card-text">Location: {{ location }}</p>
               <p class="card-text">Start Time: {{ sTime }}</p>
               <p class="card-text">End Time: {{ eTime }}</p>
               <p class="card-text">Memo: {{ memo }}</p>
@@ -20,6 +21,7 @@ export default {
     name: "SubplanCard",
     props:{
         actName: String,
+        location: String,
         sTime: String,
         eTime: String,
         memo: String

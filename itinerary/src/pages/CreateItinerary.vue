@@ -1,179 +1,251 @@
 <template>
-  <div>
+  <div class="outmost-container">
     <NavBar />
-    <h1>Create itinerary</h1>
+    <div class="row" style="text-align:center; color: #fff; margin-top: 30px; margin-bottom: 30px;">
+      <h1>Lets build your itinerary!</h1>
+    </div>
+
     <div class="container">
-      <form @submit.prevent="create()">
-        <section v-if="step == 1">
-          <h1>Step 1</h1>
-          <div class="row mt-2">
-            <label for="">Itinerary Name</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="give a name for your plan.."
-              v-model="iname"
-            />
-          </div>
-          <div class="row mt-2">
-            <div class="col md-6">
-              <label for="">Type</label>
-              <select name="" id="" class="form-control" v-model="itype">
-                <option>Choose the trip type..</option>
-                <option>Solo</option>
-                <option>Couple</option>
-                <option>Friends</option>
-                <option>Family</option>
-              </select>
-            </div>
-            <div class="col md-6">
-              <label for="">Number of participants</label>
-              <input
-                type="number"
-                v-model="participants"
-                placeholder="how many?"
-                class="form-control"
-              />
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col md-6">
-              <label for="">From</label>
-              <input
-                required
-                data-format="yyyy/mm/dd"
-                type="date"
-                class="form-control"
-                placeholder="start date"
-                v-model="start"
-              />
-            </div>
-            <div class="col md-6">
-              <label for="">To</label>
-              <input
-                required
-                data-format="yyyy/mm/dd"
-                type="date"
-                class="form-control"
-                placeholder="end date"
-                v-model="end"
-                :min="start"
-              />
-            </div>
-          </div>
-        </section>
-
-        <section v-if="step == 2">
-          <div class="addButton">
-            <div>
-              <h1>Step 2</h1>
-            </div>
-            <div>
-              <button
-                class="btn create-btn"
-                @click.prevent="() => togglePopup('buttonTrigger')"
-              >
-                <span style="font-size: 1.5em; margin-right: 5px">
-                  <font-awesome-icon icon="fa-solid fa-calendar-plus" /> </span
-                >Add activities
-              </button>
-            </div>
-          </div>
-
-          <p>{{ dateDiff }}</p>
-
-          <div class="scrolls">
-            <PlanCard
-              v-for="(n, i) in dateDiff"
-              :key="n"
-              :n="n"
-              :start="addDays(start, i)"
-              :daysOfWeek="weekdays(start, i)"
-            >
-              <div v-for="(row, rowIndex) in subplancard[i]" :key="rowIndex">
-                <div v-for="(element, columnIndex) in row" :key="columnIndex">
-                  <SubplanCard
-                    :actName="element.act_name"
-                    :sTime="element.sTime"
-                    :eTime="element.eTime"
-                    :memo="element.memo"
-                  ></SubplanCard>
-                </div>
-              </div>
-            </PlanCard>
-          </div>
-
-          <PopupForm
-            v-if="popupTriggers.buttonTrigger"
-            :togglePopup="() => togglePopup('buttonTrigger')"
-            :n="dateDiff"
-            v-model:act="act"
-            v-model:day="day"
-            v-model:sTime="sTime"
-            v-model:eTime="eTime"
-            v-model:memo="memo"
-            @clicked="clicked"
-          />
-        </section>
-
-        <section v-if="step == 3">
-          <h3>Step 3</h3>
-          <div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                v-model="is_public"
-                id="flexCheckDefault"
-              />
-              <label class="form-check-label" for="flexCheckDefault">
-                Public
-              </label>
-              <small id="passwordHelpBlock" class="form-text text-muted">
-                (Check the box if you want your plan to be seen by everyone.)
-              </small>
-            </div>
-          </div>
-
-          <div class="scrolls">
-            <PlanCard
-              v-for="(n, i) in dateDiff"
-              :key="n"
-              :n="n"
-              :start="addDays(start, i)"
-              :daysOfWeek="weekdays(start, i)"
-            >
-            <div v-for="(row, rowIndex) in subplancard[i]" :key="rowIndex">
-                <div v-for="(element, columnIndex) in row" :key="columnIndex">
-                  <SubplanCard
-                    :actName="element.act_name"
-                    :sTime="element.sTime"
-                    :eTime="element.eTime"
-                    :memo="element.memo"
-                  ></SubplanCard>
-                </div>
-              </div>
-          </PlanCard>
-          </div>
-        </section>
-        <div class="row mt-2">
+      <div class="form-container">
+        <form @submit.prevent="create()">
           <div class="buttons">
             <div>
               <button
                 v-if="step != 1"
                 @click.prevent="previousStep()"
-                class="btn btn-primary"
+                class="btn"
               >
-                Back
+                <span style="font-size: 5rem"
+                  ><font-awesome-icon
+                    :icon="['fas', 'caret-left']"
+                    beat
+                    style="color: #fff"
+                /></span>
               </button>
             </div>
+            <section v-if="step == 1">
+              <div class="section-container1">
+                <div class="progress-bar">
+                  <div class="progress">1</div>
+                  <div class="bar" style="background-color: #d3d3d3"></div>
+                  <div class="progress" style="background-color: #d3d3d3">
+                    2
+                  </div>
+                  <div class="bar" style="background-color: #d3d3d3"></div>
+                  <div class="progress" style="background-color: #d3d3d3">
+                    3
+                  </div>
+                </div>
+
+                <div class="row mt-2">
+                  <label for="">Itinerary Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="give a name for your plan.."
+                    v-model="iname"
+                  />
+                </div>
+                <div class="row mt-2">
+                  <div class="col md-6">
+                    <label for="">Type</label>
+                    <select name="" id="" class="form-control" v-model="itype">
+                      <option>Choose the trip type..</option>
+                      <option>Solo</option>
+                      <option>Couple</option>
+                      <option>Friends</option>
+                      <option>Family</option>
+                    </select>
+                  </div>
+                  <div class="col md-6">
+                    <label for="">Number of participants</label>
+                    <input
+                      type="number"
+                      v-model="participants"
+                      placeholder="how many?"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col md-6">
+                    <label for="">From</label>
+                    <input
+                      required
+                      data-format="yyyy/mm/dd"
+                      type="date"
+                      class="form-control"
+                      placeholder="start date"
+                      v-model="start"
+                    />
+                  </div>
+                  <div class="col md-6">
+                    <label for="">To</label>
+                    <input
+                      required
+                      data-format="yyyy/mm/dd"
+                      type="date"
+                      class="form-control"
+                      placeholder="end date"
+                      v-model="end"
+                      :min="start"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section v-if="step == 2">
+              <div class="section-container2">
+                <div class="progress-bar">
+                  <div class="progress">1</div>
+                  <div class="bar"></div>
+                  <div class="progress">2</div>
+                  <div class="bar" style="background-color: #d3d3d3"></div>
+                  <div class="progress" style="background-color: #d3d3d3">
+                    3
+                  </div>
+                </div>
+                <div class="addButton">
+                  <div></div>
+                  <div>
+                    <button
+                      class="btn create-btn"
+                      @click.prevent="() => togglePopup('buttonTrigger')"
+                    >
+                      <span style="font-size: 1.5em; margin-right: 5px">
+                        <font-awesome-icon
+                          icon="fa-solid fa-calendar-plus"
+                        /> </span
+                      >Add activities
+                    </button>
+                  </div>
+                </div>
+
+                <!-- <p>{{ dateDiff }}</p> -->
+
+                <div class="scrolls">
+                  <PlanCard
+                    v-for="(n, i) in dateDiff"
+                    :key="n"
+                    :n="n"
+                    :start="addDays(start, i)"
+                    :daysOfWeek="weekdays(start, i)"
+                  >
+                    <div
+                      v-for="(row, rowIndex) in subplancard[i]"
+                      :key="rowIndex"
+                    >
+                      <div
+                        v-for="(element, columnIndex) in row"
+                        :key="columnIndex"
+                      >
+                        <SubplanCard
+                          :actName="element.act_name"
+                          :location="element.location"
+                          :sTime="element.startTime"
+                          :eTime="element.endTime"
+                          :memo="element.memo"
+                        ></SubplanCard>
+                      </div>
+                    </div>
+                  </PlanCard>
+                </div>
+
+                <PopupForm
+                  v-if="popupTriggers.buttonTrigger"
+                  :togglePopup="() => togglePopup('buttonTrigger')"
+                  :n="dateDiff"
+                  v-model:act="act"
+                  v-model:location="location"
+                  v-model:day="day"
+                  v-model:sTime="sTime"
+                  v-model:eTime="eTime"
+                  v-model:memo="memo"
+                  @clicked="clicked"
+                />
+              </div>
+            </section>
+
+            <section v-if="step == 3">
+              <div class="section-container3">
+                <div class="progress-bar">
+                  <div class="progress">1</div>
+                  <div class="bar"></div>
+                  <div class="progress">2</div>
+                  <div class="bar"></div>
+                  <div class="progress">3</div>
+                </div>
+                <div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="is_public"
+                      id="flexCheckDefault"
+                    />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Public
+                    </label>
+                    <small id="passwordHelpBlock" class="form-text text-muted">
+                      (Check the box if you want your plan to be seen by
+                      everyone.)
+                    </small>
+                  </div>
+                </div>
+
+                <div class="scrolls">
+                  <PlanCard
+                    v-for="(n, i) in dateDiff"
+                    :key="n"
+                    :n="n"
+                    :start="addDays(start, i)"
+                    :daysOfWeek="weekdays(start, i)"
+                  >
+                    <div
+                      v-for="(row, rowIndex) in subplancard[i]"
+                      :key="rowIndex"
+                    >
+                      <div
+                        v-for="(element, columnIndex) in row"
+                        :key="columnIndex"
+                      >
+                        <SubplanCard
+                          :actName="element.act_name"
+                          :location="element.location"
+                          :sTime="element.startTime"
+                          :eTime="element.endTime"
+                          :memo="element.memo"
+                        ></SubplanCard>
+                      </div>
+                    </div>
+                  </PlanCard>
+                </div>
+              </div>
+            </section>
+            <!-- <div class="row mt-2"> -->
+            <!-- <div class="buttons">
+              <div>
+                <button
+                  v-if="step != 1"
+                  @click.prevent="previousStep()"
+                  class="btn btn-primary"
+                >
+                  Back
+                </button>
+              </div> -->
             <div>
               <button
                 v-if="step != totalSteps && start != null && end != null"
                 @click.prevent="nextStep()"
-                class="btn btn-primary"
+                class="btn"
               >
-                Next
+                <span style="font-size: 5rem"
+                  ><font-awesome-icon
+                    :icon="['fas', 'caret-right']"
+                    beat
+                    style="color: #fff"
+                /></span>
               </button>
               <button
                 v-if="step == totalSteps"
@@ -184,8 +256,9 @@
               </button>
             </div>
           </div>
-        </div>
-      </form>
+          <!-- </div> -->
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -221,13 +294,14 @@ export default {
       var dailyAct = {
         itin: {
           act_name: this.act,
+          location: this.location,
           day: parseInt(this.day),
-          start: this.sTime,
-          end: this.eTime,
+          startTime: this.sTime,
+          endTime: this.eTime,
           memo: this.memo,
         },
       };
-
+      console.log(typeof(this.sTime)+ this.sTime)
       if (this.subplancard.length < this.day) {
         while (this.subplancard.length < this.day) {
           this.subplancard.push([]);
@@ -255,7 +329,8 @@ export default {
 
       // this.dailyItin[0].splice(1,0,dailyAct);
       console.log(dailyAct);
-      console.log(this.dailyItin.length);
+      console.log(this.dailyItin);
+      // console.log(this.dailyItin.length);
     },
     nextStep() {
       this.step++;
@@ -306,9 +381,10 @@ export default {
   },
   setup() {
     const act = ref("");
+    const location = ref("");
     const day = ref();
-    const sTime = ref();
-    const eTime = ref();
+    const sTime = ref("");
+    const eTime = ref("");
     const memo = ref("");
     const is_public = ref(true);
     let dailyItin = [];
@@ -330,6 +406,7 @@ export default {
       popupTriggers,
       togglePopup,
       act,
+      location,
       day,
       sTime,
       eTime,
@@ -343,8 +420,55 @@ export default {
 };
 </script>
 <style scoped>
+/* body{
+  background-color: #016a70;
+} */
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
 .container {
-  width: 80%;
+  width: 100%;
+  /* height: 120vh; */
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  /* background-color: #fff;
+  border-radius: 20px;
+  padding: 50px;
+  align-content: center; */
+}
+.section-container1 {
+  background-color: #fff;
+  border-radius: 20px;
+  height: 50vh;
+  width: 80vw;
+  padding: 50px;
+  transition: 1s ease-out;
+}
+.section-container2 {
+  background-color: #fff;
+  border-radius: 20px;
+  height: 110vh;
+  width: 80vw;
+  padding: 50px;
+}
+.section-container3 {
+  background-color: #fff;
+  border-radius: 20px;
+  height: 110vh;
+  width: 80vw;
+  padding: 50px;
+}
+
+.outmost-container {
+  height: 200vh;
+  width: 100%;
+  margin: 0;
+  background-color: #016a70;
+  align-content: center;
+  justify-content: center;
 }
 .buttons {
   display: flex;
@@ -379,5 +503,29 @@ export default {
   border-color: #016a70;
   background-color: #016a70;
   color: #ffffdd;
+}
+.progress {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: #016a70;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 20px;
+}
+.bar {
+  height: 3px;
+  width: 55vh;
+  background-color: #016a70;
+}
+.progress-bar {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
 }
 </style>

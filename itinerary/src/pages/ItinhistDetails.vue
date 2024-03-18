@@ -12,7 +12,7 @@
       >
         <div v-for="(row, rowIndex) in itinArray[i]" :key="rowIndex">
           <div v-for="(element, columnIndex) in row" :key="columnIndex">
-            <SubplanCard :actName="element.act_name" :memo="element.memo">
+            <SubplanCard :actName="element.act_name" :location="element.location" :sTime="element.startTime" :eTime="element.endTime" :memo="element.memo">
             </SubplanCard>
           </div>
         </div>
