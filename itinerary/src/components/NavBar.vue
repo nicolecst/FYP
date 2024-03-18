@@ -17,7 +17,7 @@
             >
           </li>
           <li>
-            <a class="nav-link">
+            <a class="nav-link" href="/">
               <span style="font-size: 1.5em; color: #ffffff">
                 <font-awesome-icon icon="fa-solid fa-house" />
               </span>

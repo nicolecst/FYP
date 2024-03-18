@@ -10,7 +10,7 @@
         <p>Type: {{ type }}</p>
         <p>Participants: {{ participants }}</p>
         <p>Date: From {{ start }} to {{ end }}</p>
-        <p>Ratings: </p>
+        <p>Ratings: {{ rating }}</p>
         <p>View: {{ view }}</p>
         <router-link :to="/history/+id"><button class="btn btn-primary">View</button></router-link>
       </div>
@@ -26,6 +26,7 @@ export default {
     participants: Number,
     start: String,
     end: String,
+    rating: Number,
     view: String,
   },
   methods:{
@@ -52,8 +53,10 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 300px;
-  width: 300px;
+  height: 250px;
+  width: 250px;
+  margin: 30px;
+  border-radius: 10px;
 }
 .left{
     flex: 0 0 30%;

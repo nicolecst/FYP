@@ -1,6 +1,15 @@
 <template>
   <div class="outmost-container">
     <NavBar />
+    <div class="c">
+    <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/" style="color:#fff">Home</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Create Itinerary</li>
+        </ol>
+      </nav>
     <div class="row" style="text-align:center; color: #fff; margin-top: 30px; margin-bottom: 30px;">
       <h1>Lets build your itinerary!</h1>
     </div>
@@ -261,6 +270,7 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
@@ -427,6 +437,10 @@ export default {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+}
+.c{
+  margin-top:30px;
+  margin-left: 50px;
 }
 .container {
   width: 100%;

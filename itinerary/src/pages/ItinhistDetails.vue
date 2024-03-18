@@ -1,25 +1,41 @@
 <template>
   <div>
     <NavBar />
-    <h1>Itinerary History Details</h1>
-    <div class="scrolls">
-      <PlanCard
-        v-for="(n, i) in dateDiff"
-        :key="n"
-        :n="n"
-        :start="addDays(this.history.from, i)"
-        :daysOfWeek="weekdays(this.history.from, i)"
-      >
-        <div v-for="(row, rowIndex) in itinArray[i]" :key="rowIndex">
-          <div v-for="(element, columnIndex) in row" :key="columnIndex">
-            <SubplanCard :actName="element.act_name" :location="element.location" :sTime="element.startTime" :eTime="element.endTime" :memo="element.memo">
-            </SubplanCard>
+    <div class="container">
+      <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/history">Itinerary History</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Details</li>
+        </ol>
+      </nav>
+      
+      <h1>Itinerary History Details</h1>
+      <div class="scrolls">
+        <PlanCard
+          v-for="(n, i) in dateDiff"
+          :key="n"
+          :n="n"
+          :start="addDays(this.history.from, i)"
+          :daysOfWeek="weekdays(this.history.from, i)"
+        >
+          <div v-for="(row, rowIndex) in itinArray[i]" :key="rowIndex">
+            <div v-for="(element, columnIndex) in row" :key="columnIndex">
+              <SubplanCard
+                :actName="element.act_name"
+                :location="element.location"
+                :sTime="element.startTime"
+                :eTime="element.endTime"
+                :memo="element.memo"
+              >
+              </SubplanCard>
+            </div>
           </div>
-        </div>
-      </PlanCard>
-    </div>
+        </PlanCard>
+      </div>
 
-    <div class="rate-container">
+      <div class="rate-container">
         <button
           class="btn rate-btn"
           @click.prevent="() => togglePopup('buttonTrigger')"
@@ -28,41 +44,42 @@
             <font-awesome-icon :icon="['fas', 'star']" /> </span
           >Rate
         </button>
-      <div class="row mt-4">
-        <div>
-          <p
-            v-for="n in this.history.rate"
-            :key="n"
-            style="display: inline; margin: 5px"
-          >
-            <font-awesome-icon :icon="['fas', 'star']" />
+        <div class="row mt-4">
+          <div>
+            <p
+              v-for="n in this.history.rate"
+              :key="n"
+              style="display: inline; margin: 5px"
+            >
+              <font-awesome-icon :icon="['fas', 'star']" />
+            </p>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <p>
+            <span style="margin: 5px"
+              ><font-awesome-icon :icon="['fas', 'comment-dots']" /></span
+            >{{ this.history.comment }}
           </p>
         </div>
       </div>
 
-      <div class="row mt-4">
-        <p>
-          <span style="margin: 5px"
-            ><font-awesome-icon :icon="['fas', 'comment-dots']" /></span
-          >{{ this.history.comment }}
-        </p>
-      </div>
-    </div>
+      <PopupRateVue
+        v-if="popupTriggers.buttonTrigger"
+        :togglePopup="() => togglePopup('buttonTrigger')"
+        v-model:rate="rate"
+        v-model:comment="comment"
+        @rate="Rate(this.history._id)"
+      />
 
-    <PopupRateVue
-      v-if="popupTriggers.buttonTrigger"
-      :togglePopup="() => togglePopup('buttonTrigger')"
-      v-model:rate="rate"
-      v-model:comment="comment"
-      @rate="Rate(this.history._id)"
-    />
-
-    <!-- <p v-for="(itin, i) in this.history.dailyItin" :key="i">
+      <!-- <p v-for="(itin, i) in this.history.dailyItin" :key="i">
       {{ itin }}
     </p> -->
-    <!-- <p>{{ history }}</p> -->
-    <p>dateDiff: {{ dateDiff }}</p>
-    <p></p>
+      <!-- <p>{{ history }}</p> -->
+      <p>dateDiff: {{ dateDiff }}</p>
+      <p></p>
+    </div>
   </div>
 </template>
 
@@ -178,6 +195,9 @@ export default {
 };
 </script>
 <style scoped>
+.container {
+  margin-top: 30px;
+}
 .rate-btn {
   border-color: #016a70;
   color: #016a70;
