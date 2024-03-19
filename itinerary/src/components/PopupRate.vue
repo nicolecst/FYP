@@ -1,36 +1,40 @@
 <template>
   <div class="popup">
     <div class="popup-inner">
-      <h1>Popup Rate form</h1>
-      <button class="btn close" @click.prevent="togglePopup()">
-        <span style="font-size: 1.5rem"
-          ><font-awesome-icon icon="fa-solid fa-circle-xmark" /></span
-        >Close
-      </button>
-      
-      <div>
-      <span
-        v-for="(star, index) in this.stars"
-        :key="index"
-        @click="r(index + 1)"
+      <div class="popup-header">
+        <h1 style="font-family: BungeeInline">Leave your rating!</h1>
+        <button class="btn close" @click.prevent="togglePopup()">
+          <span style="font-size: 1.5rem"
+            ><font-awesome-icon icon="fa-solid fa-circle-xmark" /></span
+          ></button>
+      </div>
 
-        style="font-size: 1.5em; margin: 8px;"
-      >
-        <font-awesome-icon :icon="starClass(index)"></font-awesome-icon>
-      </span>
-    </div>
-    <p>Selected Rating: {{ selectedRating }}</p>
+      <div>
+        <label>Rating</label>
+        <span
+          v-for="(star, index) in this.stars"
+          :key="index"
+          @click="r(index + 1)"
+          style="font-size: 1.5em; margin: 8px"
+        >
+          <font-awesome-icon :icon="starClass(index)"></font-awesome-icon>
+        </span>
+      </div>
+      <!-- <p>Selected Rating: {{ selectedRating }}</p> -->
 
       <form action="">
-        <label for="">Rating</label>
-        <input type="number" min="1" max="5" class="form-control" placeholder="rate.." :value="rate" @input="$emit('update:rate', $event.target.value)"/>
-        <p>{{ rate }}</p>
         <label for="">Comments</label>
-        <textarea type="text" class="form-control" placeholder="say sth.." :value="comment" @input="$emit('update:comment', $event.target.value)"></textarea>
+        <textarea
+          type="text"
+          class="form-control"
+          placeholder="say sth.."
+          :value="comment"
+          @input="$emit('update:comment', $event.target.value)"
+        ></textarea>
         <p>{{ comment }}</p>
 
         <div class="row mt-2">
-          <button class="btn btn-primary" @click="$emit('rate')">Rate</button>
+          <button class="btn rate-btn" @click="$emit('rate')">Rate</button>
         </div>
       </form>
     </div>
@@ -38,19 +42,19 @@
 </template>
 
 <script>
-import '@fortawesome/fontawesome-free/css/all.css';
-import { ref } from 'vue';
+import "@fortawesome/fontawesome-free/css/all.css";
+import { ref } from "vue";
 
 export default {
   name: "PopupRate",
-  props: ["togglePopup", "rate", "comment"],
-  emit:['update:rate', 'update:comment'],
-//   data() {
-//     return {
-//       stars: 5,
-//       selectedRating: 0
-//     };
-//   },
+  props: ["togglePopup", "comment"],
+  emit: ["update:comment", "rating-updated"],
+  //   data() {
+  //     return {
+  //       stars: 5,
+  //       selectedRating: 0
+  //     };
+  //   },
   methods: {
     highlight(rating) {
       this.selectedRating = rating;
@@ -60,25 +64,28 @@ export default {
     },
     r(rating) {
       this.selectedRating = rating;
+      console.log(this.selectedRating);
+      this.$emit("rating-updated", this.selectedRating);
+
       // Perform any additional logic or actions here, such as sending the rating to the server
     },
     starClass(index) {
       if (this.selectedRating >= index + 1) {
-        return ['fas', 'star'];
+        return ["fas", "star"];
       } else {
-        return ['far', 'star'];
+        return ["far", "star"];
       }
-    }
-},
-setup(){
+    },
+  },
+  setup() {
     const stars = 5;
     const selectedRating = ref(0);
 
-    return{
-        stars,
-        selectedRating
-    }
-}
+    return {
+      stars,
+      selectedRating,
+    };
+  },
 };
 </script>
 
@@ -100,5 +107,27 @@ setup(){
   background-color: #fff;
   padding: 30px;
   border-radius: 10px;
+}
+.popup-header{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+label{
+  font-size: 20px;
+  margin-top: 20px;
+  font-weight: bolder;
+}
+.rate-btn{
+  color: #fff;
+  background-color: #016a70;
+}
+.rate-btn:hover{
+  border-color: #FFDB64;
+  background-color: #FFDB64;
+  color: #a08843;
+  border-color: #a08843;
 }
 </style>

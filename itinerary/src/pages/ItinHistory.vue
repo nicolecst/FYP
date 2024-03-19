@@ -17,12 +17,13 @@
           v-for="plan in plans"
           :key="plan._id"
           :id="plan._id"
+          :author="plan.authorName"
           :name="plan.name"
           :type="plan.type"
           :participants="plan.participants"
           :start="plan.from"
           :end="plan.to"
-          :rating="plan.rate"
+          :rating="plan.selectedRate"
           :view="plan.is_public"
         />
       </div>

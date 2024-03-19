@@ -11,7 +11,7 @@
         </ol>
       </nav>
       
-      <h1>Itinerary History Details</h1>
+      <!-- <h1>Itinerary History Details</h1> -->
       <div class="scrolls">
         <PlanCard
           v-for="(n, i) in dateDiff"
@@ -47,7 +47,7 @@
         <div class="row mt-4">
           <div>
             <p
-              v-for="n in this.history.rate"
+              v-for="n in this.history.selectedRate"
               :key="n"
               style="display: inline; margin: 5px"
             >
@@ -68,8 +68,8 @@
       <PopupRateVue
         v-if="popupTriggers.buttonTrigger"
         :togglePopup="() => togglePopup('buttonTrigger')"
-        v-model:rate="rate"
         v-model:comment="comment"
+        @rating-updated="ratingUpdate"
         @rate="Rate(this.history._id)"
       />
 
@@ -103,18 +103,10 @@ export default {
   data() {
     return {
       history: [],
+      r: 0,
       dateDiff: 0,
       itinArray: [],
       itinSubArray: [],
-      dailyItin: [
-        [
-          { itin: { name: 1 } },
-          { itin: { name: 1.1 } },
-          { itin: { name: 1.2 } },
-        ],
-        [{ itin: { name: 2 } }],
-        [{ itin: { name: 3 } }],
-      ],
     };
   },
   methods: {
@@ -129,17 +121,21 @@ export default {
       result.setDate(result.getDate() + days);
       return result.toLocaleString("en-US", { weekday: "long" });
     },
+    ratingUpdate(rating){
+      this.r = rating
+    },
     async Rate(iid) {
       const rateData = {
         author: this.history.author,
+        authorName: this.history.authorName,
         name: this.history.name,
         type: this.history.type,
         participants: this.history.participants,
         from: this.history.from,
         to: this.history.to,
-        dailyItin: this.dailyItin,
+        dailyItin: this.history.dailyItin,
         is_public: this.history.is_public,
-        rate: parseInt(this.rate),
+        selectedRate: this.r,
         comment: this.comment,
       };
 
@@ -174,7 +170,6 @@ export default {
     fetchData();
   },
   setup() {
-    const rate = ref();
     const comment = ref("");
 
     const popupTriggers = ref({
@@ -188,7 +183,6 @@ export default {
     return {
       popupTriggers,
       togglePopup,
-      rate,
       comment,
     };
   },

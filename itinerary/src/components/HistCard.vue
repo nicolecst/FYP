@@ -7,11 +7,11 @@
       <div class="right">
         <p>{{ id }}</p>
         <p>Plan name: {{ name }}</p>
-        <p>Author: {{ author }}</p>
-        <p>Type: {{ type }}</p>
-        <p>Participants: {{ participants }}</p>
-        <p>Date: From {{ start }} to {{ end }}</p>
-        <p>Ratings: {{ rating }}</p>
+        <p><span style="font-size: 1rem"><font-awesome-icon :icon="['fas', 'circle-user']" /></span> Author: {{ author }}</p>
+        <p><span style="font-size: 1rem"><font-awesome-icon :icon="['fas', 'people-robbery']" /></span> Type: {{ type }}</p>
+        <p><span style="font-size: 1rem"><font-awesome-icon :icon="['fas', 'users']" /></span> Participants: {{ participants }}</p>
+        <p><span style="font-size: 1rem"><font-awesome-icon :icon="['fas', 'calendar-days']" /></span> From {{ start }} to {{ end }}</p>
+        <p>Ratings: <span v-for="n in rating" :key="n" style="margin-right:8px"><font-awesome-icon :icon="['fas', 'star']" /></span></p>
         <p>View: {{ view }}</p>
         <router-link :to="/history/+id"><button class="btn view-btn">View</button></router-link>
       </div>

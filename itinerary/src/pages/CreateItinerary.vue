@@ -552,6 +552,6 @@ export default {
 }
 .complete-btn:hover{
   color: #FFDB64;
-  border-color: #a08843;
+
 }
 </style>

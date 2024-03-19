@@ -13,16 +13,16 @@ async function start() {
   const url = "mongodb+srv://nicolecst:7fUWUtSb@cluster0.j43pz4m.mongodb.net/";
   const client = new MongoClient(url);
   const ObjectId = require("mongodb").ObjectId;
-  const path = require('path');
+  const path = require("path");
 
   const MAX_SIZE = 100000000;
-  const multer = require('multer');
+  const multer = require("multer");
 
   const uploads = multer({
-    dest: 'src/uploads',
-    limits:{
-      fileSize: MAX_SIZE
-    }
+    dest: "src/uploads",
+    limits: {
+      fileSize: MAX_SIZE,
+    },
   });
 
   await client.connect();
@@ -30,12 +30,12 @@ async function start() {
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
-  const staticPath = path.join(__dirname, 'uploads');  // Replace 'uploads' with the actual relative path to your image directory
+  const staticPath = path.join(__dirname, "uploads"); // Replace 'uploads' with the actual relative path to your image directory
   app.use(express.static(staticPath));
 
-  app.post("/api/upload", uploads.single('file'),(req, res)=>{
-    res.json({file: req.file});
-  })
+  app.post("/api/upload", uploads.single("file"), (req, res) => {
+    res.json({ file: req.file });
+  });
 
   //home page listing all activities
   app.get("/api/", async (req, res) => {
@@ -84,10 +84,10 @@ async function start() {
   });
 
   //Add new activities
-  app.post("/api/addAct", uploads.single('file'),async (req, res) => {
+  app.post("/api/addAct", uploads.single("file"), async (req, res) => {
     try {
       console.log(req.body);
-  
+
       const actdata = {
         Act_name: req.body.actName,
         Location: req.body.location,
@@ -102,9 +102,11 @@ async function start() {
         Approved: false,
       };
       console.log(actdata.file);
-      console.log("filename"+ actdata.file.filename);
-  
-      const existAct = await db.collection("Activities").findOne({ Act_name: req.body.actName });
+      console.log("filename" + actdata.file.filename);
+
+      const existAct = await db
+        .collection("Activities")
+        .findOne({ Act_name: req.body.actName });
       if (existAct) {
         res.send("Activity already exists, please use a different name");
       } else {
@@ -168,14 +170,14 @@ async function start() {
     res.send(itin);
   });
 
-    //View All Itinerary
-    app.get("/api/itinHistory", async (req, res) => {
-      const itinHist = await db
-        .collection("Plans")
-        .find({is_public: true})
-        .toArray();
-      res.send(itinHist);
-    });
+  //View All Itinerary
+  app.get("/api/itinHistory", async (req, res) => {
+    const itinHist = await db
+      .collection("Plans")
+      .find({ is_public: true })
+      .toArray();
+    res.send(itinHist);
+  });
 
   //View Itineray History of an author
   app.get("/api/itinHistory/:id", async (req, res) => {
@@ -197,9 +199,23 @@ async function start() {
 
   //Rate Itinerary
   app.put("/api/rate/:id", async (req, res) => {
+    const rateUpdate = {
+      author: new ObjectId(req.body.author),
+      authorName: req.body.authorName,
+      name: req.body.name,
+      type: req.body.type,
+      participants: req.body.participants,
+      from: req.body.from,
+      to: req.body.to,
+      dailyItin: req.body.dailyItin,
+      is_public: req.body.is_public,
+      selectedRate: req.body.selectedRate,
+      comment: req.body.comment,
+    };
+
     const rate = await db
       .collection("Plans")
-      .findOneAndReplace({ _id: new ObjectId(req.params.id) }, req.body);
+      .findOneAndReplace({ _id: new ObjectId(req.params.id) }, rateUpdate);
     res.json(rate);
   });
 
