@@ -17,45 +17,86 @@
       <form action="">
         <div class="row mt-2">
           <label for="">Activity</label>
-          <input type="text" class="form-control" required :value="act" @input = "$emit('update:act', $event.target.value)" />
+          <input
+            type="text"
+            class="form-control"
+            :value="act"
+            @input="$emit('update:act', $event.target.value)"
+          />
           <p>{{ act }}</p>
           <!-- <button>Browse</button> -->
         </div>
         <div class="row mt-2">
           <label for="">Location</label>
-          <input type="text" class="form-control" required :value="location" @input = "$emit('update:location', $event.target.value)" />
+          <input
+            type="text"
+            class="form-control"
+            :value="location"
+            @input="$emit('update:location', $event.target.value)"
+          />
           <p>{{ location }}</p>
           <!-- <button>Browse</button> -->
         </div>
+        <slot></slot>
 
         <div class="row mt-2">
-          <label for="">Day</label>
-          <select name="" id="" class="form-control" required :value="day" @input="$emit('update:Day', $event.target.value)">
-            <option v-for="i in n" :key="i">{{ i }}</option>
-          </select>
-          <p>{{ day }}</p>
-        </div>
+          <div class="col md-4">
+            <label for="">Day</label>
+            <select
+              name=""
+              id=""
+              class="form-control"
+              required
+              :value="day"
+              @input="$emit('update:Day', $event.target.value)"
+            >
+              <option v-for="i in n" :key="i">{{ i }}</option>
+            </select>
+            <p>{{ day }}</p>
+          </div>
 
-        <div class="row mt-2">
-          <div class="col md-6">
+          <div class="col md-4">
             <label for="">Start</label>
-            <input type="time" name="" id="" class="form-control" :value="sTime" @input="$emit('update:sTime', $event.target.value)"/>
+            <input
+              type="time"
+              name=""
+              id=""
+              class="form-control"
+              :value="sTime"
+              @input="$emit('update:sTime', $event.target.value)"
+            />
           </div>
-          <div class="col md-6">
+          <div class="col md-4">
             <label for="">End</label>
-            <input type="time" name="" id="" class="form-control" :value="eTime" @input="$emit('update:eTime', $event.target.value)"/>
+            <input
+              type="time"
+              name=""
+              id=""
+              class="form-control"
+              :value="eTime"
+              @input="$emit('update:eTime', $event.target.value)"
+            />
           </div>
-        </div>
-        <p>{{ sTime }} {{ eTime }}</p>
 
+          <p>{{ sTime }} {{ eTime }}</p>
+        </div>
         <div class="row mt-2">
           <label for="">Memo</label>
-          <textarea type="text" name="" id="" class="form-control" :value="memo" @input="$emit('update:Memo', $event.target.value)"></textarea>
+          <textarea
+            type="text"
+            name=""
+            id=""
+            class="form-control"
+            :value="memo"
+            @input="$emit('update:Memo', $event.target.value)"
+          ></textarea>
         </div>
         <p>{{ memo }}</p>
 
         <div class="row mt-2">
-          <button class="btn btn-primary" @click.prevent="$emit('clicked')">Add</button>
+          <button class="btn btn-primary" @click.prevent="$emit('clicked')">
+            Add
+          </button>
         </div>
       </form>
     </div>
@@ -68,7 +109,7 @@
 export default {
   name: "PopupForm",
   // props: ["togglePopup", "n", "act", "day", "sTime", "eTime", "memo"],
-  props:{
+  props: {
     togglePopup: Function,
     n: String,
     act: String,
@@ -76,14 +117,22 @@ export default {
     day: Number,
     sTime: String,
     eTime: String,
-    memo:String
+    memo: String,
   },
-  emit:['update:act', 'update:location', 'update:Day', 'update:sTime', 'update:eTime', 'update:Memo', 'clicked'],
-  methods:{
-    clicked(){
-      console.log(123)
-    }
-  }
+  emit: [
+    "update:act",
+    "update:location",
+    "update:Day",
+    "update:sTime",
+    "update:eTime",
+    "update:Memo",
+    "clicked",
+  ],
+  methods: {
+    clicked() {
+      console.log(123);
+    },
+  },
   //   component:{
   //     PopupAct
   //   }
@@ -108,6 +157,7 @@ export default {
   background-color: #fff;
   padding: 30px;
   border-radius: 10px;
+  width: 60%;
 }
 .formHeader {
   display: flex;

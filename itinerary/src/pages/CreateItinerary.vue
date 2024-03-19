@@ -2,238 +2,268 @@
   <div class="outmost-container">
     <NavBar />
     <div class="c">
-    <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+      <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="/" style="color:#fff">Home</a>
+            <a href="/" style="color: #fff">Home</a>
           </li>
-          <li class="breadcrumb-item active" aria-current="page" style="color:#FFDB64;">Create Itinerary</li>
+          <li
+            class="breadcrumb-item active"
+            aria-current="page"
+            style="color: #ffdb64"
+          >
+            Create Itinerary
+          </li>
         </ol>
       </nav>
-    <div class="row" style="text-align:center; color: #fff; font-family: BungeeInline; margin-top: 30px; margin-bottom: 30px;">
-      <h1>Lets build your itinerary!</h1>
-    </div>
+      <div
+        class="row"
+        style="
+          text-align: center;
+          color: #fff;
+          font-family: BungeeInline;
+          margin-top: 30px;
+          margin-bottom: 30px;
+        "
+      >
+        <h1>Lets build your itinerary!</h1>
+      </div>
 
-    <div class="container">
-      <div class="form-container">
-        <form @submit.prevent="create()">
-          <div class="buttons">
-            <div>
-              <button
-                v-if="step != 1"
-                @click.prevent="previousStep()"
-                class="btn"
-              >
-                <span style="font-size: 5rem"
-                  ><font-awesome-icon
-                    :icon="['fas', 'caret-left']"
-                    beat
-                    style="color: #fff"
-                /></span>
-              </button>
-            </div>
-            <section v-if="step == 1">
-              <div class="section-container1">
-                <div class="progress-bar">
-                  <div class="progress">1</div>
-                  <div class="bar" style="background-color: #d3d3d3"></div>
-                  <div class="progress" style="background-color: #d3d3d3">
-                    2
-                  </div>
-                  <div class="bar" style="background-color: #d3d3d3"></div>
-                  <div class="progress" style="background-color: #d3d3d3">
-                    3
-                  </div>
-                </div>
-
-                <div class="row mt-2">
-                  <label for="">Itinerary Name</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="give a name for your plan.."
-                    v-model="iname"
-                  />
-                </div>
-                <div class="row mt-2">
-                  <div class="col md-6">
-                    <label for="">Type</label>
-                    <select name="" id="" class="form-control" v-model="itype">
-                      <option>Choose the trip type..</option>
-                      <option>Solo</option>
-                      <option>Couple</option>
-                      <option>Friends</option>
-                      <option>Family</option>
-                    </select>
-                  </div>
-                  <div class="col md-6">
-                    <label for="">Number of participants</label>
-                    <input
-                      type="number"
-                      v-model="participants"
-                      placeholder="how many?"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
-                <div class="row mt-2">
-                  <div class="col md-6">
-                    <label for="">From</label>
-                    <input
-                      required
-                      data-format="yyyy/mm/dd"
-                      type="date"
-                      class="form-control"
-                      placeholder="start date"
-                      v-model="start"
-                    />
-                  </div>
-                  <div class="col md-6">
-                    <label for="">To</label>
-                    <input
-                      required
-                      data-format="yyyy/mm/dd"
-                      type="date"
-                      class="form-control"
-                      placeholder="end date"
-                      v-model="end"
-                      :min="start"
-                    />
-                  </div>
-                </div>
+      <div class="container">
+        <div class="form-container">
+          <form @submit.prevent="create()">
+            <div class="buttons">
+              <div>
+                <button
+                  v-if="step != 1"
+                  @click.prevent="previousStep()"
+                  class="btn"
+                >
+                  <span style="font-size: 5rem"
+                    ><font-awesome-icon
+                      :icon="['fas', 'caret-left']"
+                      beat
+                      style="color: #fff"
+                  /></span>
+                </button>
               </div>
-            </section>
+              <section v-if="step == 1">
+                <div class="section-container1">
+                  <div class="progress-bar">
+                    <div class="progress">1</div>
+                    <div class="bar" style="background-color: #d3d3d3"></div>
+                    <div class="progress" style="background-color: #d3d3d3">
+                      2
+                    </div>
+                    <div class="bar" style="background-color: #d3d3d3"></div>
+                    <div class="progress" style="background-color: #d3d3d3">
+                      3
+                    </div>
+                  </div>
 
-            <section v-if="step == 2">
-              <div class="section-container2">
-                <div class="progress-bar">
-                  <div class="progress">1</div>
-                  <div class="bar"></div>
-                  <div class="progress">2</div>
-                  <div class="bar" style="background-color: #d3d3d3"></div>
-                  <div class="progress" style="background-color: #d3d3d3">
-                    3
+                  <div class="row mt-2">
+                    <label for="">Itinerary Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="give a name for your plan.."
+                      v-model="iname"
+                    />
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col md-6">
+                      <label for="">Type</label>
+                      <select
+                        name=""
+                        id=""
+                        class="form-control"
+                        v-model="itype"
+                      >
+                        <option>Choose the trip type..</option>
+                        <option>Solo</option>
+                        <option>Couple</option>
+                        <option>Friends</option>
+                        <option>Family</option>
+                      </select>
+                    </div>
+                    <div class="col md-6">
+                      <label for="">Number of participants</label>
+                      <input
+                        type="number"
+                        v-model="participants"
+                        placeholder="how many?"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col md-6">
+                      <label for="">From</label>
+                      <input
+                        required
+                        data-format="yyyy/mm/dd"
+                        type="date"
+                        class="form-control"
+                        placeholder="start date"
+                        v-model="start"
+                      />
+                    </div>
+                    <div class="col md-6">
+                      <label for="">To</label>
+                      <input
+                        required
+                        data-format="yyyy/mm/dd"
+                        type="date"
+                        class="form-control"
+                        placeholder="end date"
+                        v-model="end"
+                        :min="start"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div class="addButton">
-                  <div></div>
-                  <div>
-                    <button
-                      class="btn create-btn"
-                      @click.prevent="() => togglePopup('buttonTrigger')"
+              </section>
+
+              <section v-if="step == 2">
+                <div class="section-container2">
+                  <div class="progress-bar">
+                    <div class="progress">1</div>
+                    <div class="bar"></div>
+                    <div class="progress">2</div>
+                    <div class="bar" style="background-color: #d3d3d3"></div>
+                    <div class="progress" style="background-color: #d3d3d3">
+                      3
+                    </div>
+                  </div>
+                  <div class="addButton">
+                    <div></div>
+                    <div>
+                      <button
+                        class="btn create-btn"
+                        @click.prevent="() => togglePopup('buttonTrigger')"
+                      >
+                        <span style="font-size: 1.5em; margin-right: 5px">
+                          <font-awesome-icon
+                            icon="fa-solid fa-calendar-plus"
+                          /> </span
+                        >Add activities
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- <p>{{ dateDiff }}</p> -->
+
+                  <div class="scrolls">
+                    <PlanCard
+                      v-for="(n, i) in dateDiff"
+                      :key="n"
+                      :n="n"
+                      :start="addDays(start, i)"
+                      :daysOfWeek="weekdays(start, i)"
                     >
-                      <span style="font-size: 1.5em; margin-right: 5px">
-                        <font-awesome-icon
-                          icon="fa-solid fa-calendar-plus"
-                        /> </span
-                      >Add activities
+                      <div
+                        v-for="(row, rowIndex) in subplancard[i]"
+                        :key="rowIndex"
+                      >
+                        <div
+                          v-for="(element, columnIndex) in row"
+                          :key="columnIndex"
+                        >
+                          <SubplanCard
+                            :actName="element.act_name"
+                            :location="element.location"
+                            :sTime="element.startTime"
+                            :eTime="element.endTime"
+                            :memo="element.memo"
+                          ></SubplanCard>
+                        </div>
+                      </div>
+                    </PlanCard>
+                  </div>
+
+                  <PopupForm
+                    v-if="popupTriggers.buttonTrigger"
+                    :togglePopup="() => togglePopup('buttonTrigger')"
+                    :n="dateDiff"
+                    v-model:act="act"
+                    v-model:location="location"
+                    v-model:day="day"
+                    v-model:sTime="sTime"
+                    v-model:eTime="eTime"
+                    v-model:memo="memo"
+                    @clicked="clicked"
+                    ><button @click="() => toggleActPopup('buttonTrigger')">
+                      Browse
                     </button>
-                  </div>
-                </div>
-
-                <!-- <p>{{ dateDiff }}</p> -->
-
-                <div class="scrolls">
-                  <PlanCard
-                    v-for="(n, i) in dateDiff"
-                    :key="n"
-                    :n="n"
-                    :start="addDays(start, i)"
-                    :daysOfWeek="weekdays(start, i)"
-                  >
-                    <div
-                      v-for="(row, rowIndex) in subplancard[i]"
-                      :key="rowIndex"
-                    >
-                      <div
-                        v-for="(element, columnIndex) in row"
-                        :key="columnIndex"
-                      >
-                        <SubplanCard
-                          :actName="element.act_name"
-                          :location="element.location"
-                          :sTime="element.startTime"
-                          :eTime="element.endTime"
-                          :memo="element.memo"
-                        ></SubplanCard>
-                      </div>
-                    </div>
-                  </PlanCard>
-                </div>
-
-                <PopupForm
-                  v-if="popupTriggers.buttonTrigger"
-                  :togglePopup="() => togglePopup('buttonTrigger')"
-                  :n="dateDiff"
-                  v-model:act="act"
-                  v-model:location="location"
-                  v-model:day="day"
-                  v-model:sTime="sTime"
-                  v-model:eTime="eTime"
-                  v-model:memo="memo"
-                  @clicked="clicked"
-                />
-              </div>
-            </section>
-
-            <section v-if="step == 3">
-              <div class="section-container3">
-                <div class="progress-bar">
-                  <div class="progress">1</div>
-                  <div class="bar"></div>
-                  <div class="progress">2</div>
-                  <div class="bar"></div>
-                  <div class="progress">3</div>
-                </div>
-                <div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      v-model="is_public"
-                      id="flexCheckDefault"
+                    <PopupAct
+                      v-if="popupActTriggers.buttonTrigger"
+                      :toggleActPopup="() => toggleActPopup('buttonTrigger')"
                     />
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Public
-                    </label>
-                    <small id="passwordHelpBlock" class="form-text text-muted">
-                      (Check the box if you want your plan to be seen by
-                      everyone.)
-                    </small>
-                  </div>
+                  </PopupForm>
                 </div>
+              </section>
 
-                <div class="scrolls">
-                  <PlanCard
-                    v-for="(n, i) in dateDiff"
-                    :key="n"
-                    :n="n"
-                    :start="addDays(start, i)"
-                    :daysOfWeek="weekdays(start, i)"
-                  >
-                    <div
-                      v-for="(row, rowIndex) in subplancard[i]"
-                      :key="rowIndex"
+              <section v-if="step == 3">
+                <div class="section-container3">
+                  <div class="progress-bar">
+                    <div class="progress">1</div>
+                    <div class="bar"></div>
+                    <div class="progress">2</div>
+                    <div class="bar"></div>
+                    <div class="progress">3</div>
+                  </div>
+                  <div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        v-model="is_public"
+                        id="flexCheckDefault"
+                      />
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Public
+                      </label>
+                      <small
+                        id="passwordHelpBlock"
+                        class="form-text text-muted"
+                      >
+                        (Check the box if you want your plan to be seen by
+                        everyone.)
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="scrolls">
+                    <PlanCard
+                      v-for="(n, i) in dateDiff"
+                      :key="n"
+                      :n="n"
+                      :start="addDays(start, i)"
+                      :daysOfWeek="weekdays(start, i)"
                     >
                       <div
-                        v-for="(element, columnIndex) in row"
-                        :key="columnIndex"
+                        v-for="(row, rowIndex) in subplancard[i]"
+                        :key="rowIndex"
                       >
-                        <SubplanCard
-                          :actName="element.act_name"
-                          :location="element.location"
-                          :sTime="element.startTime"
-                          :eTime="element.endTime"
-                          :memo="element.memo"
-                        ></SubplanCard>
+                        <div
+                          v-for="(element, columnIndex) in row"
+                          :key="columnIndex"
+                        >
+                          <SubplanCard
+                            :actName="element.act_name"
+                            :location="element.location"
+                            :sTime="element.startTime"
+                            :eTime="element.endTime"
+                            :memo="element.memo"
+                          ></SubplanCard>
+                        </div>
                       </div>
-                    </div>
-                  </PlanCard>
+                    </PlanCard>
+                  </div>
                 </div>
-              </div>
-            </section>
-            <!-- <div class="row mt-2"> -->
-            <!-- <div class="buttons">
+              </section>
+              <!-- <div class="row mt-2"> -->
+              <!-- <div class="buttons">
               <div>
                 <button
                   v-if="step != 1"
@@ -243,33 +273,33 @@
                   Back
                 </button>
               </div> -->
-            <div>
-              <button
-                v-if="step != totalSteps && start != null && end != null"
-                @click.prevent="nextStep()"
-                class="btn"
-              >
-                <span style="font-size: 5rem"
-                  ><font-awesome-icon
-                    :icon="['fas', 'caret-right']"
-                    beat
-                    style="color: #fff"
-                /></span>
-              </button>
-              <button
-                v-if="step == totalSteps"
-                class="btn complete-btn"
-                type="submit"
-              >
-              <font-awesome-icon :icon="['fas', 'square-check']" />
-              </button>
+              <div>
+                <button
+                  v-if="step != totalSteps && start != null && end != null"
+                  @click.prevent="nextStep()"
+                  class="btn"
+                >
+                  <span style="font-size: 5rem"
+                    ><font-awesome-icon
+                      :icon="['fas', 'caret-right']"
+                      beat
+                      style="color: #fff"
+                  /></span>
+                </button>
+                <button
+                  v-if="step == totalSteps"
+                  class="btn complete-btn"
+                  type="submit"
+                >
+                  <font-awesome-icon :icon="['fas', 'square-check']" />
+                </button>
+              </div>
             </div>
-          </div>
-          <!-- </div> -->
-        </form>
+            <!-- </div> -->
+          </form>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -278,6 +308,7 @@ import NavBar from "@/components/NavBar.vue";
 import PlanCard from "@/components/PlanCard.vue";
 import PopupForm from "@/components/PopupForm.vue";
 import SubplanCard from "@/components/SubplanCard.vue";
+import PopupAct from "@/components/PopupAct.vue";
 import { ref } from "vue";
 import axios from "axios";
 // import 'vue-datepicker/index.css';
@@ -288,6 +319,7 @@ export default {
     PlanCard,
     PopupForm,
     SubplanCard,
+    PopupAct,
   },
   data() {
     return {
@@ -311,7 +343,7 @@ export default {
           memo: this.memo,
         },
       };
-      console.log(typeof(this.sTime)+ this.sTime)
+      console.log(typeof this.sTime + this.sTime);
       if (this.subplancard.length < this.day) {
         while (this.subplancard.length < this.day) {
           this.subplancard.push([]);
@@ -412,12 +444,22 @@ export default {
       popupTriggers.value[trigger] = !popupTriggers.value[trigger];
     };
 
+    const popupActTriggers = ref({
+      buttonTrigger: false,
+    });
+
+    const toggleActPopup = (trigger) => {
+      popupActTriggers.value[trigger] = !popupActTriggers.value[trigger];
+    };
+
     // onMounted(()=>{
     //   console.log(helloWorld.value)
     // })
     return {
       popupTriggers,
       togglePopup,
+      popupActTriggers,
+      toggleActPopup,
       act,
       location,
       day,
@@ -441,8 +483,8 @@ export default {
   flex-wrap: wrap;
   flex-direction: row;
 }
-.c{
-  margin-top:30px;
+.c {
+  margin-top: 30px;
   margin-left: 50px;
 }
 .container {
@@ -517,8 +559,8 @@ export default {
   color: #016a70;
 }
 .create-btn:hover {
-  border-color: #FFDB64;
-  background-color: #FFDB64;
+  border-color: #ffdb64;
+  background-color: #ffdb64;
   color: #a08843;
   border-color: #a08843;
 }
@@ -546,12 +588,11 @@ export default {
   justify-content: center;
   margin-bottom: 40px;
 }
-.complete-btn{
+.complete-btn {
   color: #fff;
   font-size: 4rem;
 }
-.complete-btn:hover{
-  color: #FFDB64;
-
+.complete-btn:hover {
+  color: #ffdb64;
 }
 </style>
