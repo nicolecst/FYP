@@ -17,6 +17,12 @@ async function start() {
 
   const MAX_SIZE = 100000000;
   const multer = require("multer");
+  const nodeMailer = require("nodemailer");
+
+  const html = `
+    <h1>Hello World!!<h1/>
+    <p>Have a nice day!<p/>
+  `;
 
   const uploads = multer({
     dest: "src/uploads",
@@ -35,6 +41,35 @@ async function start() {
 
   app.post("/api/upload", uploads.single("file"), (req, res) => {
     res.json({ file: req.file });
+  });
+
+  //send email
+  app.get('/api/sendmail', async function(req, res, next) {
+    // Generate test SMTP service account from ethereal.email
+    // Only needed if you don't have a real mail account for testing
+    let testAccount = await nodeMailer.createTestAccount();
+  
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodeMailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        user: 'etripofficialsite@gmail.com', // generated ethereal user
+        pass: 'eucm kjnz xnpu llos', // generated ethereal password
+      },
+    });
+  
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: '"Fred Foo 👻" <etripofficialsite@gmail.com>', // sender address
+      to: "nicolechan1217st@gmail.com", // list of receivers
+      subject: "Hello ✔", // Subject line
+      text: "Hello world?", // plain text body
+      html: "<b>Hello world?</b>", // html body
+    });
+  
+    return res.json({message: 'mail sent', info: info, previewUrl: nodeMailer.getTestMessageUrl(info)});
   });
 
   //home page listing all activities
