@@ -35,7 +35,6 @@
             @input="$emit('update:location', $event.target.value)"
           />
           <p>{{ location }}</p>
-          <!-- <button>Browse</button> -->
         </div>
         <slot></slot>
 
@@ -94,7 +93,7 @@
         <p>{{ memo }}</p>
 
         <div class="row mt-2">
-          <button class="btn btn-primary" @click.prevent="$emit('clicked')">
+          <button class="btn add-btn" @click.prevent="$emit('clicked')">
             Add
           </button>
         </div>
@@ -164,5 +163,16 @@ export default {
   align-items: center;
   justify-content: space-between;
   margin: 10px;
+}
+.add-btn{
+  border-radius: 5px;
+  background-color: #016a70;
+  color: #fff;
+}
+.add-btn:hover{
+  border-color: #ffdb64;
+  background-color: #ffdb64;
+  color: #a08843;
+  border-color: #a08843;
 }
 </style>

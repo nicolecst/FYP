@@ -2,11 +2,10 @@
     <div>
         <div class="container">
             <div class="card-body">
-              <p class="card-text">Act_Name: {{ actName }}</p>
-              <p class="card-text">Location: {{ location }}</p>
-              <p class="card-text">Start Time: {{ sTime }}</p>
-              <p class="card-text">End Time: {{ eTime }}</p>
-              <p class="card-text">Memo: {{ memo }}</p>
+              <p class="card-text" style="font-family: BungeeInline">{{ actName }}</p>
+              <p class="card-text" style="color:rgb(80, 80, 80)"><span style="margin-right:5px;"><font-awesome-icon :icon="['fas', 'location-dot']" /></span>{{ location }}</p>
+              <p class="card-text"><span style="margin-right:5px;"><font-awesome-icon :icon="['fas', 'clock']" /></span> {{ sTime }} - {{ eTime }}</p>
+              <p class="card-text"><span style="margin-right:5px;"><font-awesome-icon :icon="['fas', 'note-sticky']" /></span> {{ memo }}</p>
 
               <slot></slot>
               <!-- <a href="#" class="card-link">Card link</a>

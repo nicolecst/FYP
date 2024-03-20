@@ -192,13 +192,12 @@
                     v-model:eTime="eTime"
                     v-model:memo="memo"
                     @clicked="clicked"
-                    ><button @click="() => toggleActPopup('buttonTrigger')">
+                    ><button class="browse-btn" @click="() => toggleActPopup('buttonTrigger')">
                       Browse
                     </button>
-                    <PopupAct
-                      v-if="popupActTriggers.buttonTrigger"
-                      :toggleActPopup="() => toggleActPopup('buttonTrigger')"
-                    />
+                    <PopupAct 
+                    v-if="popupActTriggers.buttonTrigger" 
+                    :toggleActPopup="() => toggleActPopup('buttonTrigger')" @add="addAct"/>
                   </PopupForm>
                 </div>
               </section>
@@ -373,6 +372,13 @@ export default {
       console.log(dailyAct);
       console.log(this.dailyItin);
       // console.log(this.dailyItin.length);
+    },
+    addAct(a){
+      console.log("Received Data: "+JSON.stringify(a, null, 2));
+      console.log(a.Act_name);
+      this.act=a.Act_name;
+      this.location=a.Location;
+      // this.$emit('actN', a.Act_name)
     },
     nextStep() {
       this.step++;
@@ -594,5 +600,17 @@ export default {
 }
 .complete-btn:hover {
   color: #ffdb64;
+}
+.browse-btn{
+  border-radius: 5px;
+  background-color: #fff;
+  color: #016a70;
+  border: solid 1px #016a70;
+}
+.browse-btn:hover{
+  border-color: #ffdb64;
+  background-color: #ffdb64;
+  color: #a08843;
+  border-color: #a08843;
 }
 </style>

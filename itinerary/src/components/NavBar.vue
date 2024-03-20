@@ -45,7 +45,7 @@
               <span style="font-size: 1.5em; color: #ffffff">
                 <font-awesome-icon :icon="['fas', 'comments']" />
               </span>
-              Forum
+              Itinerary References
             </a>
           </li>
         </ul>

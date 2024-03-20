@@ -11,7 +11,7 @@
           </ol>
         </nav>
         <div class="sub-container">
-          <h1  style="font-family: BungeeInline">Forum</h1>
+          <h1  style="font-family: BungeeInline">Itinerary References</h1>
           <!-- <p>{{ plans }}</p> -->
           <HistCard
             v-for="plan in plans"
@@ -53,7 +53,7 @@
   
       const response = axios
         .get("/api/itinHistory")
-        .then((response) => (this.plans = response.data));
+        .then((response) => (this.plans = response.data.filter((a) => a.is_public === true)));
   
       console.log(response);
     },
