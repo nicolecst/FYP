@@ -62,10 +62,12 @@ export default {
         localStorage.setItem("userToken", data.token);
         localStorage.setItem("userID", data.id);
         localStorage.setItem("username", data.username);
+        localStorage.setItem("email", data.email);
         localStorage.setItem("role", data.role)
 
         const u = localStorage.getItem("userToken");
         const i = localStorage.getItem("userID");
+        const email = localStorage.getItem("email");
         const role = localStorage.getItem("role");
         const un = localStorage.getItem("username")
 
@@ -73,6 +75,7 @@ export default {
         console.log(i)
         console.log(role)
         console.log(un)
+        console.log(email)
 
         // alert(response.data);
         alert("Successful Login");

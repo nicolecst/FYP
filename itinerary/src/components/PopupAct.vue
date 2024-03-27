@@ -21,7 +21,7 @@
           :area="act.Area"
           :category="act.Category"
         >
-          <button class="btn add-btn" @click="$emit('add', act)">Add</button>
+          <button class="btn add-btn" @click.prevent="$emit('add', act)">Add</button>
         </ActCard>
         <!-- <div>
           <p v-for="act in activities" :key="act">{{ act }}</p>

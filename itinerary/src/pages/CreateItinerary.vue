@@ -2,7 +2,11 @@
   <div class="outmost-container">
     <NavBar />
     <div class="c">
-      <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+      <nav
+        class="breadcrumb-divider"
+        style="--bs-breadcrumb-divider: '>'"
+        aria-label="breadcrumb"
+      >
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <a href="/" style="color: #fff">Home</a>
@@ -192,12 +196,17 @@
                     v-model:eTime="eTime"
                     v-model:memo="memo"
                     @clicked="clicked"
-                    ><button class="browse-btn" @click="() => toggleActPopup('buttonTrigger')">
+                    ><button
+                      class="browse-btn"
+                      @click.prevent="() => toggleActPopup('buttonTrigger')"
+                    >
                       Browse
                     </button>
-                    <PopupAct 
-                    v-if="popupActTriggers.buttonTrigger" 
-                    :toggleActPopup="() => toggleActPopup('buttonTrigger')" @add="addAct"/>
+                    <PopupAct
+                      v-if="popupActTriggers.buttonTrigger"
+                      :toggleActPopup="() => toggleActPopup('buttonTrigger')"
+                      @add="addAct"
+                    />
                   </PopupForm>
                 </div>
               </section>
@@ -289,9 +298,59 @@
                   v-if="step == totalSteps"
                   class="btn complete-btn"
                   type="submit"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
                 >
                   <font-awesome-icon :icon="['fas', 'square-check']" />
                 </button>
+
+                <!-- Modal -->
+                <div
+                  class="modal fade"
+                  id="staticBackdrop"
+                  data-bs-backdrop="static"
+                  data-bs-keyboard="false"
+                  tabindex="-1"
+                  aria-labelledby="staticBackdropLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">
+                          Itinerary Created Successfully!
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        Want to receive the itinerary through Email?
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                          @click="home"
+                        >
+                          Later
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          data-bs-dismiss="modal"
+                          @click="sendEmail"
+                        >
+                          Send me!
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <!-- </div> -->
@@ -342,7 +401,7 @@ export default {
           memo: this.memo,
         },
       };
-      console.log(typeof this.sTime + this.sTime);
+
       if (this.subplancard.length < this.day) {
         while (this.subplancard.length < this.day) {
           this.subplancard.push([]);
@@ -368,16 +427,20 @@ export default {
       var position = this.day - 1; // Replace with the desired index
       this.dailyItin[position].push(dailyAct);
 
+      // for(let i=0; i<this.dailyItin[position].length; i++){
+      //   console.log('starttime: ' + JSON.stringify(this.dailyItin[position]), null, 2);
+      //   console.log(this.dailyItin[0].itin.startTime)
+      // }
       // this.dailyItin[0].splice(1,0,dailyAct);
       console.log(dailyAct);
       console.log(this.dailyItin);
       // console.log(this.dailyItin.length);
     },
-    addAct(a){
-      console.log("Received Data: "+JSON.stringify(a, null, 2));
+    addAct(a) {
+      console.log("Received Data: " + JSON.stringify(a, null, 2));
       console.log(a.Act_name);
-      this.act=a.Act_name;
-      this.location=a.Location;
+      this.act = a.Act_name;
+      this.location = a.Location;
       // this.$emit('actN', a.Act_name)
     },
     nextStep() {
@@ -396,6 +459,20 @@ export default {
       var result = new Date(date);
       result.setDate(result.getDate() + days);
       return result.toLocaleString("en-US", { weekday: "long" });
+    },
+    home() {
+      this.$router.push("/");
+    },
+    sendEmail() {
+      const i = localStorage.getItem("userID");
+      console.log(i);
+      const e = localStorage.getItem("email");
+      console.log(e)
+      axios
+        .get("/api/sendItin", { params: { message: "Itinerary sent!", email: e } })
+        .then((response) => console.log(response));
+      
+        this.$router.push('/')
     },
     async create() {
       const i = localStorage.getItem("userID");
@@ -601,13 +678,13 @@ export default {
 .complete-btn:hover {
   color: #ffdb64;
 }
-.browse-btn{
+.browse-btn {
   border-radius: 5px;
   background-color: #fff;
   color: #016a70;
   border: solid 1px #016a70;
 }
-.browse-btn:hover{
+.browse-btn:hover {
   border-color: #ffdb64;
   background-color: #ffdb64;
   color: #a08843;

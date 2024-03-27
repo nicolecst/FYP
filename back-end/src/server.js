@@ -44,32 +44,37 @@ async function start() {
   });
 
   //send email
-  app.get('/api/sendmail', async function(req, res, next) {
+  app.get("/api/sendmail", async function (req, res, next) {
     // Generate test SMTP service account from ethereal.email
     // Only needed if you don't have a real mail account for testing
     let testAccount = await nodeMailer.createTestAccount();
-  
+
     // create reusable transporter object using the default SMTP transport
     let transporter = nodeMailer.createTransport({
-      host: 'smtp.gmail.com',
+      host: "smtp.gmail.com",
       port: 465,
       secure: true, // true for 465, false for other ports
       auth: {
-        user: 'etripofficialsite@gmail.com', // generated ethereal user
-        pass: 'eucm kjnz xnpu llos', // generated ethereal password
+        user: "etripofficialsite@gmail.com", // generated ethereal user
+        pass: "eucm kjnz xnpu llos", // generated ethereal password
       },
     });
-  
+
     // send mail with defined transport object
     let info = await transporter.sendMail({
       from: '"Fred Foo 👻" <etripofficialsite@gmail.com>', // sender address
       to: "nicolechan1217st@gmail.com", // list of receivers
       subject: "Hello ✔", // Subject line
       text: "Hello world?", // plain text body
-      html: "<b>Hello world?</b>", // html body
+      html: req.query.message, // html body
     });
-  
-    return res.json({message: 'mail sent', info: info, previewUrl: nodeMailer.getTestMessageUrl(info)});
+
+    console.log(req.query.message);
+    return res.json({
+      message: "mail sent",
+      info: info,
+      previewUrl: nodeMailer.getTestMessageUrl(info),
+    });
   });
 
   //home page listing all activities
@@ -214,6 +219,37 @@ async function start() {
     res.send(itinHist);
   });
 
+  //Send Itinerary Details to Email
+  app.get("/api/sendItin", async function (req, res, next) {
+
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodeMailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        user: "etripofficialsite@gmail.com", // generated ethereal user
+        pass: "eucm kjnz xnpu llos", // generated ethereal password
+      },
+    });
+
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: '"E-Trip 🚨" <etripofficialsite@gmail.com>', // sender address
+      to: req.query.email, // list of receivers
+      subject: "Your Itinerary Plan", // Subject line
+      text: "Hello world?", // plain text body
+      html: req.query.message, // html body
+    });
+
+    console.log(req.query.message);
+    return res.json({
+      message: "mail sent",
+      info: info,
+      previewUrl: nodeMailer.getTestMessageUrl(info),
+    });
+  });
+
   //View Itineray History of an author
   app.get("/api/itinHistory/:id", async (req, res) => {
     const itinHist = await db
@@ -279,6 +315,7 @@ async function start() {
           id: check._id,
           username: check.username,
           role: check.is_Admin,
+          email: check.email
         };
 
         const token = jwt.sign(user, "process.env.JWT_KEY", {
@@ -325,13 +362,36 @@ async function start() {
 
       const users = await db.collection("Users");
       users.insertOne(userdata);
+
+      let transporter = nodeMailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true, // true for 465, false for other ports
+        auth: {
+          user: "etripofficialsite@gmail.com", // generated ethereal user
+          pass: "eucm kjnz xnpu llos", // generated ethereal password
+        },
+      });
+       await transporter.sendMail({
+        from: '"E-Trip 🚨" <etripofficialsite@gmail.com>', // sender address
+        to: req.body.email, // list of receivers
+        subject: "Welcome to E-trip", // Subject line
+        text: "Hello world?", // plain text body
+        html: '<h1>Welcome to E-trip! Start to plan your trip to HK with us!!!🪄</h1>', // html body
+      });
+
       res.status(201).send("Account created");
+
+      // send mail with defined transport object
+
+      // console.log(req.query.message);
+      // return res.json({
+      //   message: "mail sent",
+      //   info: info,
+      //   previewUrl: nodeMailer.getTestMessageUrl(info),
+      // });
     }
   });
-
-  // app.get("/api/home", async (req, res) => {
-  //   res.send("home");
-  // });
 
   app.listen(port, () => {
     console.log(`Server listening to port ${port}`);

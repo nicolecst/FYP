@@ -217,7 +217,7 @@ a {
   padding: 30px;
   background-color: #1FBFAF;
   color: #fff;
-  height: 35vh;
+  height: 40vh;
   width: 100%;
   position: relative;
   border-color: #fff;

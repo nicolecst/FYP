@@ -17,6 +17,7 @@ import CreateItinerary from './pages/CreateItinerary.vue'
 import ItinHistory from './pages/ItinHistory.vue'
 import ItinhistDetails from './pages/ItinhistDetails.vue'
 import AllHistory from './pages/AllHistory.vue'
+import TestEmail from './pages/TestEmail.vue'
 import "./assets/style.css"
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -75,6 +76,9 @@ const routes = [{
     },{
         path: '/forum',
         component: AllHistory
+    },{
+        path: '/testEmail',
+        component: TestEmail
     },]
 
 
