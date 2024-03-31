@@ -13,7 +13,7 @@
           <li class="breadcrumb-item active" aria-current="page">Details</li>
         </ol>
       </nav>
-      
+
       <!-- <h1>Itinerary History Details</h1> -->
       <div class="scrolls">
         <PlanCard
@@ -40,12 +40,24 @@
 
       <div class="rate-container">
         <button
+          v-if="this.history.author == uid"
           class="btn rate-btn"
+          style="margin-right: 10px; padding-top: 3px; padding-bottom: 3px"
           @click.prevent="() => togglePopup('buttonTrigger')"
         >
           <span style="font-size: 1.5em; margin-right: 5px">
             <font-awesome-icon :icon="['fas', 'star']" /> </span
           >Rate
+        </button>
+        <button
+          v-if="this.history.author == uid"
+          class="btn rate-btn"
+          style="margin-right: 10px; padding-top: 3px; padding-bottom: 3px"
+          @click.prevent="sendEmail"
+        >
+          <span style="font-size: 1.5em; margin-right: 5px">
+            <font-awesome-icon :icon="['fas', 'file-export']" /> </span
+          >Get Itinerary
         </button>
         <div class="row mt-4">
           <div>
@@ -124,8 +136,20 @@ export default {
       result.setDate(result.getDate() + days);
       return result.toLocaleString("en-US", { weekday: "long" });
     },
-    ratingUpdate(rating){
-      this.r = rating
+    ratingUpdate(rating) {
+      this.r = rating;
+    },
+    sendEmail() {
+      const i = localStorage.getItem("userID");
+      console.log(i);
+      const e = localStorage.getItem("email");
+      console.log(e)
+      axios
+        .get("/api/sendItin", { params: { message: JSON.stringify(this.itinArray), email: e } })
+        .then((response) => console.log(response));
+
+        alert("Itinerary Sent!")
+        this.$router.push('/')
     },
     async Rate(iid) {
       const rateData = {
@@ -174,6 +198,7 @@ export default {
   },
   setup() {
     const comment = ref("");
+    const uid = localStorage.getItem("userID");
 
     const popupTriggers = ref({
       buttonTrigger: false,
@@ -187,6 +212,7 @@ export default {
       popupTriggers,
       togglePopup,
       comment,
+      uid,
     };
   },
 };

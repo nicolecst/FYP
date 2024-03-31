@@ -122,6 +122,7 @@
                         placeholder="end date"
                         v-model="end"
                         :min="start"
+                        :max="maxEndDate"
                       />
                     </div>
                   </div>
@@ -474,6 +475,10 @@ export default {
       
         this.$router.push('/')
     },
+    updateEndDate() {
+      // Reset the end date when the start date changes
+      this.end = "";
+    },
     async create() {
       const i = localStorage.getItem("userID");
       console.log(i);
@@ -506,6 +511,13 @@ export default {
       let diff = Math.floor(day / 86400000) + 1;
       return diff;
     },
+    maxEndDate(){
+      if(this.start){
+        const startDate = new Date(this.start); // Convert start date string to Date object
+        const maxEndDate = new Date(startDate.getTime() + 10 * 24 * 60 * 60 * 1000);
+        return maxEndDate.toISOString().split("T")[0];
+      }return null;
+    }
   },
   setup() {
     const act = ref("");

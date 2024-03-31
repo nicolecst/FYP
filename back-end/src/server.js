@@ -221,7 +221,6 @@ async function start() {
 
   //Send Itinerary Details to Email
   app.get("/api/sendItin", async function (req, res, next) {
-
     // create reusable transporter object using the default SMTP transport
     let transporter = nodeMailer.createTransport({
       host: "smtp.gmail.com",
@@ -233,13 +232,126 @@ async function start() {
       },
     });
 
+    const dataArray = JSON.parse(req.query.message);
+
+    // Recursive function to process nested arrays and objects
+    function processNested(data, d) {
+      let result = "";
+
+      data.forEach((item) => {
+        if (Array.isArray(item)) {
+          result += processNested(item, d); // Recursively process the nested array
+        } else if (typeof item === "object" && item !== null) {
+          // Process the object and extract the details
+          const { itin } = item;
+          const { act_name, location, day, startTime, endTime, memo } = itin;
+
+          // Construct the desired output using the extracted details
+          if(day==d){
+          result += `
+            <li>Activity: ${act_name}</li>
+            <li>Location: ${location}</li>
+            <li>Day: ${day}</li>
+            <li>Start Time: ${startTime}</li>
+            <li>End Time: ${endTime}</li>
+            <li>Memo: ${memo}</li>
+            <hr width="100%" size="2">
+          `;
+        }
+      }
+      });
+
+      return result;
+    }
+
+    let messageHTML = `
+    <html>
+    <head>
+      <style>
+      table, th, td{
+        border: 1px solid;
+      }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>Your Itinerary Plan</h1>
+        <table>
+          <tr>
+            <th>Day 1</th>
+          
+    `;
+    messageHTML += processNested(dataArray,1);
+
+    messageHTML += `
+        </tr>
+        <tr>
+            <th>Day 2</th>`;
+            messageHTML += processNested(dataArray,2);
+
+            messageHTML += `
+        </tr>
+        <tr>
+            <th>Day 3</th>`;
+            messageHTML += processNested(dataArray,3);
+
+            messageHTML += `
+        </tr>
+        <tr>
+            <th>Day 4</th>`;
+            messageHTML += processNested(dataArray,4);
+
+            messageHTML += `
+        </tr>
+        <tr>
+            <th>Day 5</th>`;
+            messageHTML += processNested(dataArray,5);
+
+            messageHTML += `
+        </tr>
+        <tr>
+            <th>Day 6</th>`;
+            messageHTML += processNested(dataArray,6);
+
+            messageHTML += `
+        </tr>
+        <tr>
+            <th>Day 7</th>`;
+            messageHTML += processNested(dataArray,7);
+
+            messageHTML += `
+        </tr>
+        <tr>
+            <th>Day 8</th>`;
+            messageHTML += processNested(dataArray,8);
+
+            messageHTML += `
+        </tr>
+        <tr>
+            <th>Day 9</th>`;
+            messageHTML += processNested(dataArray,9);
+
+            messageHTML += `
+        </tr>
+        <tr>
+            <th>Day 10</th>`;
+            messageHTML += processNested(dataArray,10);
+
+            messageHTML += `
+        </tr>
+        </table>
+      </div>
+    </body>
+  </html>
+`;
+
     // send mail with defined transport object
     let info = await transporter.sendMail({
       from: '"E-Trip 🚨" <etripofficialsite@gmail.com>', // sender address
       to: req.query.email, // list of receivers
       subject: "Your Itinerary Plan", // Subject line
       text: "Hello world?", // plain text body
-      html: req.query.message, // html body
+      html: messageHTML, // html body
     });
 
     console.log(req.query.message);
@@ -315,7 +427,7 @@ async function start() {
           id: check._id,
           username: check.username,
           role: check.is_Admin,
-          email: check.email
+          email: check.email,
         };
 
         const token = jwt.sign(user, "process.env.JWT_KEY", {
@@ -372,12 +484,12 @@ async function start() {
           pass: "eucm kjnz xnpu llos", // generated ethereal password
         },
       });
-       await transporter.sendMail({
+      await transporter.sendMail({
         from: '"E-Trip 🚨" <etripofficialsite@gmail.com>', // sender address
         to: req.body.email, // list of receivers
         subject: "Welcome to E-trip", // Subject line
         text: "Hello world?", // plain text body
-        html: '<h1>Welcome to E-trip! Start to plan your trip to HK with us!!!🪄</h1>', // html body
+        html: "<h1>Welcome to E-trip! Start to plan your trip to HK with us!!!🪄</h1>", // html body
       });
 
       res.status(201).send("Account created");
