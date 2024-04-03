@@ -124,7 +124,7 @@ async function start() {
   });
 
   //Add new activities
-  app.post("/api/addAct", async (req, res) => {
+  app.post("/api/addAct",uploads.single("file"), async (req, res) => {
     try {
       console.log(req.body);
 
@@ -150,7 +150,7 @@ async function start() {
       if (existAct) {
         res.send("Activity already exists, please use a different name");
       } else {
-        const activity = await db.collection("Activities").insertOne(actdata);
+        await db.collection("Activities").insertOne(actdata);
         res.status(201).send("Thanks for your proposal!");
       }
     } catch (error) {

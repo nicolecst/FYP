@@ -469,8 +469,10 @@ export default {
       console.log(i);
       const e = localStorage.getItem("email");
       console.log(e)
+
+
       axios
-        .get("/api/sendItin", { params: { message: "Itinerary sent!", email: e } })
+        .get("/api/sendItin", { params: { message: JSON.stringify(this.dailyItin), email: e } })
         .then((response) => console.log(response));
       
         this.$router.push('/')
