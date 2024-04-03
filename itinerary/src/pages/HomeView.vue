@@ -190,7 +190,13 @@ export default {
   },
   computed: {
     filteredAct: function () {
-      return this.activities.filter((a) => a.Act_name.toLowerCase().match(this.searchParam.toLowerCase()) && a.Approved === true);
+      return this.activities.filter((a) => {
+    if (this.searchParam !== null && this.searchParam !== undefined && this.searchParam !== '') {
+      return a.Act_name && a.Act_name.toLowerCase().match(this.searchParam.toLowerCase()) && a.Approved === true;
+    }
+    return a.Approved === true;
+  });
+      // return this.activities.filter((a) => a.Act_name.toLowerCase().match(this.searchParam.toLowerCase()) && a.Approved === true);
     }
 
   },

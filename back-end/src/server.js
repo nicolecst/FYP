@@ -124,7 +124,7 @@ async function start() {
   });
 
   //Add new activities
-  app.post("/api/addAct", uploads.single("file"), async (req, res) => {
+  app.post("/api/addAct", async (req, res) => {
     try {
       console.log(req.body);
 
@@ -138,11 +138,11 @@ async function start() {
         Charge: req.body.charge,
         Info: req.body.info,
         Description: req.body.description,
-        file: req.file, // Store the uploaded file in the actdata object
+        // file: req.file, // Store the uploaded file in the actdata object
         Approved: false,
       };
-      console.log(actdata.file);
-      console.log("filename" + actdata.file.filename);
+      // console.log(actdata.file);
+      // console.log("filename" + actdata.file.filename);
 
       const existAct = await db
         .collection("Activities")
