@@ -16,6 +16,7 @@ import ProposeAct from './pages/ProposeAct.vue'
 import CreateItinerary from './pages/CreateItinerary.vue'
 import ItinHistory from './pages/ItinHistory.vue'
 import ItinhistDetails from './pages/ItinhistDetails.vue'
+import itindetailsUpdate from './pages/ItindetailsUpdate.vue'
 import AllHistory from './pages/AllHistory.vue'
 import TestEmail from './pages/TestEmail.vue'
 import "./assets/style.css"
@@ -73,6 +74,9 @@ const routes = [{
     },{
         path: '/history/:id',
         component: ItinhistDetails
+    },{
+        path: '/itinEdit/:id',
+        component: itindetailsUpdate
     },{
         path: '/forum',
         component: AllHistory

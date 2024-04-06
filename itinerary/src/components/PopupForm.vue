@@ -23,7 +23,7 @@
             :value="act"
             @input="$emit('update:act', $event.target.value)"
           />
-          <p>{{ act }}</p>
+          <!-- <p>{{ act }}</p> -->
           <!-- <button>Browse</button> -->
         </div>
         <div class="row mt-2">
@@ -34,7 +34,7 @@
             :value="location"
             @input="$emit('update:location', $event.target.value)"
           />
-          <p>{{ location }}</p>
+          <!-- <p>{{ location }}</p> -->
         </div>
         <slot></slot>
 

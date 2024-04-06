@@ -12,10 +12,18 @@
         <label>Password*</label>
         <input type="password" v-model="password" placeholder="password" required/>
 
-        <label>Confirm password*</label>
-        <input type="confirm_password" v-model="confirm_password" placeholder="confirm_password" required/>
-
-        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <!-- <label>Confirm password*</label>
+        <input type="confirm_password" v-model="confirm_password" placeholder="confirm_password" required/> -->
+        <div class="row mt-4">
+          <div class="col md-6">
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+          </div>
+          <div class="col md-6">
+            <button @click="returnLogin" class="btn btn-back">Login</button>
+          </div>
+          
+        </div>
+        
       </form>
     </div>
 
@@ -66,6 +74,9 @@ export default {
       }
 
     },
+    returnLogin(){
+      this.$router.push('/login');
+    }
   },
 };
 </script>
@@ -91,8 +102,20 @@ export default {
 }
 
 .btn:hover {
-  background-color: #ffffdd;
+  border-color: #ffdb64;
+  background-color: #ffdb64;
+  color: #a08843;
+  border-color: #a08843;
+}
+.btn-back{
+  background-color: #fff;
   color: #016a70;
+}
+.btn-back:hover{
+  border-color: #ffdb64;
+  background-color: #ffdb64;
+  color: #a08843;
+  border-color: #a08843;
 }
 .loginForm {
   width: 50%;

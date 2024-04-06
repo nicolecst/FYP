@@ -7,7 +7,7 @@
       <!-- <div class="col-md-6" style="text-align: right">
           <a href="">view all</a>
         </div> -->
-        <button><i class="fa-solid fa-filter fa-1x" style="margin-right:5px"></i>Filter</button>
+        <!-- <button><i class="fa-solid fa-filter fa-1x" style="margin-right:5px"></i>Filter</button> -->
         
     </div>
 

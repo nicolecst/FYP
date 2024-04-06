@@ -24,6 +24,7 @@
                   <div class="form-group col-md-6">
                     <label for="">Username</label
                     ><input
+                      disabled
                       type="text"
                       class="form-control"
                       v-model="user.username"
@@ -32,7 +33,7 @@
                   <div class="form-group col-md-6">
                     <label for="">Email</label
                     ><input
-                      type="text"
+                      type="email"
                       class="form-control"
                       v-model="user.email"
                     />
@@ -152,10 +153,17 @@
                   </select>
                 </div>
 
-                <div class="row mt-2">
-                  <button class="btn profile-button" type="submit">
-                    Update!
-                  </button>
+                <div class="row mt-4">
+                  <div class="col md-6">
+                    <button class="btn profile-button" type="submit">
+                      Update!
+                    </button>
+                  </div>
+                  <div class="col md-6">
+                    <button class="btn profile-button" @click="returnProfile">
+                      Cancel
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
@@ -199,6 +207,9 @@ export default {
         this.$router.push("/userProfile");
       });
     },
+    returnProfile() {
+      this.$router.push("/userProfile");
+    },
   },
   data() {
     return {
@@ -237,8 +248,8 @@ export default {
 }
 
 .btn:hover {
-  border-color: #FFDB64;
-  background-color: #FFDB64;
+  border-color: #ffdb64;
+  background-color: #ffdb64;
   color: #a08843;
   border-color: #a08843;
 }

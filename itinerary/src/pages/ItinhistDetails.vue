@@ -53,6 +53,16 @@
           v-if="this.history.author == uid"
           class="btn rate-btn"
           style="margin-right: 10px; padding-top: 3px; padding-bottom: 3px"
+          @click.prevent="editItin(this.history._id)"
+        >
+          <span style="font-size: 1.5em; margin-right: 5px">
+            <font-awesome-icon :icon="['fas', 'file-export']" /> </span
+          >Update Itinerary
+        </button>
+        <button
+          v-if="this.history.author == uid"
+          class="btn rate-btn"
+          style="margin-right: 10px; padding-top: 3px; padding-bottom: 3px"
           @click.prevent="sendEmail"
         >
           <span style="font-size: 1.5em; margin-right: 5px">
@@ -150,6 +160,9 @@ export default {
 
         alert("Itinerary Sent!")
         this.$router.push('/')
+    },
+    editItin(itinID){
+      this.$router.push('/itinEdit/'+ itinID)
     },
     async Rate(iid) {
       const rateData = {

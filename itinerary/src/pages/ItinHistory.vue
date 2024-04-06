@@ -25,6 +25,7 @@
           :end="plan.to"
           :rating="plan.selectedRate"
           :view="plan.is_public"
+          @deleteItin="deleteItinerary(plan._id)"
         />
       </div>
     </div>
@@ -57,6 +58,22 @@ export default {
 
     console.log(response);
   },
+  methods:{
+    async deleteItinerary(iid){
+      alert("hello!")
+      alert(iid)
+      try {
+        const response = await axios.delete("/api/delItin/"+iid);
+        alert('Itinerary Deleted!')
+        location.reload();
+        return response.data;
+
+      } catch (error) {
+        console.log(error);
+      }
+      
+    }
+  }
 };
 </script>
 

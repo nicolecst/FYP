@@ -6,8 +6,8 @@
     <div class="card-body">
         <div class="card-body">
           <h5 class="card-title">{{ actname }}</h5>
-          <p class="card-text">img: {{ img }}</p>
-          <p class="card-text">Area: {{ area }}</p>
+          <!-- <p class="card-text">img: {{ img }}</p> -->
+          <p class="card-text"><ColorTags color="#D2E9E9" :text="area"/></p>
           <p class="card-text">District: {{ district }}</p>
           <slot name="type"></slot>
           <p class="card-text">Category: {{ category }}</p>
@@ -20,8 +20,12 @@
 </template>
 
 <script>
+import ColorTags from './ColorTags.vue';
 export default{
     name: "CardView",
+    components:{
+    ColorTags,
+},
     props:{
       actname: String,
       area: String,

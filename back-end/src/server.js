@@ -402,6 +402,12 @@ async function start() {
     res.json(rate);
   });
 
+  app.delete("/api/delItin/:id", async(req, res)=>{
+    await db.collection("Plans").findOneAndDelete({_id: new ObjectId(req.params.id)})
+
+    res.status(200).send("Itinerary Deleted!")
+  })
+
   //Login Page
   app.post("/api/login", async (req, res) => {
     let user = req.body;

@@ -83,7 +83,7 @@
                         class="form-control"
                         v-model="itype"
                       >
-                        <option>Choose the trip type..</option>
+                        <option disabled>Choose the trip type..</option>
                         <option>Solo</option>
                         <option>Couple</option>
                         <option>Friends</option>
