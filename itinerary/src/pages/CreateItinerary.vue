@@ -180,6 +180,7 @@
                             :sTime="element.startTime"
                             :eTime="element.endTime"
                             :memo="element.memo"
+                            @removeAct="handleRemoveAct(element)"
                           ></SubplanCard>
                         </div>
                       </div>
@@ -444,6 +445,29 @@ export default {
       this.location = a.Location;
       // this.$emit('actN', a.Act_name)
     },
+    handleRemoveAct(element) {
+      // Access the 'actName' value and perform any necessary actions
+      // Find the index of the element in the array
+      console.log(element);
+      console.log(this.dailyItin);
+      console.log(this.subplancard);
+      for (var i = 0; i < this.dailyItin.length; i++) {
+        for (var j = 0; j < this.dailyItin[i].length; j++) {
+
+          console.log('this.dailyItin[i][j].itin: '+ JSON.stringify(this.dailyItin[i][j].itin));
+          console.log('element: '+ JSON.stringify(element));
+
+          if (JSON.stringify(this.dailyItin[i][j].itin) == JSON.stringify(element)) {
+            console.log('same');
+            this.dailyItin[i].splice(j, 1);
+            this.subplancard[i].splice(j, 1);
+          }else{
+            console.log('different');
+          }
+        }
+      }
+      console.log("Updated elements:", this.dailyItin);
+    },
     nextStep() {
       this.step++;
     },
@@ -468,14 +492,15 @@ export default {
       const i = localStorage.getItem("userID");
       console.log(i);
       const e = localStorage.getItem("email");
-      console.log(e)
-
+      console.log(e);
 
       axios
-        .get("/api/sendItin", { params: { message: JSON.stringify(this.dailyItin), email: e } })
+        .get("/api/sendItin", {
+          params: { message: JSON.stringify(this.dailyItin), email: e },
+        })
         .then((response) => console.log(response));
-      
-        this.$router.push('/')
+
+      this.$router.push("/");
     },
     updateEndDate() {
       // Reset the end date when the start date changes
@@ -513,13 +538,16 @@ export default {
       let diff = Math.floor(day / 86400000) + 1;
       return diff;
     },
-    maxEndDate(){
-      if(this.start){
+    maxEndDate() {
+      if (this.start) {
         const startDate = new Date(this.start); // Convert start date string to Date object
-        const maxEndDate = new Date(startDate.getTime() + 10 * 24 * 60 * 60 * 1000);
+        const maxEndDate = new Date(
+          startDate.getTime() + 10 * 24 * 60 * 60 * 1000
+        );
         return maxEndDate.toISOString().split("T")[0];
-      }return null;
-    }
+      }
+      return null;
+    },
   },
   setup() {
     const act = ref("");

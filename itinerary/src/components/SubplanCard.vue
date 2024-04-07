@@ -6,7 +6,7 @@
               <p class="card-text" style="color:rgb(80, 80, 80)"><span style="margin-right:5px;"><font-awesome-icon :icon="['fas', 'location-dot']" /></span>{{ location }}</p>
               <p class="card-text"><span style="margin-right:5px;"><font-awesome-icon :icon="['fas', 'clock']" /></span> {{ sTime }} - {{ eTime }}</p>
               <p class="card-text"><span style="margin-right:5px;"><font-awesome-icon :icon="['fas', 'note-sticky']" /></span> {{ memo }}</p>
-              <button>remove</button>
+              <button @click.prevent="$emit('removeAct', this.actName)">remove</button>
 
               <slot></slot>
               <!-- <a href="#" class="card-link">Card link</a>
@@ -25,7 +25,8 @@ export default {
         sTime: String,
         eTime: String,
         memo: String
-    }
+    },
+    emit:["removeAct"]
 }
 </script>
 <style scoped>
