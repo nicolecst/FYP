@@ -14,11 +14,28 @@
       </nav>
       <div class="sub-container">
         <h1 style="font-family: BungeeInline">Check your planned trips!</h1>
-        <button class="btn sort-btn" @click="sortingButton">
-          <span v-if="this.ascendingOrder===true"><font-awesome-icon :icon="['fas', 'arrow-down-a-z']" /></span>
-          <span v-if="this.ascendingOrder===false"><font-awesome-icon :icon="['fas', 'arrow-up-z-a']" /></span>
-          {{ sortButtonContent }}
-        </button>
+        <div class="row mt-4 searchBar">
+          <input
+            type="text"
+            name=""
+            id=""
+            class="form-control"
+            v-model="searchParam"
+            placeholder="search by itinerary name.."
+          />
+        </div>
+        <div class="row mt-4">
+          <button class="btn sort-btn" @click="sortingButton">
+            <span v-if="this.ascendingOrder === true"
+              ><font-awesome-icon :icon="['fas', 'arrow-down-a-z']"
+            /></span>
+            <span v-if="this.ascendingOrder === false"
+              ><font-awesome-icon :icon="['fas', 'arrow-up-z-a']"
+            /></span>
+            {{ sortButtonContent }}
+          </button>
+        </div>
+
         <!-- <p>{{ plans }}</p> -->
         <HistCard
           v-for="plan in sortedPlans"
@@ -55,6 +72,7 @@ export default {
       plans: [],
       ascendingOrder: false,
       sortButtonContent: "View in descending order",
+      searchParam: "",
     };
   },
   async created() {
@@ -78,7 +96,12 @@ export default {
   computed: {
     sortedPlans: function () {
       const sorted = sortBy(this.plans, "createdAt");
-      return this.ascendingOrder ? sorted : sorted.reverse();
+      const filtered = this.plans.filter((p) =>
+        p.name.toLowerCase().match(this.searchParam.toLowerCase())
+      );
+      return this.ascendingOrder
+        ? sorted.filter((p) => filtered.includes(p))
+        : sorted.reverse().filter((p) => filtered.includes(p));
     },
   },
 };
@@ -98,14 +121,17 @@ export default {
   background-color: #dcf2ec;
   padding: 30px;
 }
-.sort-btn{
+.sort-btn {
   background-color: #016a70;
   color: #fff;
 }
-.sort-btn:hover{
+.sort-btn:hover {
   border-color: #ffdb64;
   background-color: #ffdb64;
   color: #a08843;
   border-color: #a08843;
+}
+.searchBar {
+  width: 70%;
 }
 </style>
