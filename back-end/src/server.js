@@ -206,6 +206,7 @@ async function start() {
       to: req.body.to,
       dailyItin: req.body.dailyItin,
       is_public: req.body.is_public,
+      createdAt: req.body.createdDate,
     };
 
     const plan = await db.collection("Plans");

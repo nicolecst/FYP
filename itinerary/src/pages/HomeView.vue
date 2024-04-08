@@ -13,11 +13,14 @@
         />
       </form>
       <button class="btn create-btn" @click="create()">
-          <span style="font-size: 1.5em">
-            <font-awesome-icon icon="fa-solid fa-calendar-plus" style="margin-right: 8px;"/> </span
-          >Create Itinerary!
-        </button>
-        <!-- <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <span style="font-size: 1.5em">
+          <font-awesome-icon
+            icon="fa-solid fa-calendar-plus"
+            style="margin-right: 8px"
+          /> </span
+        >Create Itinerary!
+      </button>
+      <!-- <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path
           fill="#fff"
           fill-opacity="1"
@@ -51,7 +54,9 @@
     </div> -->
     <div class="row" style="padding: 20px 20px 0px 20px">
       <div class="col-md-6">
-        <h3>Activities <span v-if="searchParam!=''">(Search Results)</span> </h3>
+        <h3>
+          Activities <span v-if="searchParam != ''">(Search Results)</span>
+        </h3>
       </div>
       <div class="col-md-6" style="text-align: right">
         <a href="/activities">view all</a>
@@ -71,12 +76,12 @@
         :act_ID="activity._id"
         :img="activity.Image"
       >
-      <template #type>
+        <template #type>
           <div style="margin-bottom: 8px">
-            Type: <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
+            <span><font-awesome-icon :icon="['fas', 'people-group']" /></span> <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
           </div>
         </template>
-    </CardViewVue>
+      </CardViewVue>
     </div>
 
     <h3>{{ user.preference1 }}</h3>
@@ -91,12 +96,12 @@
         :charge="activity.Charge"
         :act_ID="activity._id"
       >
-      <template #type>
+        <template #type>
           <div style="margin-bottom: 8px">
-            Type: <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
+            <span><font-awesome-icon :icon="['fas', 'people-group']" /></span> <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
           </div>
         </template>
-    </CardViewVue>
+      </CardViewVue>
     </div>
     <h3>{{ user.preference2 }}</h3>
     <div class="scrolls">
@@ -110,12 +115,12 @@
         :charge="activity.Charge"
         :act_ID="activity._id"
       >
-      <template #type>
+        <template #type>
           <div style="margin-bottom: 8px">
-            Type: <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
+            <span><font-awesome-icon :icon="['fas', 'people-group']" /></span> <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
           </div>
         </template>
-    </CardViewVue>
+      </CardViewVue>
     </div>
     <h3>{{ user.preference3 }}</h3>
     <div class="scrolls">
@@ -129,12 +134,12 @@
         :charge="activity.Charge"
         :act_ID="activity._id"
       >
-      <template #type>
+        <template #type>
           <div style="margin-bottom: 8px">
-            Type: <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
+            <span><font-awesome-icon :icon="['fas', 'people-group']" /></span> <span v-for="t in activity.Type" :key="t">{{ t }}, </span>
           </div>
         </template>
-    </CardViewVue>
+      </CardViewVue>
     </div>
   </div>
 </template>
@@ -154,7 +159,7 @@ export default {
     return {
       activities: [],
       user: {},
-      searchParam: '',
+      searchParam: "",
     };
   },
   methods: {
@@ -191,14 +196,21 @@ export default {
   computed: {
     filteredAct: function () {
       return this.activities.filter((a) => {
-    if (this.searchParam !== null && this.searchParam !== undefined && this.searchParam !== '') {
-      return a.Act_name && a.Act_name.toLowerCase().match(this.searchParam.toLowerCase()) && a.Approved === true;
-    }
-    return a.Approved === true;
-  });
+        if (
+          this.searchParam !== null &&
+          this.searchParam !== undefined &&
+          this.searchParam !== ""
+        ) {
+          return (
+            a.Act_name &&
+            a.Act_name.toLowerCase().match(this.searchParam.toLowerCase()) &&
+            a.Approved === true
+          );
+        }
+        return a.Approved === true;
+      });
       // return this.activities.filter((a) => a.Act_name.toLowerCase().match(this.searchParam.toLowerCase()) && a.Approved === true);
-    }
-
+    },
   },
 };
 </script>
@@ -221,22 +233,22 @@ a {
   /* justify-content: center; */
   margin: 0;
   padding: 30px;
-  background-color: #1FBFAF;
+  background-color: #1fbfaf;
   color: #fff;
   height: 40vh;
   width: 100%;
   position: relative;
   border-color: #fff;
 }
-.welcomeMsg h1{
- font-family: BungeeInline;
- color: #fff;
+.welcomeMsg h1 {
+  font-family: BungeeInline;
+  color: #fff;
 }
 
-.search-input{
+.search-input {
   border-radius: 30px;
   height: 50px;
-  min-width: 70vw; 
+  min-width: 70vw;
   margin-top: 30px;
   margin-bottom: 30px;
 }
@@ -266,8 +278,8 @@ a {
   color: #fff;
 }
 .create-btn:hover {
-  border-color: #FFDB64;
-  background-color: #FFDB64;
+  border-color: #ffdb64;
+  background-color: #ffdb64;
   color: #06211e;
 }
 .svg {

@@ -5,9 +5,9 @@
         </div>
       
       <div class="right">
-        <p>Username: {{ userName }}</p>
+        <!-- <p>Username: {{ userName }}</p> -->
         <p>{{ id }}</p>
-        <p>Plan name: {{ name }}</p>
+        <p style="font-family: BungeeInline; font-size: 20px">{{ name }}</p>
         <p><span style="font-size: 1rem"><font-awesome-icon :icon="['fas', 'circle-user']" /></span> Author: {{ author }}</p>
         <p><span style="font-size: 1rem"><font-awesome-icon :icon="['fas', 'people-robbery']" /></span> Type: {{ type }}</p>
         <p><span style="font-size: 1rem"><font-awesome-icon :icon="['fas', 'users']" /></span> Participants: {{ participants }}</p>

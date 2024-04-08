@@ -7,14 +7,21 @@
           <li class="breadcrumb-item">
             <a href="/">Home</a>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">Itinerary History</li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Itinerary History
+          </li>
         </ol>
       </nav>
       <div class="sub-container">
         <h1 style="font-family: BungeeInline">Check your planned trips!</h1>
+        <button class="btn sort-btn" @click="sortingButton">
+          <span v-if="this.ascendingOrder===true"><font-awesome-icon :icon="['fas', 'arrow-down-a-z']" /></span>
+          <span v-if="this.ascendingOrder===false"><font-awesome-icon :icon="['fas', 'arrow-up-z-a']" /></span>
+          {{ sortButtonContent }}
+        </button>
         <!-- <p>{{ plans }}</p> -->
         <HistCard
-          v-for="(plan) in plans"
+          v-for="plan in sortedPlans"
           :key="plan._id"
           :id="plan._id"
           :author="plan.authorName"
@@ -35,6 +42,7 @@
 import NavBar from "@/components/NavBar.vue";
 import HistCard from "@/components/HistCard.vue";
 import axios from "axios";
+import sortBy from "lodash/sortBy";
 
 export default {
   name: "ItinHistory",
@@ -45,6 +53,8 @@ export default {
   data() {
     return {
       plans: [],
+      ascendingOrder: false,
+      sortButtonContent: "View in descending order",
     };
   },
   async created() {
@@ -57,7 +67,19 @@ export default {
 
     console.log(response);
   },
-  methods:{
+  methods: {
+    sortingButton() {
+      this.ascendingOrder = !this.ascendingOrder;
+      this.sortButtonContent = this.ascendingOrder
+        ? "View in ascending order"
+        : "View in descending order";
+    },
+  },
+  computed: {
+    sortedPlans: function () {
+      const sorted = sortBy(this.plans, "createdAt");
+      return this.ascendingOrder ? sorted : sorted.reverse();
+    },
   },
 };
 </script>
@@ -67,14 +89,23 @@ export default {
   margin-top: 30px;
 }
 
-.sub-container{
+.sub-container {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #DCF2EC;
+  background-color: #dcf2ec;
   padding: 30px;
 }
-
+.sort-btn{
+  background-color: #016a70;
+  color: #fff;
+}
+.sort-btn:hover{
+  border-color: #ffdb64;
+  background-color: #ffdb64;
+  color: #a08843;
+  border-color: #a08843;
+}
 </style>

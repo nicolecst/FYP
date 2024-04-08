@@ -454,16 +454,20 @@ export default {
       console.log(this.subplancard);
       for (var i = 0; i < this.dailyItin.length; i++) {
         for (var j = 0; j < this.dailyItin[i].length; j++) {
+          console.log(
+            "this.dailyItin[i][j].itin: " +
+              JSON.stringify(this.dailyItin[i][j].itin)
+          );
+          console.log("element: " + JSON.stringify(element));
 
-          console.log('this.dailyItin[i][j].itin: '+ JSON.stringify(this.dailyItin[i][j].itin));
-          console.log('element: '+ JSON.stringify(element));
-
-          if (JSON.stringify(this.dailyItin[i][j].itin) == JSON.stringify(element)) {
-            console.log('same');
+          if (
+            JSON.stringify(this.dailyItin[i][j].itin) == JSON.stringify(element)
+          ) {
+            console.log("same");
             this.dailyItin[i].splice(j, 1);
             this.subplancard[i].splice(j, 1);
-          }else{
-            console.log('different');
+          } else {
+            console.log("different");
           }
         }
       }
@@ -512,6 +516,15 @@ export default {
       console.log(i);
       const un = localStorage.getItem("username");
       console.log(un);
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+      const day = String(currentDate.getDate()).padStart(2, "0");
+      const hours = String(currentDate.getHours()).padStart(2, "0");
+      const minutes = String(currentDate.getMinutes()).padStart(2, "0");
+      const seconds = String(currentDate.getSeconds()).padStart(2, "0");
+
+      const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
       const response = await axios.post("/api/create", {
         author: i,
@@ -523,6 +536,7 @@ export default {
         to: this.end,
         dailyItin: this.dailyItin,
         is_public: this.is_public,
+        createdDate: formattedDateTime,
       });
 
       console.log(response);

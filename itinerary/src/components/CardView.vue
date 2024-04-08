@@ -12,11 +12,11 @@
         <h5 class="card-title">{{ actname }}</h5>
         <!-- <p class="card-text">img: {{ img }}</p> -->
         <p class="card-text"><ColorTags color="#D2E9E9" :text="area" /></p>
-        <p class="card-text">District: {{ district }}</p>
+        <p class="card-text"><ColorTags color="#D2E9E9" :text="district" /></p>
         <slot name="type"></slot>
-        <p class="card-text">Category: {{ category }}</p>
-        <p class="card-text">Charge: {{ charge }}</p>
-        <p class="card-text">Approved: {{ approved }}</p>
+        <p class="card-text"><span style="margin-right: 5px"><font-awesome-icon :icon="['fas', 'icons']" /></span>{{ category }}</p>
+        <p class="card-text"><span style="margin-right: 5px"><font-awesome-icon :icon="['fas', 'sack-dollar']" /></span>{{ charge }}</p>
+        <!-- <p class="card-text">Approved: {{ approved }}</p> -->
         <p class="card-text">ID: {{ act_ID }}</p>
         <router-link :to="'/actDetails/' + act_ID"
           ><button class="btn btn-primary">check</button></router-link
@@ -73,6 +73,9 @@ export default {
 </script>
 
 <style scoped>
+.card-title{
+  font-family: BungeeInline;
+}
 .card {
   margin: 10px;
   height: auto;
