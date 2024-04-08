@@ -15,6 +15,7 @@
           :charge="activity.Charge"
           :act_ID="activity._id"
           :approved="activity.Approved"
+          :showButton="activity"
         >
         <template #type>
           <div style="margin-bottom: 8px">
@@ -35,7 +36,7 @@
         :district="activity.District"
         :category="activity.Category"
         :charge="activity.Charge"
-        :act_ID="activity._id"
+        :act_ID="role === true"
       >
       <template #type>
           <div style="margin-bottom: 8px">
@@ -119,7 +120,12 @@ export default {
   },
   mounted() {
     this.fetchItems();
+
   },
+  setup(){
+    const role = localStorage.getItem("role");
+    console.log(role);
+  }
   // async created() {
   //   await axios
   //     .get("/api/")

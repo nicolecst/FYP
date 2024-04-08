@@ -14,7 +14,7 @@
         <h1 style="font-family: BungeeInline">Check your planned trips!</h1>
         <!-- <p>{{ plans }}</p> -->
         <HistCard
-          v-for="plan in plans"
+          v-for="(plan) in plans"
           :key="plan._id"
           :id="plan._id"
           :author="plan.authorName"
@@ -25,7 +25,6 @@
           :end="plan.to"
           :rating="plan.selectedRate"
           :view="plan.is_public"
-          @deleteItin="deleteItinerary(plan._id)"
         />
       </div>
     </div>
@@ -59,21 +58,7 @@ export default {
     console.log(response);
   },
   methods:{
-    async deleteItinerary(iid){
-      alert("hello!")
-      alert(iid)
-      try {
-        const response = await axios.delete("/api/delItin/"+iid);
-        alert('Itinerary Deleted!')
-        location.reload();
-        return response.data;
-
-      } catch (error) {
-        console.log(error);
-      }
-      
-    }
-  }
+  },
 };
 </script>
 

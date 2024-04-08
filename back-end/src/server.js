@@ -159,6 +159,15 @@ async function start() {
     }
   });
 
+  //Delete activity
+  app.delete("/api/deletAct/:id", async(req, res)=>{
+
+    console.log('delete act testing')
+    await db.collection("Activities").findOneAndDelete({_id: new ObjectId(req.params.id)})
+
+    res.status(200).send("Activity Deleted!")
+  })
+
   //Get all users
   app.get("/api/users", async (req, res) => {
     const users = await db.collection("Users").find({}).toArray();

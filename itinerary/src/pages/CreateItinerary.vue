@@ -181,6 +181,7 @@
                             :eTime="element.endTime"
                             :memo="element.memo"
                             @removeAct="handleRemoveAct(element)"
+                            :showButton="step == 2"
                           ></SubplanCard>
                         </div>
                       </div>

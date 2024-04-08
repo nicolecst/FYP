@@ -63,7 +63,7 @@ export default {
         localStorage.setItem("userID", data.id);
         localStorage.setItem("username", data.username);
         localStorage.setItem("email", data.email);
-        localStorage.setItem("role", data.role)
+        localStorage.setItem("role", data.role);
 
         const u = localStorage.getItem("userToken");
         const i = localStorage.getItem("userID");
