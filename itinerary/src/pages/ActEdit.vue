@@ -1,7 +1,6 @@
 <template>
   <div>
     <NavBar />
-    <h1>this is the edit activities page</h1>
     <p>{{ activity._id }}</p>
     <div class="container">
       <form @submit.prevent="UpdateAct(activity._id)">
@@ -115,45 +114,45 @@
           <div class="col-md-4 form-group">
             <label for="">Type</label>
             <div class="col md-4">
-            <label for="">Type</label>
-            <div class="checkboxType">
-              <input
-                type="checkbox"
-                id="solo"
-                value="Solo"
-                v-model="activity.Type"
-              />
-              <label for="solo">Solo</label>
-              <input
-                type="checkbox"
-                id="couple"
-                value="Couple"
-                v-model="activity.Type"
-              />
-              <label for="couple">Couple</label>
-              <input
-                type="checkbox"
-                id="family"
-                value="Family"
-                v-model="activity.Type"
-              />
-              <label for="family">Family</label>
-              <input
-                type="checkbox"
-                id="friends"
-                value="Friends"
-                v-model="activity.Type"
-              />
-              <label for="friends">Friends</label>
-            </div>
+              <label for="">Type</label>
+              <div class="checkboxType">
+                <input
+                  type="checkbox"
+                  id="solo"
+                  value="Solo"
+                  v-model="activity.Type"
+                />
+                <label for="solo">Solo</label>
+                <input
+                  type="checkbox"
+                  id="couple"
+                  value="Couple"
+                  v-model="activity.Type"
+                />
+                <label for="couple">Couple</label>
+                <input
+                  type="checkbox"
+                  id="family"
+                  value="Family"
+                  v-model="activity.Type"
+                />
+                <label for="family">Family</label>
+                <input
+                  type="checkbox"
+                  id="friends"
+                  value="Friends"
+                  v-model="activity.Type"
+                />
+                <label for="friends">Friends</label>
+              </div>
 
-            <!-- <select name="" id="" class="form-control" v-model="type">
+              <!-- <select name="" id="" class="form-control" v-model="type">
               <option>Solo</option>
               <option>Couple</option>
               <option>Friends</option>
               <option>Family</option>
             </select> -->
-          </div>
+            </div>
             <!-- <select name="" id="" class="form-control" v-model="activity.Type">
               <option>Solo</option>
               <option>Couple</option>
@@ -200,19 +199,18 @@
           <input type="text" class="form-control" v-model="activity.Info" />
         </div>
 
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id=""
-            v-model="activity.Approved"
-          />
-          <label class="form-check-label" for="">Approved</label>
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id=""
+          v-model="activity.Approved"
+        />
+        <label class="form-check-label" for="">Approved</label>
 
+        <div class="button-row">
+          <button class="btn profile-button" type="submit">Update!</button>
 
-        <div class="row mt-2">
-          <button class="btn btn-primary profile-button" type="submit">
-            Update!
-          </button>
+          <router-link :to="'/actDetails/' + activity._id"><button class="btn cancel-button">Cancel</button></router-link>
         </div>
       </form>
     </div>
@@ -283,15 +281,45 @@ a {
   padding-bottom: 10px;
   /* padding: 40px; */
 }
-.checkboxType{
+.checkboxType {
   padding: 5px;
 }
-.checkboxType input{
+.checkboxType input {
   margin-left: 10px;
   margin-right: 3px;
 }
-.checkboxType label{
+.checkboxType label {
   font-size: 18px;
   font-weight: 400;
+}
+.profile-button {
+  margin: 10px;
+  background-color: #016a70;
+  color: #fff;
+}
+.profile-button:hover {
+  border-color: #ffdb64;
+  background-color: #ffdb64;
+  color: #a08843;
+  border-color: #a08843;
+}
+.cancel-button{
+  margin: 10px;
+  background-color: #fff;
+  color: #016a70;
+  border-color: #016a70;
+}
+.cancel-button:hover{
+  border-color: #ffdb64;
+  background-color: #ffdb64;
+  color: #a08843;
+  border-color: #a08843;
+}
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 </style>

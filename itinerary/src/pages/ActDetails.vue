@@ -20,7 +20,8 @@
       <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="/">Home</a>
+              <a v-if="user.is_Admin===false" href="/">Home</a>
+              <a v-if="user.is_Admin===true" href="/admin">Home</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Activtiy Details</li>
           </ol>
@@ -48,7 +49,7 @@
         <a :href="activity.Info" target="_blank"><span style="margin: 5px"><font-awesome-icon :icon="['fas', 'circle-info']" /></span>{{ activity.Info }}</a>
         <p>{{ activity.Approved }}</p>
         <a :href="'/actEdit/' + activity._id">
-          <button v-if="user.is_Admin == true" class="btn btn-primary">
+          <button v-if="user.is_Admin == true" class="btn edit-btn">
             Edit
           </button>
         </a>
@@ -126,5 +127,16 @@ a {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+}
+.edit-btn{
+  margin: 10px;
+  background-color: #016a70;
+  color: #fff;
+}
+.edit-btn:hover{
+  border-color: #ffdb64;
+  background-color: #ffdb64;
+  color: #a08843;
+  border-color: #a08843;
 }
 </style>

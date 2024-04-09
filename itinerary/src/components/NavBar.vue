@@ -17,7 +17,13 @@
             /></a>
           </li>
           <li>
-            <a class="nav-link nl" href="/">
+            <a v-if="user.is_Admin === false" class="nav-link nl" href="/">
+              <span style="font-size: 1.5em; color: #ffffff">
+                <font-awesome-icon icon="fa-solid fa-house" />
+              </span>
+              home
+            </a>
+            <a v-if="user.is_Admin === true" class="nav-link nl" href="/admin">
               <span style="font-size: 1.5em; color: #ffffff">
                 <font-awesome-icon icon="fa-solid fa-house" />
               </span>
