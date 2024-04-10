@@ -54,7 +54,7 @@
     </div> -->
     <div class="row" style="padding: 20px 20px 0px 20px">
       <div class="col-md-6">
-        <h3>
+        <h3 style="font-family: BungeeInline;">
           Activities <span v-if="searchParam != ''">(Search Results)</span>
         </h3>
       </div>
@@ -84,7 +84,7 @@
       </CardViewVue>
     </div>
 
-    <h3>{{ user.preference1 }}</h3>
+    <h3 style="font-family: BungeeInline; padding-left:20px">{{ user.preference1 }}</h3>
     <div class="scrolls">
       <CardViewVue
         v-for="activity in actCat(user.preference1)"
@@ -103,7 +103,7 @@
         </template>
       </CardViewVue>
     </div>
-    <h3>{{ user.preference2 }}</h3>
+    <h3 style="font-family: BungeeInline; padding-left:20px;">{{ user.preference2 }}</h3>
     <div class="scrolls">
       <CardViewVue
         v-for="activity in actCat(user.preference2)"
@@ -122,7 +122,7 @@
         </template>
       </CardViewVue>
     </div>
-    <h3>{{ user.preference3 }}</h3>
+    <h3 style="font-family: BungeeInline; padding-left:20px;">{{ user.preference3 }}</h3>
     <div class="scrolls">
       <CardViewVue
         v-for="activity in actCat(user.preference3)"

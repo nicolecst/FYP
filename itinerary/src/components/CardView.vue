@@ -17,7 +17,7 @@
         <p class="card-text"><span style="margin-right: 5px"><font-awesome-icon :icon="['fas', 'icons']" /></span>{{ category }}</p>
         <p class="card-text"><span style="margin-right: 5px"><font-awesome-icon :icon="['fas', 'sack-dollar']" /></span>{{ charge }}</p>
         <!-- <p class="card-text">Approved: {{ approved }}</p> -->
-        <p class="card-text">ID: {{ act_ID }}</p>
+        <!-- <p class="card-text">ID: {{ act_ID }}</p> -->
         <router-link :to="'/actDetails/' + act_ID"
           ><button class="btn btn-primary">check</button></router-link
         >

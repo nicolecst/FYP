@@ -133,7 +133,7 @@ async function start() {
         Location: req.body.location,
         Area: req.body.area,
         District: req.body.district,
-        Type: req.body.type,
+        Type: req.body.type.split(","),
         Category: req.body.category,
         Charge: req.body.charge,
         Info: req.body.info,

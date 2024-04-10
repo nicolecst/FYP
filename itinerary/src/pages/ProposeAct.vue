@@ -7,7 +7,11 @@
           <li class="breadcrumb-item">
             <a href="/" style="color: #fff">Home</a>
           </li>
-          <li class="breadcrumb-item active" aria-current="page" style="color:#FFDB64;">
+          <li
+            class="breadcrumb-item active"
+            aria-current="page"
+            style="color: #ffdb64"
+          >
             Propose Activity
           </li>
         </ol>
@@ -205,10 +209,10 @@
             </div>
           </div>
 
-          <div class="row mt-4">
-            <!-- <FileInput/> -->
-            <input type="file" ref="file" @change="selectFile" name="" id="" />
-          </div>
+          <!-- <div class="row mt-4"> -->
+          <!-- <FileInput/> -->
+          <!-- <input type="file" ref="file" @change="selectFile" name="" id="" /> -->
+          <!-- </div> -->
 
           <div class="row mt-4">
             <label for="">Description*</label>
@@ -262,12 +266,13 @@ export default {
       console.log(this.uploadFile);
     },
     async propose() {
+      console.log("type of checkedType: " + typeof this.checkedType);
       const formData = new FormData();
       formData.append("file", this.uploadFile);
       formData.append("actName", this.actName);
       formData.append("location", this.location);
       formData.append("area", this.area);
-      formData.append("type", this.checkedType);
+      formData.append("type", this.checkedType.join(","));
       formData.append("district", this.district);
       formData.append("category", this.category);
       formData.append("charge", this.charge);
@@ -294,7 +299,13 @@ export default {
       console.log(response);
       if (response.status == 201) {
         alert(response.data);
-        this.$router.push("/");
+        console.log(this.role);
+
+        if (this.role === 'true') {
+          this.$router.push("/admin");
+        } else {
+          this.$router.push("/");
+        }
       } else {
         alert(response.data);
       }
@@ -302,16 +313,18 @@ export default {
   },
   setup() {
     const checkedType = ref([]);
+    const role = localStorage.getItem("role");
 
     return {
       checkedType,
+      role,
     };
   },
 };
 </script>
 
 <style scoped>
-.container{
+.container {
   margin-top: 30px;
 }
 .bg {
@@ -325,8 +338,8 @@ export default {
   color: #016a70;
 }
 .btn:hover {
-  border-color: #FFDB64;
-  background-color: #FFDB64;
+  border-color: #ffdb64;
+  background-color: #ffdb64;
   color: #a08843;
   border-color: #a08843;
 }

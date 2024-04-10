@@ -47,7 +47,8 @@
         <p><span style="margin: 5px"><font-awesome-icon :icon="['fas', 'sack-dollar']" /></span>{{ activity.Charge }}</p>
         <p><span style="margin: 5px"><font-awesome-icon :icon="['fas', 'comments']" /></span>{{ activity.Description }}</p>
         <a :href="activity.Info" target="_blank"><span style="margin: 5px"><font-awesome-icon :icon="['fas', 'circle-info']" /></span>{{ activity.Info }}</a>
-        <p>{{ activity.Approved }}</p>
+        <p v-if="activity.Approved === true">Approved</p>
+        <p v-if="activity.Approved === false">Not approved</p>
         <a :href="'/actEdit/' + activity._id">
           <button v-if="user.is_Admin == true" class="btn edit-btn">
             Edit
