@@ -51,7 +51,7 @@
             >
               <option v-for="i in n" :key="i">{{ i }}</option>
             </select>
-            <p>{{ day }}</p>
+            <!-- <p>{{ day }}</p> -->
           </div>
 
           <div class="col md-4">
@@ -77,7 +77,7 @@
             />
           </div>
 
-          <p>{{ sTime }} {{ eTime }}</p>
+          <!-- <p>{{ sTime }} {{ eTime }}</p> -->
         </div>
         <div class="row mt-2">
           <label for="">Memo</label>
@@ -90,7 +90,7 @@
             @input="$emit('update:Memo', $event.target.value)"
           ></textarea>
         </div>
-        <p>{{ memo }}</p>
+        <!-- <p>{{ memo }}</p> -->
 
         <div class="row mt-2">
           <button class="btn add-btn" @click.prevent="$emit('clicked')">

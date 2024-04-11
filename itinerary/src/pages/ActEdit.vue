@@ -112,7 +112,7 @@
 
         <div class="row mt-4">
           <div class="col-md-4 form-group">
-            <label for="">Type</label>
+            
             <div class="col md-4">
               <label for="">Type</label>
               <div class="checkboxType">

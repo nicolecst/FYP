@@ -11,9 +11,9 @@
             src="@/assets/Images/male.jpg"
             alt="male-user-icon"
           />
-          <div class="row mt-2">
+          <!-- <div class="row mt-2">
             <p style="color: gray">UserID: {{ user._id }}</p>
-          </div>
+          </div> -->
         </div>
 
         <div class="col-md-5">
@@ -258,7 +258,7 @@ export default {
   background-color: white;
   width: 60%;
   min-height: 500px;
-  height: 70%;
+  height: 75%;
   padding-left: 0px;
   padding-right: 0px;
   border-radius: 30px;

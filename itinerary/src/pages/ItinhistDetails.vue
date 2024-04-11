@@ -49,7 +49,7 @@
             <font-awesome-icon :icon="['fas', 'star']" /> </span
           >Rate
         </button>
-        <button
+        <!-- <button
           v-if="this.history.author == uid"
           class="btn rate-btn"
           style="margin-right: 10px; padding-top: 3px; padding-bottom: 3px"
@@ -58,7 +58,7 @@
           <span style="font-size: 1.5em; margin-right: 5px">
             <font-awesome-icon :icon="['fas', 'file-export']" /> </span
           >Update Itinerary
-        </button>
+        </button> -->
         <button
           v-if="this.history.author == uid"
           class="btn rate-btn"
@@ -102,7 +102,7 @@
       {{ itin }}
     </p> -->
       <!-- <p>{{ history }}</p> -->
-      <p>dateDiff: {{ dateDiff }}</p>
+      <!-- <p>dateDiff: {{ dateDiff }}</p> -->
       <p></p>
     </div>
   </div>
@@ -139,7 +139,7 @@ export default {
       // Function to add Days
       var result = new Date(date);
       result.setDate(result.getDate() + days);
-      return result.toLocaleString();
+      return result.toLocaleDateString();
     },
     weekdays(date, days) {
       var result = new Date(date);

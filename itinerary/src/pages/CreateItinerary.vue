@@ -1,6 +1,7 @@
 <template>
+  <NavBar />
   <div class="outmost-container">
-    <NavBar />
+    
     <div class="c">
       <nav
         class="breadcrumb-divider"
@@ -483,7 +484,7 @@ export default {
       // Function to add Days
       var result = new Date(date);
       result.setDate(result.getDate() + days);
-      return result.toLocaleString();
+      return result.toLocaleDateString();
     },
     weekdays(date, days) {
       var result = new Date(date);
@@ -631,7 +632,7 @@ export default {
   width: 100%;
   /* height: 120vh; */
   display: flex;
-  align-content: center;
+
   justify-content: center;
   /* background-color: #fff;
   border-radius: 20px;
@@ -666,7 +667,7 @@ export default {
   width: 100%;
   margin: 0;
   background-color: #016a70;
-  align-content: center;
+  /* align-content: center; */
   justify-content: center;
 }
 .buttons {
