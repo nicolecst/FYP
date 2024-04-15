@@ -27,15 +27,15 @@
         <div class="row mt-4">
           <button class="btn sort-btn" @click="sortingButton">
             <span v-if="this.ascendingOrder === true"
-              ><font-awesome-icon :icon="['fas', 'arrow-down-a-z']"
+              ><font-awesome-icon :icon="['fas', 'arrow-up-z-a']"
             /></span>
             <span v-if="this.ascendingOrder === false"
-              ><font-awesome-icon :icon="['fas', 'arrow-up-z-a']"
+              ><font-awesome-icon :icon="['fas', 'arrow-down-a-z']"
             /></span>
             {{ sortButtonContent }}
           </button>
         </div>
-
+        
         <!-- <p>{{ plans }}</p> -->
         <HistCard
           v-for="plan in sortedPlans"
@@ -89,8 +89,8 @@ export default {
     sortingButton() {
       this.ascendingOrder = !this.ascendingOrder;
       this.sortButtonContent = this.ascendingOrder
-        ? "View in ascending order"
-        : "View in descending order";
+        ? "View in descending order"
+        : "View in ascending order";
     },
   },
   computed: {

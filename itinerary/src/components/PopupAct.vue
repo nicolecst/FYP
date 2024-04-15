@@ -9,7 +9,7 @@
           /></span>
         </button>
 
-        <button class="btn filter-btn" @click="filterShow = !filterShow">
+        <button class="btn filter-btn" @click.prevent="filterShow = !filterShow">
           <span><font-awesome-icon :icon="['fas', 'filter']" /></span>
         </button>
         <div class="filter-form" v-if="filterShow">

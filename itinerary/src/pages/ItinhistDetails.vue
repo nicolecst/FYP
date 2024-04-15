@@ -15,6 +15,7 @@
       </nav>
 
       <!-- <h1>Itinerary History Details</h1> -->
+      <div><input type="checkbox" v-model="this.history.is_public"> Public</div>
       <div class="scrolls">
         <PlanCard
           v-for="(n, i) in dateDiff"
@@ -38,6 +39,7 @@
         </PlanCard>
       </div>
 
+      
       <div class="rate-container">
         <button
           v-if="this.history.author == uid"
